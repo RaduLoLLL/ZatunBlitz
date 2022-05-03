@@ -37,7 +37,7 @@ const Add: BlitzPage = () => {
         totalPrice: 100,
       })
     }
-    setStartDate({ startDate: format(startDate, "dd") })
+    /*setStartDate({ startDate: format(startDate, "dd") })*/
     console.log(state)
     console.log(startDate)
     console.log(endDate)
