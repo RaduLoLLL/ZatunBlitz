@@ -16,13 +16,16 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String?
+  name           String
+  surname        String
+  phone          String
   email          String   @unique
   hashedPassword String?
   role           String   @default("USER")
 
   tokens   Token[]
   sessions Session[]
+  booking Booking[]
 }
 
 model Session {
@@ -55,6 +58,21 @@ model Token {
   userId Int
 
   @@unique([hashedToken, type])
+}
+model Booking{
+  id Int @id @default(autoincrement())
+  starts_at DateTime
+  ends_at DateTime
+  intrare_complex Int
+  loc_parcare Int
+  loc_pescuit Int
+  casuta Int
+  sezlong Int
+  sedinta_foto Boolean
+  petrecere_privata Boolean
+  total_price Int
+  
+  user User[]
 }
 
 // NOTE: It's highly recommended to use an enum for the token type
