@@ -25,7 +25,7 @@ model User {
 
   tokens   Token[]
   sessions Session[]
-  booking Booking[]
+  Booking  Booking[]
 }
 
 model Session {
@@ -59,20 +59,25 @@ model Token {
 
   @@unique([hashedToken, type])
 }
-model Booking{
-  id Int @id @default(autoincrement())
-  starts_at DateTime
-  ends_at DateTime
-  intrare_complex Int
-  loc_parcare Int
-  loc_pescuit Int
-  casuta Int
-  sezlong Int
-  sedinta_foto Boolean
+
+model Booking {
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  starts_at         DateTime
+  ends_at           DateTime
+  intrare_complex   Int
+  loc_parcare       Int
+  loc_pescuit       Int
+  casuta            Int
+  sezlong           Int
+  sedinta_foto      Boolean
   petrecere_privata Boolean
-  total_price Int
-  
-  user User[]
+  total_price       Int
+  stripeSessionId   String?  @default("")
+  paid              Boolean  @default(false)
+
+  userId Int?
+  User   User? @relation(fields: [userId], references: [id])
 }
 
 // NOTE: It's highly recommended to use an enum for the token type

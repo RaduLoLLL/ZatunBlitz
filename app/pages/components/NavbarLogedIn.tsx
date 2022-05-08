@@ -1,14 +1,12 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react"
-import { Disclosure, Menu, Transition } from "@headlessui/react"
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
+import { Disclosure } from "@headlessui/react"
+import { MenuIcon, XIcon } from "@heroicons/react/outline"
 import { Link, Routes, useMutation, useRouter } from "blitz"
 import logout from "app/auth/mutations/logout"
 
 const navigation = [
   { name: "Acasa", href: "/", current: true },
   { name: "Despre Noi", href: "#", current: false },
-  { name: "Rezervarile Mele", href: "#", current: false },
+  { name: "Rezervarile Mele", href: "/rezervarile-mele", current: false },
   { name: "Rezervare Noua", href: "/add", current: false },
 ]
 
