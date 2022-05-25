@@ -3,6 +3,7 @@ import { Suspense, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import getBookgins from "../queries/getBookings"
 import { useState } from "react"
+import Loader from "app/pages/components/Loader"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -139,7 +140,7 @@ const Rezervari: BlitzPage = () => {
   return (
     <>
       <div className="flex overflow-hidden bg-white pt-16">
-        <Suspense fallback="...">
+        <Suspense fallback={<Loader />}>
           <Sidebar />
         </Suspense>
         <div
@@ -206,7 +207,7 @@ const Rezervari: BlitzPage = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
-                  <Suspense fallback="...">
+                  <Suspense fallback={<Loader />}>
                     <DisplayBookings />
                   </Suspense>
                 </div>

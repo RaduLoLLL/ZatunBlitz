@@ -8,6 +8,7 @@ import addDays from "date-fns/addDays"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
+import Loader from "./components/Loader"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -229,7 +230,7 @@ const Add: BlitzPage = () => {
 
   return (
     <>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loader />}>
         <UserInfo />
       </Suspense>
 
@@ -258,7 +259,7 @@ const Add: BlitzPage = () => {
                     />
                   </div>
                 </div>
-                <Suspense fallback="Verificam daca ziua aleasa e libera">
+                <Suspense fallback={<Loader />}>
                   <PetrecerePrivata />
                 </Suspense>
               </>
@@ -329,7 +330,7 @@ const Add: BlitzPage = () => {
                   {
                     // Here I call that function inside a Suspense and things go south
                   }
-                  <Suspense fallback="Cautam locurile de pescuit">
+                  <Suspense fallback={<Loader />}>
                     <PescuitSelect />
                   </Suspense>
                 </div>
@@ -341,7 +342,7 @@ const Add: BlitzPage = () => {
                   >
                     Casuta
                   </label>
-                  <Suspense fallback="Cautam casutele disponibile">
+                  <Suspense fallback={<Loader />}>
                     <CasutaSelect />
                   </Suspense>
                 </div>
@@ -352,7 +353,7 @@ const Add: BlitzPage = () => {
                   >
                     Sezlong
                   </label>
-                  <Suspense fallback="Cautam sezlongurile disponibile">
+                  <Suspense fallback={<Loader />}>
                     <SezlongSelect />
                   </Suspense>
                 </div>
@@ -374,7 +375,7 @@ const Add: BlitzPage = () => {
                     Sedinta foto
                   </span>
                 </label>
-                <Suspense fallback="Verificam daca ziua aleasa e libera">
+                <Suspense fallback={<Loader />}>
                   <PetrecerePrivata />
                 </Suspense>
               </>

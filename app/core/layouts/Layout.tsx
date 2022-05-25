@@ -1,6 +1,7 @@
 import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
 import { UserInfo } from "app/pages"
+import Loader from "app/pages/components/Loader"
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
   children,
@@ -11,10 +12,10 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <title>{title || "Zatun"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loader />}>
         <UserInfo />
       </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      <Suspense fallback={<Loader />}>{children}</Suspense>
     </>
   )
 }
