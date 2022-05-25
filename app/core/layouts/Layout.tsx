@@ -2,6 +2,7 @@ import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
 import { UserInfo } from "app/pages"
 import Loader from "app/pages/components/Loader"
+
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
   children,

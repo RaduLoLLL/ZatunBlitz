@@ -1,3 +1,4 @@
+import { BlitzPage, Image, Link, Routes, Head } from "blitz"
 import { Pulsar } from "@uiball/loaders"
 
 const Loader = () => {
