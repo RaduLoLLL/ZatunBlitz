@@ -71,7 +71,7 @@ const UltimeleRezervari = () => {
     <>
       {bookings.map((booking, i) => {
         return (
-          <tr className={i % 2 ? "bg-gray-50" : ""}>
+          <tr className={i % 2 ? "bg-gray-50" : ""} key={booking.id}>
             <td
               className={
                 i % 2
@@ -121,9 +121,9 @@ const NumarUseri = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
       </div>
@@ -155,9 +155,9 @@ const NumarRezervari = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
       </div>
@@ -169,16 +169,16 @@ const TotalPrice = () => {
   const result = useQuery(getLast7DaysBookings, undefined)
   const bookings = result[0]
   let totalPrice = 0
-  bookings.map((booking) => {
+  bookings.map((booking, i) => {
     totalPrice += booking.total_price
   })
   return (
-    <>
+    <div>
       <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
         {totalPrice} Lei
       </span>
       <h3 className="text-base font-normal text-gray-500">Vanzari in ultimele 7 zile</h3>
-    </>
+    </div>
   )
 }
 
@@ -186,7 +186,7 @@ const Dashboard: BlitzPage = () => {
   return (
     <>
       <div>
-        <div className="flex overflow-hidden bg-white">
+        <div className="flex overflow-hidden bg-white pt-16">
           <Sidebar />
           <div
             className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"

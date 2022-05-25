@@ -57,7 +57,7 @@ const Users: BlitzPage = () => {
             <tbody className="bg-white">
               {users.map((user, i) => {
                 return (
-                  <tr className={i % 2 ? "bg-gray-50" : ""}>
+                  <tr className={i % 2 ? "bg-gray-50" : ""} key={user.id}>
                     <td
                       className={
                         i % 2
