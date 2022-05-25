@@ -41,6 +41,7 @@ const RezervarileMele: BlitzPage = () => {
                 </div>
               </div>
               <QRCodeCanvas
+                //@ts-ignore
                 id="qrCodeId"
                 size={300}
                 value={value}
@@ -240,18 +241,31 @@ const RezervarileMele: BlitzPage = () => {
                     <div className="flex justify-center bottom-0">
                       {booking.paid ? (
                         <>
-                          <div ref={ref} className="mt-5">
-                            <button
-                              onClick={() => {
-                                downloadQrCode(booking.stripeSessionId)
-                              }}
-                              type="button"
-                              className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                            >
-                              Descarca Biletul
-                            </button>
-                            <span className="hidden">{QrCode(booking.stripeSessionId)}</span>
-                          </div>
+                          {
+                            //@ts-ignore
+
+                            <div ref={ref} className="mt-5">
+                              <button
+                                onClick={() => {
+                                  //@ts-ignore
+                                  downloadQrCode(booking?.stripeSessionId)
+                                }}
+                                type="button"
+                                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                              >
+                                Descarca Biletul
+                              </button>
+                              {
+                                //@ts-ignore
+                              }
+                              <span className="hidden">
+                                {
+                                  //@ts-ignore
+                                  QrCode(booking.stripeSessionId)
+                                }
+                              </span>
+                            </div>
+                          }
                         </>
                       ) : (
                         <Link href={"/checkout?booking_id=" + booking.id}>

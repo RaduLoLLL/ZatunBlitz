@@ -25,6 +25,7 @@ describe("resetPassword mutation", () => {
     past.setHours(past.getHours() - 4)
 
     const user = await db.user.create({
+      //@ts-ignore
       data: {
         email: "user@example.com",
         tokens: {

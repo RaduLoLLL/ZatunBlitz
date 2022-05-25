@@ -30,6 +30,7 @@ const Succes: BlitzPage = () => {
             <QRCodeCanvas
               id="qrCodeId"
               size={300}
+              //@ts-ignore
               value={query.session_id}
               className="object-cover w-full aspect-square group-hover:scale-110 transition duration-300 ease-in-out"
             />
@@ -53,9 +54,13 @@ const Succes: BlitzPage = () => {
   return (
     <>
       <div className="flex justify-center mt-6 font-bold">Felicitari! Ai platit cu succes</div>
-      <div ref={ref} onClick={downloadQrCode} className="cursor-pointer">
-        <QrCode />
-      </div>
+      {
+        //@ts-ignore
+
+        <div ref={ref} onClick={downloadQrCode} className="cursor-pointer">
+          <QrCode />
+        </div>
+      }
     </>
   )
 }
