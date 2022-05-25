@@ -20,6 +20,7 @@ export default passportAuth({
               : "http://localhost:3000/api/auth/google/callback",
           includeEmail: true,
         },
+
         async function (_token, _tokenSecret, profile, done) {
           const email = profile.emails[0]?.value
 
