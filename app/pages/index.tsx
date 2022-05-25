@@ -103,10 +103,13 @@ const Home: BlitzPage = () => {
           >
             <div className=" z-50 opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out absolute from-black  to-transparent bg-gradient-to-t inset-0 pt-30 text-white flex items-center">
               <div className="flex flex-col justify-center items-center mx-auto md:ml-12">
-                <div className="text-6xl md:text-8xl" style={{ fontFamily: "Amatic SC" }}>
+                <div
+                  className="text-6xl md:text-8xl text-center"
+                  style={{ fontFamily: "Amatic SC" }}
+                >
                   Balta Zatun
                 </div>
-                <div className="text-5xl md:text-7xl" style={{ fontFamily: "Josefin Slab" }}>
+                <div className="text-4xl md:text-7xl" style={{ fontFamily: "Josefin Slab" }}>
                   Complex de Agrement
                 </div>
 

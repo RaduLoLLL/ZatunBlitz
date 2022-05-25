@@ -56,18 +56,24 @@ const Navbar = () => {
       {isOpen && (
         <div className="relative">
           <div
-            className="xl:hidden space-y-2 bg-opacity-80 bg-slate-200 font-light text-2xl transition duration-300 ease-in-out absolute top-0 w-full "
+            className="xl:hidden space-y-2 z-50 bg-slate-200 font-light text-2xl transition duration-300 ease-in-out absolute top-0 w-full "
             style={{ fontFamily: "Josefin Sans" }}
           >
-            <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
-              Acasa
-            </div>
-            <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
-              Despre Noi
-            </div>
-            <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
-              Contul Meu
-            </div>
+            <Link href={Routes.Home()}>
+              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+                Acasa
+              </div>
+            </Link>
+            <Link href={Routes.DespreNoi()}>
+              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+                Despre Noi
+              </div>
+            </Link>
+            <Link href={Routes.RezervarileMele()}>
+              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+                Contul Meu
+              </div>
+            </Link>
             <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
               Contact
             </div>
