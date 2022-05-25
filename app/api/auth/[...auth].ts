@@ -16,7 +16,7 @@ export default passportAuth({
           clientSecret: "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",
           callbackURL:
             process.env.NODE_ENV === "production"
-              ? "https://example.com/api/auth/google/callback"
+              ? "https://zatun-galati.herokuapp.com/api/auth/google/callback"
               : "http://localhost:3000/api/auth/google/callback",
           includeEmail: true,
         },
