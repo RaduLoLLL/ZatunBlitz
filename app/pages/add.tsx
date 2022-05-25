@@ -8,7 +8,6 @@ import addDays from "date-fns/addDays"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
-import Loader from "./components/Loader"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -230,7 +229,7 @@ const Add: BlitzPage = () => {
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={"Loading..."}>
         <UserInfo />
       </Suspense>
 
@@ -259,7 +258,7 @@ const Add: BlitzPage = () => {
                     />
                   </div>
                 </div>
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={"Loading..."}>
                   <PetrecerePrivata />
                 </Suspense>
               </>
@@ -330,7 +329,7 @@ const Add: BlitzPage = () => {
                   {
                     // Here I call that function inside a Suspense and things go south
                   }
-                  <Suspense fallback={<Loader />}>
+                  <Suspense fallback={"Loading..."}>
                     <PescuitSelect />
                   </Suspense>
                 </div>
@@ -342,7 +341,7 @@ const Add: BlitzPage = () => {
                   >
                     Casuta
                   </label>
-                  <Suspense fallback={<Loader />}>
+                  <Suspense fallback={"Loading..."}>
                     <CasutaSelect />
                   </Suspense>
                 </div>
@@ -353,7 +352,7 @@ const Add: BlitzPage = () => {
                   >
                     Sezlong
                   </label>
-                  <Suspense fallback={<Loader />}>
+                  <Suspense fallback={"Loading..."}>
                     <SezlongSelect />
                   </Suspense>
                 </div>
@@ -375,7 +374,7 @@ const Add: BlitzPage = () => {
                     Sedinta foto
                   </span>
                 </label>
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={"Loading..."}>
                   <PetrecerePrivata />
                 </Suspense>
               </>

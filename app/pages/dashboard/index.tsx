@@ -17,7 +17,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts"
-import Loader from "../components/Loader"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -203,13 +202,13 @@ const Dashboard: BlitzPage = () => {
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
-                        <Suspense fallback={<Loader />}>
+                        <Suspense fallback={"Loading..."}>
                           <TotalPrice />
                         </Suspense>
                       </div>
                     </div>
                     <div id="main-chart">
-                      <Suspense fallback={<Loader />}>
+                      <Suspense fallback={"Loading..."}>
                         <Chart />
                       </Suspense>
                     </div>
@@ -251,7 +250,7 @@ const Dashboard: BlitzPage = () => {
                                 </tr>
                               </thead>
                               <tbody className="bg-white">
-                                <Suspense fallback={<Loader />}>
+                                <Suspense fallback={"Loading..."}>
                                   <UltimeleRezervari />
                                 </Suspense>
                               </tbody>
@@ -265,14 +264,14 @@ const Dashboard: BlitzPage = () => {
                 <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
-                      <Suspense fallback={<Loader />}>
+                      <Suspense fallback={"Loading..."}>
                         <NumarRezervari />
                       </Suspense>
                     </div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
-                      <Suspense fallback={<Loader />}>
+                      <Suspense fallback={"Loading..."}>
                         <NumarUseri />
                       </Suspense>
                     </div>
