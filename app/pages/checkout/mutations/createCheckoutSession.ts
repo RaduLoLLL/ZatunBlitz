@@ -113,8 +113,9 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
     mode: "payment",
     payment_method_types: ["card"],
     line_items: productData,
-    success_url: "http://localhost:3000/checkout/succes?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: "http://localhost:3000",
+    success_url:
+      "https://zatun-galati.herokuapp.com/checkout/succes?session_id={CHECKOUT_SESSION_ID}",
+    cancel_url: "https://zatun-galati.herokuapp.com/",
   })
 
   const bookingId = await db.booking.findFirst({

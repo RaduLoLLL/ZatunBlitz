@@ -1,4 +1,4 @@
-import { BlitzPage, useQuery, Link, getSession } from "blitz"
+import { BlitzPage, useQuery, Link, getSession, Routes } from "blitz"
 
 import getMyBookings from "./queries/getMyBookings"
 import Layout from "app/core/layouts/Layout"
@@ -67,12 +67,14 @@ const RezervarileMele: BlitzPage = () => {
     return (
       <div className="mb-12">
         <div className="flex items-center justify-center">
-          <button
-            type="button"
-            className=" mt-12 text-2xl text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 "
-          >
-            Rezervare noua
-          </button>
+          <Link href={Routes.Add()}>
+            <button
+              type="button"
+              className=" mt-12 text-2xl text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 "
+            >
+              Rezervare noua
+            </button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
           {bookings[0].map((booking) => {
