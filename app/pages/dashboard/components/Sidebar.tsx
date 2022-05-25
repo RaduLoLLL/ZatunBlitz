@@ -1,7 +1,7 @@
 import { Link, Routes, useMutation } from "blitz"
 import logout from "app/auth/mutations/logout"
 
-export const Sidebar = () => {
+const Sidebar = () => {
   const [logoutMutation] = useMutation(logout)
   return (
     <>
@@ -107,3 +107,4 @@ export const Sidebar = () => {
     </>
   )
 }
+export default Sidebar
