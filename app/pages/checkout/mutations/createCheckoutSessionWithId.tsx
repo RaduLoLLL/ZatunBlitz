@@ -10,14 +10,13 @@ const stripe = new Stripe(
   }
 )
 
-export default async function createCheckoutSession(_, ctx: Ctx) {
+export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) {
   const booking = await db.booking.findFirst({
-    where: { paid: false, userId: ctx.session.userId },
+    where: { userId: ctx.session.userId, paid: false, id: parseInt(booking_id) },
     orderBy: {
       id: "desc",
     },
   })
-
   if (!booking) return
 
   const productData = [
@@ -117,13 +116,8 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
     cancel_url: "http://localhost:3000",
   })
 
-  const bookingId = await db.booking.findFirst({
-    where: { userId: ctx.session.userId },
-    orderBy: { id: "desc" },
-  })
-
   const updateBooking = await db.booking.update({
-    where: { id: bookingId?.id },
+    where: { id: parseInt(booking_id) },
     data: { stripeSessionId: session.id },
   })
 

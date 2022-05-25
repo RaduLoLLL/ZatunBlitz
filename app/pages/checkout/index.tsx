@@ -1,8 +1,9 @@
 import Layout from "app/core/layouts/Layout"
 import { loadStripe, Stripe } from "@stripe/stripe-js"
-import { BlitzPage, useMutation, useQuery, Link, getSession } from "blitz"
+import { BlitzPage, useMutation, useQuery, Link, getSession, useRouterQuery, invoke } from "blitz"
 import createCheckoutSession from "./mutations/createCheckoutSession"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
 
@@ -35,6 +36,8 @@ const getStripe = () => {
 }
 
 const Checkout: BlitzPage = () => {
+  const query = useRouterQuery()
+
   const [createCheckoutMutation, { error }] = useMutation(createCheckoutSession)
 
   if (error) {
@@ -51,9 +54,25 @@ const Checkout: BlitzPage = () => {
       sessionId: res.sessionId,
     })
   }
+  const createCheckoutWithId = async () => {
+    const res = await invoke(createCheckoutSessionWithId, query.booking_id)
+    if (!res) {
+      return
+    }
+    const stripe = await getStripe()
+    await stripe.redirectToCheckout({
+      sessionId: res.sessionId,
+    })
+  }
 
   const Sumar = () => {
-    const booking = useLatestBooking()
+    const booking = useLatestBooking(query.booking_id)
+    const currentUser = useCurrentUser()
+
+    if (booking?.userId != currentUser?.id) {
+      return <>Acces neautorizat. Te rugam sa accesezi doar rezervarile tale!</>
+    }
+
     if (!booking)
       return (
         <>
@@ -243,12 +262,21 @@ const Checkout: BlitzPage = () => {
                 w-full
               "
                 >
-                  <button
-                    onClick={createCheckout}
-                    className="w-full bg-indigo-600 text-white px-2 py-2 rounded-md"
-                  >
-                    Confirma Rezervarea
-                  </button>
+                  {query.booking_id ? (
+                    <button
+                      onClick={createCheckoutWithId}
+                      className="w-full bg-indigo-600 text-white px-2 py-2 rounded-md"
+                    >
+                      Confirma Rezervarea
+                    </button>
+                  ) : (
+                    <button
+                      onClick={createCheckout}
+                      className="w-full bg-indigo-600 text-white px-2 py-2 rounded-md"
+                    >
+                      Confirma Rezervarea
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
