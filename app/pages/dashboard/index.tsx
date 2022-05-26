@@ -202,13 +202,25 @@ const Dashboard: BlitzPage = () => {
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
-                        <Suspense fallback={"Loading..."}>
+                        <Suspense
+                          fallback={
+                            <div className="min-h-screen flex justify-center items-center">
+                              <div className="ping"></div>
+                            </div>
+                          }
+                        >
                           <TotalPrice />
                         </Suspense>
                       </div>
                     </div>
                     <div id="main-chart">
-                      <Suspense fallback={"Loading..."}>
+                      <Suspense
+                        fallback={
+                          <div className="min-h-screen flex justify-center items-center">
+                            <div className="ping"></div>
+                          </div>
+                        }
+                      >
                         <Chart />
                       </Suspense>
                     </div>
@@ -250,7 +262,13 @@ const Dashboard: BlitzPage = () => {
                                 </tr>
                               </thead>
                               <tbody className="bg-white">
-                                <Suspense fallback={"Loading..."}>
+                                <Suspense
+                                  fallback={
+                                    <div className="min-h-screen flex justify-center items-center">
+                                      <div className="ping"></div>
+                                    </div>
+                                  }
+                                >
                                   <UltimeleRezervari />
                                 </Suspense>
                               </tbody>
@@ -264,14 +282,26 @@ const Dashboard: BlitzPage = () => {
                 <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
-                      <Suspense fallback={"Loading..."}>
+                      <Suspense
+                        fallback={
+                          <div className="min-h-screen flex justify-center items-center">
+                            <div className="ping"></div>
+                          </div>
+                        }
+                      >
                         <NumarRezervari />
                       </Suspense>
                     </div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
-                      <Suspense fallback={"Loading..."}>
+                      <Suspense
+                        fallback={
+                          <div className="min-h-screen flex justify-center items-center">
+                            <div className="ping"></div>
+                          </div>
+                        }
+                      >
                         <NumarUseri />
                       </Suspense>
                     </div>

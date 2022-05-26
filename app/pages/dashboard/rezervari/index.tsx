@@ -139,7 +139,13 @@ const Rezervari: BlitzPage = () => {
   return (
     <>
       <div className="flex overflow-hidden bg-white pt-16">
-        <Suspense fallback={"Loading..."}>
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex justify-center items-center">
+              <div className="ping"></div>
+            </div>
+          }
+        >
           <Sidebar />
         </Suspense>
         <div
@@ -206,7 +212,13 @@ const Rezervari: BlitzPage = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
-                  <Suspense fallback={"Loading..."}>
+                  <Suspense
+                    fallback={
+                      <div className="min-h-screen flex justify-center items-center">
+                        <div className="ping"></div>
+                      </div>
+                    }
+                  >
                     <DisplayBookings />
                   </Suspense>
                 </div>
