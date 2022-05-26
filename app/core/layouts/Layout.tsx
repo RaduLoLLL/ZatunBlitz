@@ -1,7 +1,8 @@
 import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
 import { UserInfo } from "app/pages"
-import { Ping } from "@uiball/loaders"
+
+import Loader from "app/components/Loader"
 
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
@@ -13,10 +14,10 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <title>{title || "Zatun"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loader />}>
         <UserInfo />
       </Suspense>
-      <Suspense fallback="Loading...">{children}</Suspense>
+      <Suspense fallback={<Loader />}>{children}</Suspense>
     </>
   )
 }
