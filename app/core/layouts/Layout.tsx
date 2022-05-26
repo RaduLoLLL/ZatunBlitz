@@ -1,7 +1,7 @@
 import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
 import { UserInfo } from "app/pages"
-import "../styles/global.css"
+import "../../../styles/globlal.css"
 import Loader from "app/components/Loader"
 
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
