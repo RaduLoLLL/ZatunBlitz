@@ -101,7 +101,7 @@ const Home: BlitzPage = () => {
               backgroundPosition: "center",
             }}
           >
-            <div className=" z-50 opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out absolute from-black  to-transparent bg-gradient-to-t inset-0 pt-30 text-white flex items-center">
+            <div className=" z-50 justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out absolute from-black  to-transparent bg-gradient-to-t inset-0 pt-30 text-white flex items-center">
               <div className="flex flex-col justify-center items-center mx-auto md:ml-12">
                 <div
                   className="text-6xl md:text-8xl text-center"

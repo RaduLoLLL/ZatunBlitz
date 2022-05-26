@@ -179,18 +179,13 @@ export const LoginForm = (props: LoginFormProps) => {
               }
             }}
           >
-            <LabeledTextField
-              name="email"
-              label=""
-              placeholder="Email"
-              className="block w-full p-4 border-none outline-none text-xl rounded-sm bg-black"
-            />
+            <LabeledTextField name="email" label="" placeholder="Email" className="inputs" />
             <LabeledTextField
               name="password"
               label=""
               placeholder="Password"
               type="password"
-              className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
+              className="inputs"
             />
             <div className="flex justify-between">
               <Link href={Routes.ForgotPasswordPage()}>

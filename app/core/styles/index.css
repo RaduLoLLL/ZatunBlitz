@@ -6,6 +6,9 @@
   .hero {
     @apply w-full text-[#333];
   }
+  .inputs {
+    @apply w-2/3 p-4 text-lg outline-none  bg-black border-none rounded-md mx-5;
+  }
 }
 .ping {
   --uib-size: 45px;
