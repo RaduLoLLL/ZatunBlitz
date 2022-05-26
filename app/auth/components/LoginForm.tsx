@@ -121,16 +121,17 @@ export const LoginForm = (props: LoginFormProps) => {
       </div>
       <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-10 px-0 z-0 bg-D161616">
         <div
-          className="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover items-center"
+          className="absolute lg:hidden z-10 inset-0  items-center"
           style={{
-            background:
-              "url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)",
+            background: "url(" + bgUrl + ")",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
           }}
         ></div>
         <div className="w-full py-6 z-20 -mt-24">
-          <h1 className="">
-            <Image src="/Logo2.svg" height={250} width={500} />
-          </h1>
+          <div className="relative h-96 w-96 flex justify-center">
+            <Image src="/Logo2.svg" layout="fill" />
+          </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
               <button
