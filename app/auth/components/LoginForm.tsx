@@ -119,15 +119,17 @@ export const LoginForm = (props: LoginFormProps) => {
           <p className="text-3xl my-4">Capture your personal memory in unique way, anywhere.</p>
         </div>
       </div>
-      <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-10 px-0 z-0 bg-D161616">
-        <div
-          className="absolute lg:hidden z-10 inset-0  items-center"
-          style={{
-            background: "url(" + bgUrl + ")",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        ></div>
+      <div
+        className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-10 px-0 z-0 bg-D161616"
+        style={
+          window.innerWidth < 900
+            ? {
+                background: "url(" + bgUrl + ")",
+              }
+            : {}
+        }
+      >
+        <div className="absolute lg:hidden z-10 inset-0  items-center"></div>
         <div className="w-full py-6 z-20 -mt-24">
           <div className="relative h-96 w-96 flex justify-center">
             <Image src="/Logo2.svg" layout="fill" />
@@ -187,7 +189,7 @@ export const LoginForm = (props: LoginFormProps) => {
               type="password"
               className="inputs"
             />
-            <div className="flex justify-between">
+            <div className="flex justify-between mx-12">
               <Link href={Routes.ForgotPasswordPage()}>
                 <a className="text-sm text-gray-100 hover:text-gray-400">Ai uitat parola?</a>
               </Link>
