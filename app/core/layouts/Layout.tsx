@@ -1,7 +1,7 @@
 import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
 import { UserInfo } from "app/pages"
-
+import "../styles/global.css"
 import Loader from "app/components/Loader"
 
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
@@ -14,10 +14,16 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <title>{title || "Zatun"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Suspense fallback={<Loader />}>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
         <UserInfo />
       </Suspense>
-      <Suspense fallback={<Loader />}>{children}</Suspense>
+      <Suspense fallback={<div className="ping"></div>}>{children}</Suspense>
     </>
   )
 }
