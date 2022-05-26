@@ -5,6 +5,10 @@ import { useState } from "react"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const closeMenu = () => {
+    setIsOpen(false)
+  }
   return (
     <div>
       <Head>
@@ -60,21 +64,33 @@ const Navbar = () => {
             style={{ fontFamily: "Josefin Sans" }}
           >
             <Link href={Routes.Home()}>
-              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
                 Acasa
               </div>
             </Link>
             <Link href={Routes.DespreNoi()}>
-              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
                 Despre Noi
               </div>
             </Link>
             <Link href={Routes.RezervarileMele()}>
-              <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
                 Contul Meu
               </div>
             </Link>
-            <div className="w-full flex justify-center hover:bg-slate-300 cursor-pointer">
+            <div
+              className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+              onClick={closeMenu}
+            >
               Contact
             </div>
           </div>
