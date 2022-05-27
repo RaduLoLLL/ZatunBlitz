@@ -7,7 +7,7 @@
     @apply w-full text-[#333];
   }
   .inputs {
-    @apply w-2/3 p-4 text-lg outline-none  bg-black border-none rounded-md mx-5;
+    @apply w-full p-4 text-lg outline-none bg-black border-none rounded-md;
   }
 }
 .ping {

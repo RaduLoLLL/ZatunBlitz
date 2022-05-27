@@ -8,10 +8,11 @@ import {
   useQueryErrorResetBoundary,
 } from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
+import { motion } from "framer-motion"
 
-import "app/core/styles/index.css";
+import "app/core/styles/index.css"
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
@@ -19,7 +20,21 @@ export default function App({ Component, pageProps }: AppProps) {
       FallbackComponent={RootErrorFallback}
       onReset={useQueryErrorResetBoundary().reset}
     >
-      {getLayout(<Component {...pageProps} />)}
+      <motion.div
+        initial="initial"
+        key={router.route}
+        animate="animate"
+        variants={{
+          initial: {
+            opacity: 0,
+          },
+          animate: {
+            opacity: 1,
+          },
+        }}
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </motion.div>
     </ErrorBoundary>
   )
 }

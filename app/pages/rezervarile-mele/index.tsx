@@ -79,7 +79,7 @@ const RezervarileMele: BlitzPage = () => {
           {bookings[0].map((booking) => {
             return (
               <>
-                <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
+                <div className="p-8 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                       {format(booking.starts_at, "dd.MM.yyyy")}

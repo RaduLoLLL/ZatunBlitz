@@ -39,12 +39,9 @@ export const SignupForm = (props: SignupFormProps) => {
             : {}
         }
       >
-        <div className="absolute lg:hidden z-10 inset-0 lg:bg-gray-500 bg-no-repeat bg-cover items-center">
-          <div className="absolute lg:bg-black opacity-60 inset-0 z-0"></div>
-        </div>
-        <div className="w-full py-6 z-20 -mt-24">
-          <div className="relative h-96 w-96 flex justify-center mx-auto">
-            <Image src="/Logo2.svg" layout="fill" />
+        <div className="py-6">
+          <div className="flex justify-center ">
+            <Image src="/Logo2.svg" width={400} height={300} />
           </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
