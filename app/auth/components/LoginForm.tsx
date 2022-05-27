@@ -129,7 +129,7 @@ export const LoginForm = (props: LoginFormProps) => {
             : {}
         }
       >
-        <div className=" py-6">
+        <div className="py-6 mx-8">
           <div className="flex justify-center">
             <Image src="/Logo2.svg" width={400} height={300} />
           </div>
