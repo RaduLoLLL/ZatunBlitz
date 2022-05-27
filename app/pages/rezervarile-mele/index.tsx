@@ -1,4 +1,4 @@
-import { BlitzPage, useQuery, Link, getSession, Routes } from "blitz"
+import { BlitzPage, useQuery, Link, getSession, Routes, GetServerSideProps } from "blitz"
 
 import getMyBookings from "./queries/getMyBookings"
 import Layout from "app/core/layouts/Layout"
@@ -6,9 +6,12 @@ import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
 import { QRCodeCanvas } from "qrcode.react"
 import { useRef } from "react"
+import db from "db"
 
-export const getServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
+
+  const bookings = await db.booking.findMany({ where: { userId: session.userId } })
 
   if (!session.userId) {
     return {
@@ -18,15 +21,13 @@ export const getServerSideProps = async ({ req, res }) => {
       },
     }
   }
-  return { props: {} }
+  return { props: { bookings } }
 }
 
-const RezervarileMele: BlitzPage = () => {
+function RezervarileMele({ bookings }) {
   const ref = useRef()
 
   const DisplayBookings = () => {
-    const bookings = useQuery(getMyBookings, undefined)
-
     const QrCode = (value: string) => {
       return (
         <>
@@ -76,7 +77,7 @@ const RezervarileMele: BlitzPage = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {bookings[0].map((booking) => {
+          {bookings.map((booking) => {
             return (
               <>
                 <div className="p-8 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
