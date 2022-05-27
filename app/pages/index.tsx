@@ -39,7 +39,7 @@ const Home: BlitzPage = () => {
       <div className="container min-w-full">
         <div className="block md:flex md:min-h-screen">
           <div
-            className="md:w-4/6 md:relative group min-h-screen "
+            className="block md:w-4/6 relative group min-h-screen "
             style={{
               backgroundImage: "url(/Main.png)",
               backgroundRepeat: "no-repeat",
