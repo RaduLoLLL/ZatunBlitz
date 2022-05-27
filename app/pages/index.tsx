@@ -1,13 +1,5 @@
-import { BlitzPage, getSession, Router, Image, Head, Link, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
+import { BlitzPage, getSession, Head, Link, Routes } from "blitz"
 
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-
-import NavbarLogedIn from "app/pages/components/NavbarLogedIn"
-import NavbarLogedOut from "app/pages/components/NavbarLogedOut"
-import MainImg from "public/Main.png"
-import ContulMeuImg from "public/ContulMeu.png"
-import DespreNoiImg from "/public/DespreNoi.png"
 import Navbar from "./components/Navbar"
 
 export const getServerSideProps = async ({ req, res }) => {
@@ -26,55 +18,8 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 export const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  // if (currentUser) {
-  //   return (
-  //     <>
-  //       <div className="container min-w-full">
-  //         <NavbarLogedIn />
-  //       </div>
-  //     </>
-  //   )
-  // } else {
-  //   return (
-  //     <>
-  //       <NavbarLogedOut />
-  //     </>
-  //   )
-  // }
   return <Navbar />
 }
-/*
-<div className="bg-red-500">
-              <div className="overflow-hidden aspect-square relative group">
-                <div className=" z-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out  absolute from-black  to-transparent bg-gradient-to-t inset-0 pt-30 text-white flex items-center">
-                  <div className="  p-4  text-xl group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pb-10  transition duration-300 ease-in-out">
-                    <div className="flex flex-col justify-center items-center">
-                      <div
-                        className=""
-                        style={{ fontFamily: "Amatic SC", fontSize: 144, height: 100 }}
-                      >
-                        Balta Zatun
-                      </div>
-
-                      <div className="" style={{ fontFamily: "Josefin Slab", fontSize: 80 }}>
-                        Complex de Agrement
-                      </div>
-
-                      <div
-                        className="mt-40 border border-white px-5 py-8 hover:bg-white hover:text-black/80 transition duration-300 ease-in-out cursor-pointer"
-                        style={{ fontFamily: "Josefin Slab", fontSize: 80, height: 80 }}
-                      >
-                        Rezerva Acum
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <Image src={MainImg} layout="fill" />
-              </div>
-            </div>
-*/
 
 const Home: BlitzPage = () => {
   return (
@@ -101,7 +46,7 @@ const Home: BlitzPage = () => {
               backgroundPosition: "center",
             }}
           >
-            <div className=" z-50 justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out absolute from-black  to-transparent bg-gradient-to-t inset-0 pt-30 text-white flex items-center">
+            <div className=" z-50 justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out absolute from-black  to-transparent bg-gradient-to-t inset-0 text-white flex items-center">
               <div className="flex flex-col justify-center items-center mx-auto md:ml-12">
                 <div
                   className="text-6xl md:text-8xl text-center"
