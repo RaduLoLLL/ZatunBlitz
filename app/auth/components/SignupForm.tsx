@@ -99,11 +99,11 @@ export const SignupForm = (props: SignupFormProps) => {
               type="password"
               className="inputs"
             />
-            <div className="flex justify-between mx-12">
-              <label className="mr-2">Already have an accout?</label>
+            <div className="flex justify-between mx-5">
+              <label className="mr-2">Ai deja un cont?</label>
               <Link href={Routes.LoginPage()}>
                 <a className="text-gray-200 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-125">
-                  Log In
+                  Intra in cont
                 </a>
               </Link>
             </div>

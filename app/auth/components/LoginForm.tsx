@@ -160,7 +160,7 @@ export const LoginForm = (props: LoginFormProps) => {
           </div>
           <p className="text-gray-100">sau foloseste email-ul si parola</p>
           <Form
-            submitText="Login"
+            submitText="Intra in cont"
             className="text-gray-100 mt-10 space-y-10"
             schema={Login}
             initialValues={{ email: "", password: "" }}
@@ -188,7 +188,7 @@ export const LoginForm = (props: LoginFormProps) => {
               type="password"
               className="inputs"
             />
-            <div className="flex justify-between mx-12">
+            <div className="flex justify-between mx-5">
               <Link href={Routes.ForgotPasswordPage()}>
                 <a className="text-sm text-gray-100 hover:text-gray-400">Ai uitat parola?</a>
               </Link>
