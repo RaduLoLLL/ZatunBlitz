@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between xl:px-44 flex-1 sm:shadow-md xl:shadow-xl shadow-slate-200 px-4 py-2 z-50">
         <Link href={Routes.Home()} scroll={false}>
           <div className="relative h-20 w-20 xl:h-32 xl:w-32 flex-shrink-0 cursor-pointer">
-            <Image src="/Logo.svg" layout="fill" />
+            <Image src="/Logo.svg" layout="fill" priority={true} />
           </div>
         </Link>
         <div>
