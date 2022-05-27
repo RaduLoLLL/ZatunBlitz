@@ -102,9 +102,9 @@ const Checkout: BlitzPage = () => {
 
     return (
       <>
-        <div className="container">
+        <div className="">
           <div className="mt-10">
-            <div className="w-1/2 mx-auto bg-white rounded-md">
+            <div className="w-3/4 lg:w-1/2 mx-auto bg-white rounded-md">
               <div className="flex flex-col justify-center items-center">
                 <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
 

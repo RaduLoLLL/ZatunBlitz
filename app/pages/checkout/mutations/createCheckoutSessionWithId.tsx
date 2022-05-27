@@ -23,7 +23,7 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
     {
       price_data: {
         currency: "ron",
-        unit_amount: booking?.intrare_complex * 2000,
+        unit_amount: 2000,
         product_data: {
           name: "Intrare Complex",
         },
@@ -99,7 +99,7 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
     productData.push({
       price_data: {
         currency: "ron",
-        unit_amount: 100000,
+        unit_amount: 10000,
         product_data: {
           name: "Petrecere Privata",
         },
