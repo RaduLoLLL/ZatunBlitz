@@ -15,7 +15,7 @@ const DespreNoi: BlitzPage = () => {
           </p>
           <p
             style={{ fontFamily: "Josefin Sans" }}
-            className="font-thin text-4xl mt-10 text-justify"
+            className="font-thin text-4xl mt-10 lg:text-justify"
           >
             Complexul de Agrement Balta Zătun se află pe malul Dunării, la circa 15 km distanță de
             municipiul Galați. Este cea mai apropiată bază de agrement pentru pescari, având un
