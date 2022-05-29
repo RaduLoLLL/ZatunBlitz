@@ -11,7 +11,10 @@ import db from "db"
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  const bookings = await db.booking.findMany({ where: { userId: session.userId } })
+  const bookings = await db.booking.findMany({
+    where: { userId: session.userId },
+    orderBy: [{ starts_at: "desc" }],
+  })
 
   if (!session.userId) {
     return {
@@ -76,11 +79,11 @@ function RezervarileMele({ bookings }) {
             </button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-3">
           {bookings.map((booking) => {
             return (
               <>
-                <div className="p-8 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
+                <div className="p-10 max-w-md bg-white rounded-lg border shadow-md sm:p-12 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                       {format(booking.starts_at, "dd.MM.yyyy")}
@@ -88,22 +91,27 @@ function RezervarileMele({ bookings }) {
                   </div>
                   <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                      <li className="py-3 sm:py-4">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex-shrink-0"></div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                              Bilete intrare complex
-                            </p>
-                            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                              {booking.intrare_complex} x 20 Lei
-                            </p>
+                      {booking.intrare_complex ? (
+                        <li className="py-3 sm:py-4">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0"></div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                Bilete Agrement
+                              </p>
+                              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                {booking.intrare_complex} x 20 Lei
+                              </p>
+                            </div>
+                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                              {booking.intrare_complex * 20} Lei
+                            </div>
                           </div>
-                          <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                            {booking.intrare_complex * 20} Lei
-                          </div>
-                        </div>
-                      </li>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
+
                       {booking.loc_parcare ? (
                         <li className="py-3 sm:py-4">
                           <div className="flex items-center space-x-4">
