@@ -20,7 +20,10 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
 
   if (!booking) return
 
-  const productData = []
+  const productData: {
+    price_data: { currency: string; unit_amount: number; product_data: { name: string } }
+    quantity: number
+  }[] = []
 
   if (booking.intrare_complex > 0) {
     productData.push({
