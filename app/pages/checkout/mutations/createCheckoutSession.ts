@@ -20,18 +20,20 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
 
   if (!booking) return
 
-  const productData = [
-    {
+  const productData = []
+
+  if (booking.intrare_complex > 0) {
+    productData.push({
       price_data: {
         currency: "ron",
-        unit_amount: 2000,
+        unit_amount: 500,
         product_data: {
-          name: "Intrare Complex",
+          name: "Intrare Agrement",
         },
       },
       quantity: booking.intrare_complex,
-    },
-  ]
+    })
+  }
 
   if (booking.loc_parcare > 0) {
     productData.push({

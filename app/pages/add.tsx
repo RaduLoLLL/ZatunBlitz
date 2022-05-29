@@ -29,7 +29,7 @@ const Add: BlitzPage = () => {
 
   //State for all options that will be added for the booking
   const [state, setState] = useState({
-    intrare: 1,
+    intrare: 0,
     locParcare: 0,
     locPescuit: 0,
     casuta: 0,
@@ -233,8 +233,8 @@ const Add: BlitzPage = () => {
         <UserInfo />
       </Suspense>
 
-      <div className="mx-auto max-w-xs ">
-        <div className="my-10 p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="mx-auto max-w-xs lg:max-w-md ">
+        <div className="my-10 p-4  bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form className="space-y-6" action="#" onSubmit={handleSubmit}>
             <h5 className="text-xl font-medium text-gray-900 dark:text-white">
               Fa o rezervare noua
@@ -286,7 +286,7 @@ const Add: BlitzPage = () => {
                     htmlFor="intrare"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    Bilete Intrare Complex
+                    Bilete Agrement
                   </label>
                   <input
                     type="number"
@@ -356,24 +356,26 @@ const Add: BlitzPage = () => {
                     <SezlongSelect />
                   </Suspense>
                 </div>
-                <label
-                  htmlFor="sedintaFoto"
-                  className="relative inline-flex items-center mb-4 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    name="sedintaFoto"
-                    id="sedintaFoto"
-                    className="sr-only peer"
-                    checked={state.sedintaFoto}
-                    onChange={handleChange}
-                  />
+                <div>
+                  <label
+                    htmlFor="sedintaFoto"
+                    className="relative inline-flex items-center mb-4 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      name="sedintaFoto"
+                      id="sedintaFoto"
+                      className="sr-only peer"
+                      checked={state.sedintaFoto}
+                      onChange={handleChange}
+                    />
 
-                  <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                  <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Sedinta foto
-                  </span>
-                </label>
+                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Sedinta foto
+                    </span>
+                  </label>
+                </div>
                 <Suspense fallback={"Loading..."}>
                   <PetrecerePrivata />
                 </Suspense>
