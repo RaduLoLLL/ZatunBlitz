@@ -11,15 +11,24 @@ const DespreNoi: BlitzPage = () => {
             Despre Noi
           </p>
           <p className="text-7xl font-light mt-5" style={{ fontFamily: "Josefin Sans" }}>
-            What is lorem ipsum?
+            Balta Zătun
           </p>
-          <p style={{ fontFamily: "Josefin Sans" }} className="font-thin text-4xl mt-10">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has
-            survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s with the release of
-            Letraset sheets containing Lorem Ipsum passages.
+          <p
+            style={{ fontFamily: "Josefin Sans" }}
+            className="font-thin text-4xl mt-10 lg:text-justify"
+          >
+            Complexul de Agrement Balta Zătun se află pe malul Dunării, la circa 15 km distanță de
+            municipiul Galați. Este cea mai apropiată bază de agrement pentru pescari, având un
+            luciu de apă de 28 de ha în care se află diverse specii de pește, de la crap și caras
+            până la știucă. Lacul Zătun este aflat în incinta îndiguită Bădălan, din dreptul Milei
+            fluviale 76 (zona Cotul Pisicii de pe Dunăre) şi face parte din Parcul Natural Lunca
+            Joasă a Prutului Inferior. Accesul se face pe E87 Galaţi-Giurgiuleşti. Se face dreapta
+            după traversarea canalului de irigaţii şi se continuă pe şoseaua asfaltată (DJ 251E) de
+            pe digul de apărare al Dunării. Vizitatorii bazei de agrement Zătun beneficiază de
+            urmatoarele facilităţi: zonă de popas pentru relaxare în aer liber (prevazută cu umbrele
+            din stuf, şezlonguri din lemn şi măsuţe); grătare; bănci; mese; zonă de plajă; căsuţe;
+            locuri de joacă; pontoane; refugii amenajate în stil tradiţional; foişoare de observare
+            a faunei şi florei
           </p>
         </div>
         <div className="relative ml-16 hidden xl:block">

@@ -107,9 +107,9 @@ const Checkout: BlitzPage = () => {
             <div className="w-3/4 lg:w-1/2 mx-auto bg-white rounded-md">
               <div className="flex flex-col justify-center items-center">
                 <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
-
-                <div
-                  className="
+                {booking.intrare_complex ? (
+                  <div
+                    className="
                 flex
                 justify-between
                 items-center
@@ -117,14 +117,18 @@ const Checkout: BlitzPage = () => {
                 py-5
                 border-b-2 border-gray-200
               "
-                >
-                  <p className="text-gray-400 ml-4">Bilete intrare complex</p>
-                  {booking?.intrare_complex > 1 ? (
-                    <p className="text-black mr-4">{booking?.intrare_complex} x 20 Lei</p>
-                  ) : (
-                    <p className="text-black mr-4">20 Lei</p>
-                  )}
-                </div>
+                  >
+                    <p className="text-gray-400 ml-4">Bilete intrare complex</p>
+                    {booking?.intrare_complex > 1 ? (
+                      <p className="text-black mr-4">{booking?.intrare_complex} x 20 Lei</p>
+                    ) : (
+                      <p className="text-black mr-4">20 Lei</p>
+                    )}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
                 {booking?.loc_parcare ? (
                   <div
                     className="

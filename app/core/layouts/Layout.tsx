@@ -18,6 +18,10 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
       <Head>
         <title>{title || "Zatun"}</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
       </Head>
       <Suspense
         fallback={
