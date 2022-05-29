@@ -75,7 +75,7 @@ const Home: BlitzPage = () => {
               style={{
                 backgroundImage: "url(/ContulMeu.png)",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
+                backgroundPosition: "left",
                 backgroundSize: "cover",
               }}
             >
