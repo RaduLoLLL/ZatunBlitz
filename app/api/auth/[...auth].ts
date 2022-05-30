@@ -1,7 +1,6 @@
-import { passportAuth, useSession } from "blitz"
+import { passportAuth } from "blitz"
 import db from "db"
 import { Strategy as GoogleAuth } from "passport-google-oauth20"
-import { Strategy as FacebookAuth } from "passport-facebook"
 
 export default passportAuth({
   successRedirectUrl: "/",
@@ -45,41 +44,6 @@ export default passportAuth({
             source: "gooogle",
           }
           done(undefined, { publicData })
-        }
-      ),
-    },
-    {
-      strategy: new FacebookAuth(
-        {
-          clientID: process.env.FACEBOOK_APP_ID as string,
-          clientSecret: process.env.FACEBOOK_APP_SECRET as string,
-          callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
-        },
-        async function (_token, _tokenSecret, profile, done) {
-          const email = profile.emails[0]?.value
-
-          console.log(profile)
-
-          if (!email) {
-            console.log(profile)
-            return done(new Error("Facebook OAuth response doesn't have email."))
-          }
-
-          const user = await db.user.upsert({
-            where: { email },
-            create: {
-              email,
-              name: profile.displayName,
-            },
-            update: { email },
-          })
-
-          const publicData = {
-            userId: user.id,
-            roles: [user.role],
-            source: "facebook",
-          }
-          done(null, { publicData })
         }
       ),
     },
