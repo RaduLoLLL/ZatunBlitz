@@ -229,7 +229,13 @@ const Add: BlitzPage = () => {
 
   return (
     <>
-      <Suspense fallback={"Loading..."}>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
         <UserInfo />
       </Suspense>
 
@@ -258,7 +264,13 @@ const Add: BlitzPage = () => {
                     />
                   </div>
                 </div>
-                <Suspense fallback={"Loading..."}>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
                   <PetrecerePrivata />
                 </Suspense>
               </>
@@ -329,7 +341,13 @@ const Add: BlitzPage = () => {
                   {
                     // Here I call that function inside a Suspense and things go south
                   }
-                  <Suspense fallback={"Loading..."}>
+                  <Suspense
+                    fallback={
+                      <div className="min-h-screen flex justify-center items-center">
+                        <div className="ping"></div>
+                      </div>
+                    }
+                  >
                     <PescuitSelect />
                   </Suspense>
                 </div>
@@ -341,7 +359,13 @@ const Add: BlitzPage = () => {
                   >
                     Casuta
                   </label>
-                  <Suspense fallback={"Loading..."}>
+                  <Suspense
+                    fallback={
+                      <div className="min-h-screen flex justify-center items-center">
+                        <div className="ping"></div>
+                      </div>
+                    }
+                  >
                     <CasutaSelect />
                   </Suspense>
                 </div>
@@ -352,7 +376,13 @@ const Add: BlitzPage = () => {
                   >
                     Sezlong
                   </label>
-                  <Suspense fallback={"Loading..."}>
+                  <Suspense
+                    fallback={
+                      <div className="min-h-screen flex justify-center items-center">
+                        <div className="ping"></div>
+                      </div>
+                    }
+                  >
                     <SezlongSelect />
                   </Suspense>
                 </div>
@@ -376,7 +406,13 @@ const Add: BlitzPage = () => {
                     </span>
                   </label>
                 </div>
-                <Suspense fallback={"Loading..."}>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
                   <PetrecerePrivata />
                 </Suspense>
               </>

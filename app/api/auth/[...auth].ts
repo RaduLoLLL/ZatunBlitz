@@ -1,6 +1,7 @@
 import { passportAuth, useSession } from "blitz"
 import db from "db"
 import { Strategy as GoogleAuth } from "passport-google-oauth20"
+import { Strategy as FacebookAuth } from "passport-facebook"
 
 export default passportAuth({
   successRedirectUrl: "/",
