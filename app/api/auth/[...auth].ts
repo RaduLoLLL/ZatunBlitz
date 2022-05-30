@@ -57,7 +57,7 @@ export default passportAuth({
           clientSecret: process.env.FACEBOOK_APP_SECRET as string,
           callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
           passReqToCallback: true,
-          //profileFields: ["id", "emails", "name"], //This
+          profileFields: ["id", "emails", "name"], //This
           //lol
         },
         async function (_token, _tokenSecret, profile, done) {
