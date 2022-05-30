@@ -29,7 +29,7 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
     productData.push({
       price_data: {
         currency: "ron",
-        unit_amount: 500,
+        unit_amount: 2000,
         product_data: {
           name: "Intrare Agrement",
         },
