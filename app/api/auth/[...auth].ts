@@ -49,16 +49,14 @@ export default passportAuth({
       ),
     },
     {
-      authenticateOptions: { scope: "email" },
       strategy: new FacebookAuth(
         {
           scope: ["email", "profile"],
-          clientID: process.env.FACEBOOK_APP_ID as string,
-          clientSecret: process.env.FACEBOOK_APP_SECRET as string,
+          clientID: "530057005242779",
+          clientSecret: "83e2e3aa174ecc9a38a5f7ba732e7e7a",
           callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
           passReqToCallback: true,
-          profileFields: ["id", "emails", "name"], //This
-          //lol
+          profileFields: ["id", "email", "name"],
         },
         async function (_token, _tokenSecret, profile, done) {
           console.log("profile", profile)
