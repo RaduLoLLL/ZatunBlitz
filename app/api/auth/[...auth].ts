@@ -51,7 +51,6 @@ export default passportAuth({
     {
       strategy: new FacebookAuth(
         {
-          scope: ["profile"],
           clientID: process.env.FACEBOOK_APP_ID as string,
           clientSecret: process.env.FACEBOOK_APP_SECRET as string,
           callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
