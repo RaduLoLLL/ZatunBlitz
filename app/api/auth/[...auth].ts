@@ -58,8 +58,11 @@ export default passportAuth({
         async function (_token, _tokenSecret, profile, done) {
           const email = profile.emails && profile.emails[0]?.value
 
+          console.log(profile)
+
           if (!email) {
-            return done(new Error("Facebook OAuth response doesn't have email."))
+            console.log(profile)
+            return done(new Error("Facebook OAuth response doesn't have email." + { profile }))
           }
 
           const user = await db.user.upsert({
