@@ -49,23 +49,18 @@ export default passportAuth({
       ),
     },
     {
+      authenticateOptions: { scope: "email" },
       strategy: new FacebookAuth(
         {
-          scope: ["email", "profile"],
-          clientID: "530057005242779",
-          clientSecret: "83e2e3aa174ecc9a38a5f7ba732e7e7a",
-          callbackURL:
-            process.env.NODE_ENV === "production"
-              ? "https://zatun-blitz.vercel.app/api/auth/facebook/callback"
-              : "http://localhost:3000/api/auth/facebook/callback",
-          includeEmail: true,
+          clientID: process.env.FACEBOOK_APP_ID as string,
+          clientSecret: process.env.FACEBOOK_APP_SECRET as string,
+          callbackURL: "http://localhost:3000/api/auth/facebook/callback",
         },
         async function (_token, _tokenSecret, profile, done) {
-          const email = profile.emails[0]?.value
+          const email = profile.emails && profile.emails[0]?.value
 
           if (!email) {
-            // This can happen if you haven't enabled email access in your twitter app permissions
-            return done(new Error("Facebook response doesn't have email."))
+            return done(new Error("Facebook OAuth response doesn't have email."))
           }
 
           const user = await db.user.upsert({
@@ -82,7 +77,7 @@ export default passportAuth({
             roles: [user.role],
             source: "facebook",
           }
-          done(undefined, { publicData })
+          done(null, { publicData })
         }
       ),
     },
