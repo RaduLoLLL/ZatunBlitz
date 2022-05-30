@@ -3,7 +3,6 @@ import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import login from "app/auth/mutations/login"
 import { Login } from "app/auth/validations"
-import { signIn } from "next-auth/react"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -137,7 +136,6 @@ export const LoginForm = (props: LoginFormProps) => {
           <div className="space-x-2">
             <Link href="/api/auth/google">
               <button
-                onClick={() => signIn()}
                 type="button"
                 className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
               >
@@ -159,10 +157,9 @@ export const LoginForm = (props: LoginFormProps) => {
                 Intra in cont cu Google
               </button>
             </Link>
-            {/*
+            <Link href="/api/auth/facebook">
               <button
                 type="button"
-                onClick={() => signIn()}
                 className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
               >
                 <svg
@@ -182,7 +179,7 @@ export const LoginForm = (props: LoginFormProps) => {
                 </svg>
                 Intra in cont cu Facebook
               </button>
-              */}
+            </Link>
           </div>
           <p className="text-gray-100">sau foloseste email-ul si parola</p>
           <Form

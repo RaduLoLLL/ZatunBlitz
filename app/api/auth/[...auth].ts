@@ -1,6 +1,7 @@
-import { passportAuth } from "blitz"
+import { passportAuth, useSession } from "blitz"
 import db from "db"
 import { Strategy as GoogleAuth } from "passport-google-oauth20"
+import { Strategy as FacebookAuth } from "passport-facebook"
 
 export default passportAuth({
   successRedirectUrl: "/",
@@ -44,6 +45,39 @@ export default passportAuth({
             source: "gooogle",
           }
           done(undefined, { publicData })
+        }
+      ),
+    },
+    {
+      authenticateOptions: { scope: "email" },
+      strategy: new FacebookAuth(
+        {
+          clientID: process.env.FACEBOOK_APP_ID as string,
+          clientSecret: process.env.FACEBOOK_APP_SECRET as string,
+          callbackURL: "http://localhost:3000/api/auth/facebook/callback",
+        },
+        async function (_token, _tokenSecret, profile, done) {
+          const email = profile.emails && profile.emails[0]?.value
+
+          if (!email) {
+            return done(new Error("Facebook OAuth response doesn't have email."))
+          }
+
+          const user = await db.user.upsert({
+            where: { email },
+            create: {
+              email,
+              name: profile.displayName,
+            },
+            update: { email },
+          })
+
+          const publicData = {
+            userId: user.id,
+            roles: [user.role],
+            source: "facebook",
+          }
+          done(null, { publicData })
         }
       ),
     },
