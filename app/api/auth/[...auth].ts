@@ -53,16 +53,16 @@ export default passportAuth({
         {
           clientID: process.env.FACEBOOK_APP_ID as string,
           clientSecret: process.env.FACEBOOK_APP_SECRET as string,
-          callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
+          callbackURL: "http://localhost:3000/api/auth/facebook/callback",
         },
         async function (_token, _tokenSecret, profile, done) {
-          const email = profile.emails && profile.emails[0]?.value
+          const email = profile.emails[0]?.value
 
           console.log(profile)
 
           if (!email) {
             console.log(profile)
-            return done(new Error("Facebook OAuth response doesn't have email." + { profile }))
+            return done(new Error("Facebook OAuth response doesn't have email."))
           }
 
           const user = await db.user.upsert({
