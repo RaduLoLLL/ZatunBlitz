@@ -52,9 +52,12 @@ export default passportAuth({
       authenticateOptions: { scope: "email" },
       strategy: new FacebookAuth(
         {
+          scope: ["email", "profile"],
           clientID: process.env.FACEBOOK_APP_ID as string,
           clientSecret: process.env.FACEBOOK_APP_SECRET as string,
           callbackURL: "https://zatun-blitz.vercel.app/api/auth/facebook/callback",
+          passReqToCallback: true,
+          profileFields: ["id", "emails", "name"], //This
         },
         async function (_token, _tokenSecret, profile, done) {
           const email = profile.emails && profile.emails[0]?.value
