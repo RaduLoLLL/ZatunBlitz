@@ -219,8 +219,8 @@ const Checkout: BlitzPage = () => {
                 border-b-2 border-gray-200
               "
                   >
-                    <p className="text-gray-400 ml-4">Sezlongul ( Nr. {booking.sezlong} )</p>
-                    <p className="text-black mr-4"> 15 Lei</p>
+                    <p className="text-gray-400 ml-4">Sezlonguri</p>
+                    <p className="text-black mr-4"> {booking.sezlong} x 15 Lei</p>
                   </div>
                 ) : (
                   <div></div>

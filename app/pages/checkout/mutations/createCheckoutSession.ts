@@ -96,10 +96,10 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
         currency: "ron",
         unit_amount: 1500,
         product_data: {
-          name: "Sezlongul numarul " + booking.sezlong,
+          name: "Sezlonguri",
         },
       },
-      quantity: 1,
+      quantity: booking.sezlong,
     })
   }
   if (booking.sedinta_foto) {

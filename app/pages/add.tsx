@@ -9,6 +9,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
+import toast from "react-hot-toast"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -41,6 +42,7 @@ const Add: BlitzPage = () => {
     petrecerePrivata: false,
     totalPrice: 0,
   })
+  const [availableSezlong, setAvailableSezlong] = useState(21)
   //Date state added separately
   const [startDate, setStartDate] = useState(addDays(new Date(), 1))
 
@@ -58,8 +60,6 @@ const Add: BlitzPage = () => {
     const ocuppiedFishingSpots = [].concat.apply([], spotsArray)
 
     const availableFishingSpots = totalFishingSpots.filter((x) => !ocuppiedFishingSpots.includes(x))
-
-    console.log("Ocupate Pescuit", ocuppiedFishingSpots)
 
     type option = {
       value: Number
@@ -105,8 +105,6 @@ const Add: BlitzPage = () => {
 
     const availableCasuta = totalCasuta.filter((x) => !occupiedCasuta.includes(x))
 
-    console.log("Ocupat Casuta", occupiedCasuta)
-
     type option = {
       value: Number
       label: string
@@ -147,8 +145,6 @@ const Add: BlitzPage = () => {
 
     const availableFoisorMic = totalCasuta.filter((x) => !occupiedFoisorMic.includes(x))
 
-    console.log("Ocupat Casuta", occupiedFoisorMic)
-
     type option = {
       value: Number
       label: string
@@ -182,26 +178,34 @@ const Add: BlitzPage = () => {
   const SezlongSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalCasuta = Array.from(Array(22).keys())
-    const availableCasuta = totalCasuta.filter((o1) => !bookings.some((o2) => o1 === o2.sezlong))
+    const available =
+      21 - bookings.map((booking) => booking.sezlong).reduce((partialSum, a) => partialSum + a, 0)
+    setAvailableSezlong(available)
+
+    console.log("Sezlong disponibil", available)
+
+    // const totalCasuta = Array.from(Array(22).keys())
+    // const availableCasuta = totalCasuta.filter((o1) => !bookings.some((o2) => o1 === o2.sezlong))
     return (
-      <select
-        name="sezlong"
-        value={state.sezlong}
-        onChange={handleChange}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-      >
-        <option value={0} key={0}>
-          Alege Sezlongul Preferat
-        </option>
-        {availableCasuta.map((value) => {
-          return (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          )
-        })}
-      </select>
+      // <select
+      //   name="sezlong"
+      //   value={state.sezlong}
+      //   onChange={handleChange}
+      //   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+      // >
+      //   <option value={0} key={0}>
+      //     Alege Sezlongul Preferat
+      //   </option>
+      //   {availableCasuta.map((value) => {
+      //     return (
+      //       <option value={value} key={value}>
+      //         {value}
+      //       </option>
+      //     )
+      //   })}
+      // </select>
+
+      <></>
     )
   }
 
@@ -233,8 +237,17 @@ const Add: BlitzPage = () => {
   const FoisorMare = () => {
     const bookings = useCurrentBookings(startDate)
 
+    const availableFoisorMare = bookings.map((booking) => {
+      booking.foisor_mare ? true : false
+    })
+
+    if (availableFoisorMare.length > 0) return <></>
+
     return (
       <>
+        <label htmlFor="foisorMare" className="block mb-2 text-sm font-medium text-gray-900 ">
+          Foisor Mare
+        </label>
         <label
           htmlFor="foisorMare"
           className="relative inline-flex items-center mb-2 cursor-pointer"
@@ -271,12 +284,11 @@ const Add: BlitzPage = () => {
       (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0) +
       (state.sedintaFoto ? 100 : 0) +
-      (state.sezlong ? 15 : 0) +
+      state.sezlong * 15 +
       (state.foisorMare ? 200 : 0) +
       (state.foisorMic.length > 0 ? 80 * state.foisorMic.length : 0)
 
     state.totalPrice = totalPrice
-    console.log(totalPrice)
   }, [state])
 
   type booking = {
@@ -303,9 +315,12 @@ const Add: BlitzPage = () => {
       label: string
     }
     event.preventDefault()
+
     if (state.totalPrice == 0) {
+      toast.error("Nu ati introdus niciun camp. Rezervarea nu poate fi goala")
       return <></>
     }
+
     const locuri_pescuit: any[] = []
     state.locPescuit.map((loc: loc) => {
       locuri_pescuit.push(loc.value)
@@ -355,12 +370,11 @@ const Add: BlitzPage = () => {
   // State handler for everything but the price, that updates in the useEffect
   const handleChange = (evt) => {
     const name = evt.target.name
-    const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
+    const value: number = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
     setState({
       ...state,
       [name]: value,
     })
-    console.log("Loc Pescuit", state.locPescuit)
   }
 
   return (
@@ -518,12 +532,6 @@ const Add: BlitzPage = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="sezlong"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
-                    Sezlong
-                  </label>
                   <Suspense
                     fallback={
                       <div className="min-h-screen flex justify-center items-center">
@@ -533,15 +541,33 @@ const Add: BlitzPage = () => {
                   >
                     <SezlongSelect />
                   </Suspense>
+                  <div>
+                    <label
+                      htmlFor="sezlong"
+                      className="block mb-2 text-sm font-medium text-gray-900 "
+                    >
+                      Numar Sezlonguri
+                    </label>
+                    <input
+                      type="number"
+                      pattern="[0-9]*"
+                      inputMode="numeric"
+                      max={availableSezlong}
+                      min={0}
+                      name="sezlong"
+                      id="sezlong"
+                      placeholder="1"
+                      value={state.sezlong}
+                      onChange={handleChange}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    />
+                    <p className="text-sm text-gray-400 font-bold">
+                      Locuri disponibile in data aleasa: {availableSezlong}
+                    </p>
+                  </div>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="foisorMare"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
-                    Foisor Mare
-                  </label>
                   <Suspense
                     fallback={
                       <div className="min-h-screen flex justify-center items-center">
