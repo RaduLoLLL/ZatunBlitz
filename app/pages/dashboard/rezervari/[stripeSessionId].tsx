@@ -23,7 +23,7 @@ const Rezervare: BlitzPage = () => {
 
   const DisplayBooking = () => {
     const booking = useQuery(getBookingBySessionId, stripeSessionId)[0]
-    console.log(booking)
+
     return (
       <>
         <div className="">
@@ -31,7 +31,7 @@ const Rezervare: BlitzPage = () => {
             <div className="w-3/4 lg:w-1/2 mx-auto bg-white rounded-md">
               <div className="flex flex-col justify-center items-center">
                 <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
-                {booking.intrare_complex ? (
+                {booking?.intrare_complex ? (
                   <div
                     className="
           flex
@@ -75,7 +75,7 @@ const Rezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.loc_pescuit.length > 0 ? (
+                {booking?.loc_pescuit ? (
                   <div
                     className="
     flex
@@ -87,9 +87,9 @@ const Rezervare: BlitzPage = () => {
   "
                   >
                     <p className="text-gray-400 ml-4">
-                      Loc de Pescuit ( Nr. {booking.loc_pescuit.join(", ")} )
+                      Loc de Pescuit ( Nr. {booking?.loc_pescuit.join(", ")} )
                     </p>
-                    <p className="text-black mr-4">{booking.loc_pescuit.length} x 50 Lei</p>
+                    <p className="text-black mr-4">{booking?.loc_pescuit.length} x 50 Lei</p>
                   </div>
                 ) : (
                   <div></div>
@@ -178,7 +178,7 @@ const Rezervare: BlitzPage = () => {
         "
               >
                 <p className="text-gray-400 ml-4">Total</p>
-                <p className="text-indigo-600 mr-4">{booking.total_price} Lei</p>
+                <p className="text-indigo-600 mr-4">{booking?.total_price} Lei</p>
               </div>
             </div>
           </div>
