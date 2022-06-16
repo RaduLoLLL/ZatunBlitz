@@ -75,73 +75,76 @@ const Rezervari: BlitzPage = () => {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {bookings?.map((booking, i) => {
-              return (
-                <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.name} {booking.User?.surname}
-                  </td>
+            {
+              //@ts-ignore
+              bookings?.map((booking, i) => {
+                return (
+                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.name} {booking.User?.surname}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.email}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.email}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.phone}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.phone}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.total_price}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.total_price}
+                    </td>
 
-                  <td
-                    className={
-                      booking.paid
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
-                    }
-                  >
-                    {booking.paid ? "Platit" : "Neplatit"}
-                  </td>
+                    <td
+                      className={
+                        booking.paid
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                      }
+                    >
+                      {booking.paid ? "Platit" : "Neplatit"}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
-                      <button>Click for details</button>
-                    </Link>
-                  </td>
-                </tr>
-              )
-            })}
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
+                        <button>Click for details</button>
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </>
