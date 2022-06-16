@@ -76,12 +76,14 @@ const Add: BlitzPage = () => {
       <Select
         isMulti
         name="locPescuit"
+        //@ts-ignore
         options={options}
         value={state.locPescuit}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
         classNamePrefix="select"
         placeholder="Alege locul preferat"
         onChange={(selectedOptionObj) => {
+          //@ts-ignore
           setState({ ...state, locPescuit: selectedOptionObj })
         }}
       />
@@ -116,12 +118,14 @@ const Add: BlitzPage = () => {
       <Select
         isMulti
         name="locPescuit"
+        //@ts-ignore
         options={options}
         value={state.casuta}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
         classNamePrefix="select"
         placeholder="Alege casuta preferata"
         onChange={(selectedOptionObj) => {
+          //@ts-ignore
           setState({ ...state, casuta: selectedOptionObj })
         }}
       />
@@ -157,12 +161,14 @@ const Add: BlitzPage = () => {
         <Select
           isMulti
           name="foisorMic"
+          //@ts-ignore
           options={options}
           value={state.foisorMic}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
           classNamePrefix="select"
           placeholder="Alege foisorul mic preferat"
           onChange={(selectedOptionObj) => {
+            //@ts-ignore
             setState({ ...state, foisorMic: selectedOptionObj })
           }}
         />
@@ -278,36 +284,40 @@ const Add: BlitzPage = () => {
     ends_at: Date
     intrare_complex: number
     loc_parcare: number
-    loc_pescuit: number
-    casuta: number
+    loc_pescuit: number[]
+    casuta: number[]
     sezlong: number
     sedinta_foto: boolean
     petrecere_privata: boolean
     total_price: number
     foisor_mare: boolean
-    foisor_mic: number
+    foisor_mic: number[]
   }
 
   // Here I handle the submit. "petrecerePrivata" means a private party. If that is checked
   // it does something, if not, something else
 
   async function handleSubmit(event) {
+    type loc = {
+      value: number
+      label: string
+    }
     event.preventDefault()
     if (state.totalPrice == 0) {
       return <></>
     }
     const locuri_pescuit: any[] = []
-    state.locPescuit.map((loc) => {
+    state.locPescuit.map((loc: loc) => {
       locuri_pescuit.push(loc.value)
     })
 
-    const casute = []
-    state.casuta.map((loc) => {
+    const casute: any[] = []
+    state.casuta.map((loc: loc) => {
       casute.push(loc.value)
     })
 
-    const foisorMic = []
-    state.foisorMic.map((loc) => {
+    const foisorMic: any[] = []
+    state.foisorMic.map((loc: loc) => {
       foisorMic.push(loc.value)
     })
     if (state.petrecerePrivata === true) {
