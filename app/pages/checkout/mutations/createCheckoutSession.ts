@@ -51,20 +51,20 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
     })
   }
 
-  if (booking.loc_pescuit > 0) {
+  if (booking.loc_pescuit.length > 0) {
     productData.push({
       price_data: {
         currency: "ron",
         unit_amount: 5000,
         product_data: {
-          name: "Loc de Pescuit",
+          name: "Loc de Pescuit " + booking.loc_pescuit,
         },
       },
-      quantity: 1,
+      quantity: booking.loc_pescuit.length,
     })
   }
 
-  if (booking.casuta > 0) {
+  if (booking.casuta.length > 0) {
     productData.push({
       price_data: {
         currency: "ron",
@@ -73,7 +73,20 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
           name: "Casuta numarul " + booking.casuta,
         },
       },
-      quantity: 1,
+      quantity: booking.casuta.length,
+    })
+  }
+
+  if (booking.foisor_mic.length > 0) {
+    productData.push({
+      price_data: {
+        currency: "ron",
+        unit_amount: 8000,
+        product_data: {
+          name: "Foisorul numarul " + booking.foisor_mic,
+        },
+      },
+      quantity: booking.foisor_mic.length,
     })
   }
 
@@ -96,6 +109,18 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
         unit_amount: 10000,
         product_data: {
           name: "Sedinta Foto ",
+        },
+      },
+      quantity: 1,
+    })
+  }
+  if (booking.foisor_mare) {
+    productData.push({
+      price_data: {
+        currency: "ron",
+        unit_amount: 20000,
+        product_data: {
+          name: "Foisor Mare ",
         },
       },
       quantity: 1,

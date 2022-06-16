@@ -1,27 +1,54 @@
 import db from "db"
 
-export default async function getBookgins(params) {
-  console.log(params)
-  return db.booking.findMany({
-    where: {
-      OR: [
-        {
-          User: {
-            OR: [
-              { name: { contains: params.name ? params.name : undefined } },
-              { surname: { contains: params.surname ? params.surname : undefined } },
-              { email: { contains: params.email ? params.email : undefined } },
-              { phone: { contains: params.phone ? params.phone : undefined } },
-            ],
-          },
+export default async function getBookings(params) {
+  if (params.sessionId) {
+    return db.booking.findFirst({
+      where: { stripeSessionId: { equals: params.sessionId } },
+      take: 5,
+    })
+  }
+  if (params.name || params.surname) {
+    return db.booking.findMany({
+      where: {
+        User: {
+          OR: [{ name: { contains: params.name } }, { surname: { contains: params.surname } }],
         },
-        {
-          stripeSessionId: { equals: params.sessionId },
-        },
-      ],
-    },
-    take: 20,
+      },
+      take: 5,
 
+      include: { User: true },
+    })
+  }
+
+  if (params.phone) {
+    return db.booking.findMany({
+      where: {
+        User: {
+          phone: { contains: params.phone },
+        },
+      },
+      take: 5,
+
+      include: { User: true },
+    })
+  }
+
+  if (params.email) {
+    return db.booking.findMany({
+      where: {
+        User: {
+          email: { contains: params.email },
+        },
+      },
+      take: 5,
+
+      include: { User: true },
+    })
+  }
+
+  return db.booking.findMany({
+    orderBy: { starts_at: "desc" },
+    take: 15,
     include: { User: true },
   })
 }
