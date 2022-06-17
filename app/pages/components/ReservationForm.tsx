@@ -1,35 +1,25 @@
-import { BlitzPage, invoke, useRouter, useSession, getSession } from "blitz"
-import { useState, useEffect, Suspense } from "react"
-import Multiselect from "multiselect-react-dropdown"
-import { UserInfo } from "app/pages"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import addDays from "date-fns/addDays"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import Select from "react-select"
-import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
+import insertBooking from "app/bookings/mutations/insertBooking"
+import { invoke, useRouter, useSession } from "blitz"
+import { addDays } from "date-fns"
+import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
+import Select from "react-select"
 
-export const getServerSideProps = async ({ req, res }) => {
-  const session = await getSession(req, res)
-
-  if (!session.userId) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    }
-  }
-
-  return { props: {} }
-}
-
-const Add: BlitzPage = () => {
-  const router = useRouter()
-
+const ReservationForm = () => {
   //State for all options that will be added for the booking
+  const initialState = {
+    intrare: 0,
+    locParcare: 0,
+    locPescuit: [],
+    casuta: [],
+    foisorMare: false,
+    foisorMic: [],
+    sezlong: 0,
+    sedintaFoto: false,
+    petrecerePrivata: false,
+    totalPrice: 0,
+  }
   const [state, setState] = useState({
     intrare: 0,
     locParcare: 0,
@@ -44,7 +34,7 @@ const Add: BlitzPage = () => {
   })
   const [availableSezlong, setAvailableSezlong] = useState(21)
   //Date state added separately
-  const [startDate, setStartDate] = useState(addDays(new Date(), 1))
+  const [startDate, setStartDate] = useState(new Date())
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -271,11 +261,22 @@ const Add: BlitzPage = () => {
     )
   }
 
-  // Date state handler
-  const handleDate = (date) => {
-    setStartDate(date)
+  const CalculatePrice = () => {
+    const totalPrice =
+      state.intrare * 20 +
+      state.locParcare * 5 +
+      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0) +
+      (state.sedintaFoto ? 100 : 0) +
+      state.sezlong * 15 +
+      (state.foisorMare ? 200 : 0) +
+      (state.foisorMic.length > 0 ? 80 * state.foisorMic.length : 0)
+    return (
+      <>
+        <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
+      </>
+    )
   }
-
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
@@ -362,9 +363,11 @@ const Add: BlitzPage = () => {
         total_price: state.totalPrice,
       }
 
-      invoke(insertBooking, booking) // Insert the new created booking into the database
+      await invoke(insertBooking, booking) // Insert the new created booking into the database
+
+      toast.success("Rezervare adaugata cu succes")
+      setState({ ...initialState })
     }
-    router.push("/checkout")
   }
 
   // State handler for everything but the price, that updates in the useEffect
@@ -379,36 +382,15 @@ const Add: BlitzPage = () => {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="min-h-screen flex justify-center items-center">
-            <div className="ping"></div>
-          </div>
-        }
-      >
-        <UserInfo />
-      </Suspense>
-
       <div className="mx-auto max-w-xs lg:max-w-md ">
         <div className="my-10 p-4  bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+          <Suspense fallback="...">
+            <CalculatePrice />
+          </Suspense>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <h5 className="text-xl font-medium text-gray-900 ">Fa o rezervare noua</h5>
             {state.petrecerePrivata ? (
               <>
-                <div>
-                  <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
-                    Alege Data
-                  </label>
-                  <div className="border-2 rounded">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date) => handleDate(date)}
-                      dateFormat="dd/MM/yyyy"
-                      includeDateIntervals={[{ start: new Date(), end: addDays(new Date(), 30) }]}
-                      className="cursor-pointer p-2"
-                    />
-                  </div>
-                </div>
                 <Suspense
                   fallback={
                     <div className="min-h-screen flex justify-center items-center">
@@ -421,20 +403,6 @@ const Add: BlitzPage = () => {
               </>
             ) : (
               <>
-                <div>
-                  <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
-                    Alege Data
-                  </label>
-                  <div className="border-2 rounded">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)}
-                      dateFormat="dd/MM/yyyy"
-                      includeDateIntervals={[{ start: new Date(), end: addDays(new Date(), 30) }]}
-                      className="cursor-pointer p-2"
-                    />
-                  </div>
-                </div>
                 <div>
                   <label
                     htmlFor="intrare"
@@ -562,7 +530,7 @@ const Add: BlitzPage = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     />
                     <p className="text-sm text-gray-400 font-bold">
-                      Locuri disponibile in data aleasa: {availableSezlong}
+                      Locuri disponibile astazi: {availableSezlong}
                     </p>
                   </div>
                 </div>
@@ -621,4 +589,5 @@ const Add: BlitzPage = () => {
     </>
   )
 }
-export default Add
+
+export default ReservationForm

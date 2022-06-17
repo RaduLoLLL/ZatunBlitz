@@ -69,6 +69,23 @@ const Sidebar = () => {
                     </a>
                   </Link>
                 </li>
+
+                <li>
+                  <Link href={Routes.Adauga()}>
+                    <a className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        className="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"
+                        fill="currentColor"
+                      >
+                        <path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" />
+                      </svg>
+
+                      <span className="ml-3 flex-1 whitespace-nowrap">Adauga o rezervare</span>
+                    </a>
+                  </Link>
+                </li>
                 <Link href={Routes.Home()}>
                   <li>
                     <a

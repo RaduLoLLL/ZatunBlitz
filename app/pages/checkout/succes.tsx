@@ -1,8 +1,7 @@
-import { BlitzPage, useRouterQuery, invoke, useQuery } from "blitz"
+import { BlitzPage, useRouterQuery, invoke } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import confirmOrderPaid from "./mutations/confirmOrderPaid"
 import { QRCodeCanvas } from "qrcode.react"
-import getQrInfo from "./queries/getQrInfo"
 import { useRef } from "react"
 
 const stripe = require("stripe")(

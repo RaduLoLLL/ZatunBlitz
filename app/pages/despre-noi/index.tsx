@@ -1,6 +1,5 @@
 import Layout from "app/core/layouts/Layout"
 import { BlitzPage, Head, Image } from "blitz"
-import Navbar from "../components/Navbar"
 
 const DespreNoi: BlitzPage = () => {
   return (

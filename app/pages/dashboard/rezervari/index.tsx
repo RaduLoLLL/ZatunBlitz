@@ -1,7 +1,7 @@
 import { BlitzPage, useQuery, getSession, useRouterQuery, Link } from "blitz"
-import { Suspense, useEffect } from "react"
+import { Suspense } from "react"
 import Sidebar from "../components/Sidebar"
-import getBookgins from "../queries/getBookings"
+import getBookings from "../queries/getBookings"
 import { useState } from "react"
 
 export const getServerSideProps = async ({ req, res }) => {
@@ -30,7 +30,7 @@ const Rezervari: BlitzPage = () => {
     phone: router.phone,
   })
   const DisplayBookings = () => {
-    const bookings = useQuery(getBookgins, state)[0]
+    const bookings = useQuery(getBookings, state)[0]
     return (
       <>
         <table className="min-w-full divide-y divide-gray-200">
@@ -66,64 +66,85 @@ const Rezervari: BlitzPage = () => {
               >
                 Status Rezervare
               </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Detalii
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white">
-            {bookings.map((booking, i) => {
-              return (
-                <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.name} {booking.User?.surname}
-                  </td>
+            {
+              //@ts-ignore
+              bookings?.map((booking, i) => {
+                return (
+                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.name} {booking.User?.surname}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.email}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.email}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.User?.phone}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.phone}
+                    </td>
 
-                  <td
-                    className={
-                      i % 2
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                    }
-                  >
-                    {booking.total_price}
-                  </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.total_price}
+                    </td>
 
-                  <td
-                    className={
-                      booking.paid
-                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
-                    }
-                  >
-                    {booking.paid ? "Platit" : "Neplatit"}
-                  </td>
-                </tr>
-              )
-            })}
+                    <td
+                      className={
+                        booking.paid
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                      }
+                    >
+                      {booking.paid ? "Platit" : "Neplatit"}
+                    </td>
+
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
+                        <button>Click for details</button>
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </>

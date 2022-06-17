@@ -11,6 +11,7 @@ import LoginForm from "app/auth/components/LoginForm"
 import { motion } from "framer-motion"
 
 import "app/core/styles/index.css"
+import { Toaster } from "react-hot-toast"
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
@@ -33,6 +34,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
           },
         }}
       >
+        <div>
+          <Toaster />
+        </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>
     </ErrorBoundary>

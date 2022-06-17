@@ -67,8 +67,10 @@ model Booking {
   ends_at           DateTime
   intrare_complex   Int
   loc_parcare       Int
-  loc_pescuit       Int
-  casuta            Int
+  loc_pescuit       Int[]
+  casuta            Int[]
+  foisor_mic        Int[]
+  foisor_mare       Boolean  @default(false)
   sezlong           Int
   sedinta_foto      Boolean
   petrecere_privata Boolean

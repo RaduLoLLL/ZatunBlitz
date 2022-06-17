@@ -1,4 +1,3 @@
-import { resolver } from "blitz"
 import db from "db"
 import Stripe from "stripe"
 import { Ctx } from "blitz/dist/declarations/src"
@@ -45,20 +44,20 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
     })
   }
 
-  if (booking.loc_pescuit > 0) {
+  if (booking.loc_pescuit.length > 0) {
     productData.push({
       price_data: {
         currency: "ron",
         unit_amount: 5000,
         product_data: {
-          name: "Loc de Pescuit",
+          name: "Loc de Pescuit " + booking.loc_pescuit,
         },
       },
-      quantity: 1,
+      quantity: booking.loc_pescuit.length,
     })
   }
 
-  if (booking.casuta > 0) {
+  if (booking.casuta.length > 0) {
     productData.push({
       price_data: {
         currency: "ron",
@@ -67,20 +66,19 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
           name: "Casuta numarul " + booking.casuta,
         },
       },
-      quantity: 1,
+      quantity: booking.casuta.length,
     })
   }
-
   if (booking.sezlong > 0) {
     productData.push({
       price_data: {
         currency: "ron",
         unit_amount: 1500,
         product_data: {
-          name: "Sezlongul numarul " + booking.sezlong,
+          name: "Sezlonguri ",
         },
       },
-      quantity: 1,
+      quantity: booking.sezlong,
     })
   }
   if (booking.sedinta_foto) {

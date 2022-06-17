@@ -1,6 +1,6 @@
 import Layout from "app/core/layouts/Layout"
-import { loadStripe, Stripe } from "@stripe/stripe-js"
-import { BlitzPage, useMutation, useQuery, Link, getSession, useRouterQuery, invoke } from "blitz"
+import { loadStripe } from "@stripe/stripe-js"
+import { BlitzPage, useMutation, Link, getSession, useRouterQuery, invoke } from "blitz"
 import createCheckoutSession from "./mutations/createCheckoutSession"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
@@ -151,39 +151,58 @@ const Checkout: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.loc_pescuit ? (
+                {booking?.loc_pescuit.length > 0 ? (
                   <div
                     className="
-                flex
-                justify-between
-                items-center
-                w-full
-                py-5
-                border-b-2 border-gray-200
-              "
+          flex
+          justify-between
+          items-center
+          w-full
+          py-5
+          border-b-2 border-gray-200
+        "
                   >
                     <p className="text-gray-400 ml-4">
-                      Loc de Pescuit ( Nr. {booking.loc_pescuit} )
+                      Loc de Pescuit ( Nr. {booking.loc_pescuit.join(", ")} )
                     </p>
-                    <p className="text-black mr-4">50 Lei</p>
+                    <p className="text-black mr-4">{booking.loc_pescuit.length} x 50 Lei</p>
                   </div>
                 ) : (
                   <div></div>
                 )}
 
-                {booking?.casuta ? (
+                {booking?.casuta.length > 0 ? (
                   <div
                     className="
-                flex
-                justify-between
-                items-center
-                w-full
-                py-5
-                border-b-2 border-gray-200
-              "
+          flex
+          justify-between
+          items-center
+          w-full
+          py-5
+          border-b-2 border-gray-200
+        "
                   >
-                    <p className="text-gray-400 ml-4">Casuta ( Nr. {booking.casuta} )</p>
-                    <p className="text-black mr-4"> 100 Lei</p>
+                    <p className="text-gray-400 ml-4">Casuta ( Nr. {booking.casuta.join(", ")} )</p>
+                    <p className="text-black mr-4"> {booking.casuta.length} x 100 Lei</p>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+                {booking?.foisor_mic.length > 0 ? (
+                  <div
+                    className="
+          flex
+          justify-between
+          items-center
+          w-full
+          py-5
+          border-b-2 border-gray-200
+        "
+                  >
+                    <p className="text-gray-400 ml-4">
+                      Foisor Mic ( Nr. {booking.foisor_mic.join(", ")} )
+                    </p>
+                    <p className="text-black mr-4"> {booking.foisor_mic.length} x 80 Lei</p>
                   </div>
                 ) : (
                   <div></div>
@@ -200,8 +219,8 @@ const Checkout: BlitzPage = () => {
                 border-b-2 border-gray-200
               "
                   >
-                    <p className="text-gray-400 ml-4">Sezlongul ( Nr. {booking.sezlong} )</p>
-                    <p className="text-black mr-4"> 15 Lei</p>
+                    <p className="text-gray-400 ml-4">Sezlonguri</p>
+                    <p className="text-black mr-4"> {booking.sezlong} x 15 Lei</p>
                   </div>
                 ) : (
                   <div></div>
@@ -220,6 +239,24 @@ const Checkout: BlitzPage = () => {
                   >
                     <p className="text-gray-400 ml-4">Sedinta Foto</p>
                     <p className="text-black mr-4"> 100 Lei</p>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
+                {booking?.foisor_mare ? (
+                  <div
+                    className="
+                flex
+                justify-between
+                items-center
+                w-full
+                py-5
+                border-b-2 border-gray-200
+              "
+                  >
+                    <p className="text-gray-400 ml-4">Foisor Mare</p>
+                    <p className="text-black mr-4"> 200 Lei</p>
                   </div>
                 ) : (
                   <div></div>

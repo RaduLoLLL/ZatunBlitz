@@ -1,6 +1,5 @@
-import { BlitzPage, useQuery, Link, getSession, Routes, GetServerSideProps } from "blitz"
+import { Link, getSession, Routes, GetServerSideProps } from "blitz"
 
-import getMyBookings from "./queries/getMyBookings"
 import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
