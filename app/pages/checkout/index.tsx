@@ -1,6 +1,6 @@
 import Layout from "app/core/layouts/Layout"
-import { loadStripe, Stripe } from "@stripe/stripe-js"
-import { BlitzPage, useMutation, useQuery, Link, getSession, useRouterQuery, invoke } from "blitz"
+import { loadStripe } from "@stripe/stripe-js"
+import { BlitzPage, useMutation, Link, getSession, useRouterQuery, invoke } from "blitz"
 import createCheckoutSession from "./mutations/createCheckoutSession"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"

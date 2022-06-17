@@ -1,5 +1,5 @@
 import { BlitzPage, useQuery, getSession, useRouterQuery, Link } from "blitz"
-import { Suspense, useEffect } from "react"
+import { Suspense } from "react"
 import Sidebar from "../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"

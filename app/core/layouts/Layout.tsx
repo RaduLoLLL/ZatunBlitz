@@ -24,9 +24,6 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
       </Head>
-      <div>
-        <Toaster />
-      </div>
       <Suspense
         fallback={
           <div className="min-h-screen flex justify-center items-center">

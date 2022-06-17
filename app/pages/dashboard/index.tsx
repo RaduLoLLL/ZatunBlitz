@@ -1,7 +1,7 @@
 import { BlitzPage, useQuery, Link, Routes, getSession } from "blitz"
 import format from "date-fns/format"
 import getLast7DaysBookings from "./queries/getLast7DaysBookgins"
-import Layout from "app/core/layouts/Layout"
+
 import getBookingsBetween from "./queries/getBookingsBetween"
 import getLast7DaysUsers from "./queries/getLast7DaysUsers"
 import getUsersBetween from "./queries/getUsersBetween"

@@ -1,4 +1,3 @@
-import { resolver } from "blitz"
 import db from "db"
 import Stripe from "stripe"
 import { Ctx } from "blitz/dist/declarations/src"
