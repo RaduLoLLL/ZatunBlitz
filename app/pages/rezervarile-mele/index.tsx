@@ -132,7 +132,7 @@ function RezervarileMele({ bookings }) {
                         <></>
                       )}
 
-                      {booking.loc_pescuit ? (
+                      {booking.loc_pescuit.length ? (
                         <li className="py-3 sm:py-4">
                           <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0"></div>
@@ -153,7 +153,7 @@ function RezervarileMele({ bookings }) {
                         <></>
                       )}
 
-                      {booking.casuta ? (
+                      {booking.casuta.length ? (
                         <li className="py-3 sm:py-4">
                           <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0"></div>
