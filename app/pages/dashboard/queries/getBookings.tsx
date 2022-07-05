@@ -11,7 +11,9 @@ export default async function getBookings(params) {
   if (params.name) {
     return db.booking.findMany({
       where: {
-        User: { name: { startsWith: params.name } },
+        User: {
+          OR: [{ name: { startsWith: params.name } }, { surname: { startsWith: params.name } }],
+        },
       },
       take: 5,
       include: { User: true },
@@ -20,7 +22,12 @@ export default async function getBookings(params) {
   if (params.surname) {
     return db.booking.findMany({
       where: {
-        User: { surname: { startsWith: params.surname } },
+        User: {
+          OR: [
+            { name: { startsWith: params.surname } },
+            { surname: { startsWith: params.surname } },
+          ],
+        },
       },
       take: 5,
       include: { User: true },
