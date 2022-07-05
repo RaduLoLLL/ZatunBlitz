@@ -75,7 +75,7 @@ const Rezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.loc_pescuit ? (
+                {booking?.loc_pescuit.length ? (
                   <div
                     className="
     flex
@@ -95,7 +95,7 @@ const Rezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.casuta ? (
+                {booking?.casuta.length ? (
                   <div
                     className="
     flex

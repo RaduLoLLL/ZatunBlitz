@@ -7,15 +7,29 @@ export default async function getBookings(params) {
       take: 5,
     })
   }
-  if (params.name || params.surname) {
+
+  if (params.name) {
     return db.booking.findMany({
       where: {
         User: {
-          OR: [{ name: { contains: params.name } }, { surname: { contains: params.surname } }],
+          OR: [{ name: { startsWith: params.name } }, { surname: { startsWith: params.name } }],
         },
       },
       take: 5,
-
+      include: { User: true },
+    })
+  }
+  if (params.surname) {
+    return db.booking.findMany({
+      where: {
+        User: {
+          OR: [
+            { name: { startsWith: params.surname } },
+            { surname: { startsWith: params.surname } },
+          ],
+        },
+      },
+      take: 5,
       include: { User: true },
     })
   }
@@ -37,7 +51,7 @@ export default async function getBookings(params) {
     return db.booking.findMany({
       where: {
         User: {
-          email: { contains: params.email },
+          email: { startsWith: params.email },
         },
       },
       take: 5,
