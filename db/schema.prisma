@@ -61,22 +61,17 @@ model Token {
 }
 
 model Booking {
-  id                Int      @id @default(autoincrement())
-  createdAt         DateTime @default(now())
-  starts_at         DateTime
-  ends_at           DateTime
-  intrare_complex   Int
-  loc_parcare       Int
-  loc_pescuit       Int[]
-  casuta            Int[]
-  foisor_mic        Int[]
-  foisor_mare       Boolean  @default(false)
-  sezlong           Int
-  sedinta_foto      Boolean
-  petrecere_privata Boolean
-  total_price       Int
-  stripeSessionId   String?  @default("")
-  paid              Boolean  @default(false)
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  starts_at       DateTime
+  ends_at         DateTime
+  intrare_complex Int
+  loc_parcare     Int
+  loc_pescuit     Int[]
+  casuta          Int[]
+  total_price     Int
+  stripeSessionId String?  @default("")
+  paid            Boolean  @default(false)
 
   userId Int?
   User   User? @relation(fields: [userId], references: [id])
