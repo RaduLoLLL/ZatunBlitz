@@ -76,68 +76,6 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
     })
   }
 
-  if (booking.foisor_mic.length > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 8000,
-        product_data: {
-          name: "Foisorul numarul " + booking.foisor_mic,
-        },
-      },
-      quantity: booking.foisor_mic.length,
-    })
-  }
-
-  if (booking.sezlong > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 1500,
-        product_data: {
-          name: "Sezlonguri",
-        },
-      },
-      quantity: booking.sezlong,
-    })
-  }
-  if (booking.sedinta_foto) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 10000,
-        product_data: {
-          name: "Sedinta Foto ",
-        },
-      },
-      quantity: 1,
-    })
-  }
-  if (booking.foisor_mare) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 20000,
-        product_data: {
-          name: "Foisor Mare ",
-        },
-      },
-      quantity: 1,
-    })
-  }
-  if (booking.petrecere_privata) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 100000,
-        product_data: {
-          name: "Petrecere Privata",
-        },
-      },
-      quantity: 1,
-    })
-  }
-
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     payment_method_types: ["card"],

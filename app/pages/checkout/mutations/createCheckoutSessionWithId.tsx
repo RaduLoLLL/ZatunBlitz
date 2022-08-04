@@ -69,42 +69,6 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
       quantity: booking.casuta.length,
     })
   }
-  if (booking.sezlong > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 1500,
-        product_data: {
-          name: "Sezlonguri ",
-        },
-      },
-      quantity: booking.sezlong,
-    })
-  }
-  if (booking.sedinta_foto) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 10000,
-        product_data: {
-          name: "Sedinta Foto ",
-        },
-      },
-      quantity: 1,
-    })
-  }
-  if (booking.petrecere_privata) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 10000,
-        product_data: {
-          name: "Petrecere Privata",
-        },
-      },
-      quantity: 1,
-    })
-  }
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
