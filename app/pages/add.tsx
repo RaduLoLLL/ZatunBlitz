@@ -88,11 +88,11 @@ const Add: BlitzPage = () => {
             setState({ ...state, locPescuit: selectedOptionObj })
           }}
         />
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="">
           <button
             type="button"
             onClick={openModal}
-            className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Open dialog
           </button>
@@ -125,7 +125,7 @@ const Add: BlitzPage = () => {
                 >
                   <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <div className="mt-2">
-                      <Image src={"/Harta.jpeg"} layout="fill" />
+                      <Image src={"/Harta.jpeg"} width={1500} height={500} />
                     </div>
 
                     <div className="mt-4">
@@ -348,14 +348,6 @@ const Add: BlitzPage = () => {
                 >
                   <PescuitSelect />
                 </Suspense>
-
-                <button
-                  className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  type="button"
-                  data-modal-toggle="defaultModal"
-                >
-                  Vezi locurile disponibile
-                </button>
               </div>
 
               <div>
