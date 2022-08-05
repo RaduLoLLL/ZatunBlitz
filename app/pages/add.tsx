@@ -1,11 +1,10 @@
-import { BlitzPage, invoke, useRouter, useSession, getSession, Image } from "blitz"
-import { useState, useEffect, Suspense } from "react"
-import Multiselect from "multiselect-react-dropdown"
+import { BlitzPage, invoke, useRouter, getSession, Image } from "blitz"
+import { useState, useEffect, Suspense, Fragment } from "react"
+import { Dialog, Transition } from "@headlessui/react"
 import { UserInfo } from "app/pages"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import addDays from "date-fns/addDays"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
@@ -64,24 +63,87 @@ const Add: BlitzPage = () => {
     const options: option[] = []
     availableFishingSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
 
-    // const availableFishingSpots = totalFishingSpots.filter(
-    //   (o1) => !bookings.some((o2) => o1 === o2.loc_pescuit)
-    // )
+    const [isModalOpen, setIsModalOpen] = useState(true)
+    function closeModal() {
+      setIsModalOpen(false)
+    }
+
+    function openModal() {
+      setIsModalOpen(true)
+    }
+
     return (
-      <Select
-        isMulti
-        name="locPescuit"
-        //@ts-ignore
-        options={options}
-        value={state.locPescuit}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-        classNamePrefix="select"
-        placeholder="Alege locul preferat"
-        onChange={(selectedOptionObj) => {
+      <>
+        <Select
+          isMulti
+          name="locPescuit"
           //@ts-ignore
-          setState({ ...state, locPescuit: selectedOptionObj })
-        }}
-      />
+          options={options}
+          value={state.locPescuit}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege locul preferat"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, locPescuit: selectedOptionObj })
+          }}
+        />
+        <div className="fixed inset-0 flex items-center justify-center">
+          <button
+            type="button"
+            onClick={openModal}
+            className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          >
+            Open dialog
+          </button>
+        </div>
+
+        <Transition appear show={isModalOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="mt-2">
+                      <Image src={"/Harta.jpeg"} layout="fill" />
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Revino la locuri
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+      </>
     )
   }
 
@@ -294,47 +356,6 @@ const Add: BlitzPage = () => {
                 >
                   Vezi locurile disponibile
                 </button>
-
-                <div
-                  id="defaultModal"
-                  tabIndex={-1}
-                  aria-hidden="true"
-                  className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full"
-                >
-                  <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                      <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                          Locuri de pescuit
-                        </h3>
-                        <button
-                          type="button"
-                          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                          data-modal-toggle="defaultModal"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="w-5 h-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                          <span className="sr-only">Close modal</span>
-                        </button>
-                      </div>
-
-                      <div className="p-6 space-y-6">
-                        <Image src={"/Harta.jpeg"} layout="fill" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div>
