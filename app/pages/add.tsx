@@ -63,7 +63,7 @@ const Add: BlitzPage = () => {
     const options: option[] = []
     availableFishingSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
 
-    const [isModalOpen, setIsModalOpen] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     function closeModal() {
       setIsModalOpen(false)
     }
@@ -88,13 +88,13 @@ const Add: BlitzPage = () => {
             setState({ ...state, locPescuit: selectedOptionObj })
           }}
         />
-        <div className="">
+        <div className="mt-6 flex justify-center">
           <button
             type="button"
             onClick={openModal}
             className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Open dialog
+            Vezi harta
           </button>
         </div>
 
@@ -123,12 +123,12 @@ const Add: BlitzPage = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <div className="mt-2">
-                      <Image src={"/Harta.jpeg"} width={1500} height={500} />
+                  <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="mt-2 flex justify-center">
+                      <Image src={"/Harta.png"} width={2000} height={600} alt="Harta cu locurile" />
                     </div>
 
-                    <div className="mt-4">
+                    <div className="mt-4 flex justify-center">
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
