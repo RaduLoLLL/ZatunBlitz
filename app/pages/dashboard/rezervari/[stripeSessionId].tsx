@@ -112,60 +112,6 @@ const Rezervare: BlitzPage = () => {
                 ) : (
                   <div></div>
                 )}
-
-                {booking?.sezlong ? (
-                  <div
-                    className="
-          flex
-          justify-between
-          items-center
-          w-full
-          py-5
-          border-b-2 border-gray-200
-        "
-                  >
-                    <p className="text-gray-400 ml-4">Sezlongul ( Nr. {booking.sezlong} )</p>
-                    <p className="text-black mr-4"> 15 Lei</p>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-
-                {booking?.sedinta_foto ? (
-                  <div
-                    className="
-          flex
-          justify-between
-          items-center
-          w-full
-          py-5
-          border-b-2 border-gray-200
-        "
-                  >
-                    <p className="text-gray-400 ml-4">Sedinta Foto</p>
-                    <p className="text-black mr-4"> 100 Lei</p>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-
-                {booking?.petrecere_privata ? (
-                  <div
-                    className="
-          flex
-          justify-between
-          items-center
-          w-full
-          py-5
-          border-b-2 border-gray-200
-        "
-                  >
-                    <p className="text-gray-400 ml-4">Petrecere Privata</p>
-                    <p className="text-black mr-4"> 200 Lei</p>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
               </div>
               <div
                 className="
