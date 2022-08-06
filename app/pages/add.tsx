@@ -168,22 +168,101 @@ const Add: BlitzPage = () => {
     }
 
     const options: option[] = []
-    availableCasuta.map((spot) => options.push({ value: spot, label: spot.toString() }))
+    const blockedSpots: Number[] = [2]
+    availableCasuta.map((spot) =>
+      blockedSpots.map(
+        (blockedSpot) =>
+          spot !== blockedSpot && options.push({ value: spot, label: spot.toString() })
+      )
+    )
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    function closeModal() {
+      setIsModalOpen(false)
+    }
+
+    function openModal() {
+      setIsModalOpen(true)
+    }
+
     return (
-      <Select
-        isMulti
-        name="locPescuit"
-        //@ts-ignore
-        options={options}
-        value={state.casuta}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-        classNamePrefix="select"
-        placeholder="Alege casuta preferata"
-        onChange={(selectedOptionObj) => {
+      <>
+        <Select
+          isMulti
+          name="locPescuit"
           //@ts-ignore
-          setState({ ...state, casuta: selectedOptionObj })
-        }}
-      />
+          options={options}
+          value={state.casuta}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege casuta preferata"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, casuta: selectedOptionObj })
+          }}
+        />
+
+        <div className="mt-6 flex justify-center">
+          <button
+            type="button"
+            onClick={openModal}
+            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Vezi harta
+          </button>
+        </div>
+
+        <Transition appear show={isModalOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="mt-2 flex justify-center">
+                      <Image
+                        src={"/HartaCasute.png"}
+                        width={1704}
+                        height={845}
+                        alt="Harta cu casutele"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Revino la locuri
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+      </>
     )
   }
 
