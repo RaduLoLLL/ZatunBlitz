@@ -240,7 +240,7 @@ const Add: BlitzPage = () => {
                   <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <div className="mt-2 flex justify-center">
                       <Image
-                        src={"/HartaCasute.png"}
+                        src={"/HartaCasute.PNG"}
                         width={1704}
                         height={845}
                         alt="Harta cu casutele"
