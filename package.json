@@ -47,6 +47,7 @@
     "qrcode.react": "3.0.1",
     "react": "18.0.0",
     "react-burger-menu": "3.0.6",
+    "react-cookie-consent": "8.0.1",
     "react-corner-ribbon": "0.0.5",
     "react-datepicker": "4.7.0",
     "react-dom": "18.0.0",

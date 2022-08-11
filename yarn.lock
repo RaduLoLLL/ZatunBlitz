@@ -6731,6 +6731,11 @@
   "resolved" "https://registry.npmjs.org/jose/-/jose-4.8.1.tgz"
   "version" "4.8.1"
 
+"js-cookie@^2.2.1":
+  "integrity" "sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ=="
+  "resolved" "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz"
+  "version" "2.2.1"
+
 "js-sha3@0.8.0":
   "integrity" "sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q=="
   "resolved" "https://registry.npmjs.org/js-sha3/-/js-sha3-0.8.0.tgz"
@@ -9031,6 +9036,13 @@
     "eve" "~0.5.1"
     "prop-types" "^15.7.2"
     "snapsvg-cjs" "0.0.6"
+
+"react-cookie-consent@8.0.1":
+  "integrity" "sha512-4A2jzPQDFfBhtxIz4hYX+vJ0QnOknGdOXpEoetXzgwUrMtxVJVow8YgBsGerNt5rJI7WhKkHwr8LmxekxgVejg=="
+  "resolved" "https://registry.npmjs.org/react-cookie-consent/-/react-cookie-consent-8.0.1.tgz"
+  "version" "8.0.1"
+  dependencies:
+    "js-cookie" "^2.2.1"
 
 "react-corner-ribbon@0.0.5":
   "integrity" "sha512-L7kqpzWm/kY+/6cS9RpTdTVy0N1qajmOvJInkDEKipNE8Lm7C6VeNKgBrO74UMxCYCYpzvWQdgFzoWRYlr8+zw=="

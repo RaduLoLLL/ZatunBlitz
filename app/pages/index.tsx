@@ -1,4 +1,5 @@
 import { BlitzPage, getSession, Head, Link, Routes } from "blitz"
+import CookieConsent from "react-cookie-consent"
 
 import Navbar from "./components/Navbar"
 
@@ -106,6 +107,15 @@ const Home: BlitzPage = () => {
             </Link>
           </div>
         </div>
+        <CookieConsent
+          location="bottom"
+          cookieName="cookies"
+          expires={999}
+          overlay
+          buttonText={"Sunt de acord"}
+        >
+          Acest site folosește cookies.
+        </CookieConsent>
       </div>
     </>
   )
