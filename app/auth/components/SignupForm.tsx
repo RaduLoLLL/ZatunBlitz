@@ -41,7 +41,7 @@ export const SignupForm = (props: SignupFormProps) => {
       >
         <div className="py-6 mx-8">
           <div className="flex justify-center ">
-            <Image src="/Logo2.svg" width={400} height={300} />
+            <Image src="/Logo2.svg" width={400} height={300} alt="logo" />
           </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
@@ -99,6 +99,25 @@ export const SignupForm = (props: SignupFormProps) => {
               type="password"
               className="inputs"
             />
+            <div className="flex  mb-4">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value=""
+                required
+                className="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="default-checkbox"
+                className="ml-2 text-sm  text-white dark:text-gray-300 text-left"
+              >
+                Sunt de acord cu prelucrarea datelor mele personale, cu Termenii si Conditiile de
+                utilizare si cu Politica privind Protectia datelor cu caracter personal.{" "}
+                <Link href={Routes.TC()}>
+                  <a className="font-bold text-blue-500">Citeste termenii si conditiile</a>
+                </Link>
+              </label>
+            </div>
             <div className="flex justify-between mx-5">
               <label className="mr-2">Ai deja un cont?</label>
               <Link href={Routes.LoginPage()}>
@@ -111,82 +130,6 @@ export const SignupForm = (props: SignupFormProps) => {
         </div>
       </div>
     </section>
-
-    // <div>
-    //   <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
-    //     <div className="relative sm:max-w-sm w-full">
-    //       <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
-    //       <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
-    //       <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
-    //         <label
-    //           htmlFor=""
-    //           className="block mt-3 text-sm text-gray-700 text-center font-semibold"
-    //         >
-    //           Create an account
-    //         </label>
-
-    // <Form
-    //   submitText="Create Account"
-    //   schema={Signup}
-    //   initialValues={{ email: "", password: "" }}
-    //   onSubmit={async (values) => {
-    //     try {
-    //       await signupMutation(values)
-    //       props.onSuccess?.()
-    //     } catch (error: any) {
-    //       if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-    //         // This error comes from Prisma
-    //         return { email: "This email is already being used" }
-    //       } else {
-    //         return { [FORM_ERROR]: error.toString() }
-    //       }
-    //     }
-    //   }}
-    // >
-    //   <LabeledTextField
-    //     name="name"
-    //     label="Name"
-    //     placeholder="Name"
-    //     className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
-    //   />
-    //   <LabeledTextField
-    //     name="surname"
-    //     label="Surname"
-    //     placeholder="Surname"
-    //     className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
-    //   />
-    //   <LabeledTextField
-    //     name="phone"
-    //     label="Phone"
-    //     placeholder="Phone"
-    //     className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
-    //   />
-    //   <LabeledTextField
-    //     name="email"
-    //     label="Email"
-    //     placeholder="Email"
-    //     className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
-    //   />
-    //   <LabeledTextField
-    //     name="password"
-    //     label="Password"
-    //     placeholder="Password"
-    //     type="password"
-    //     className="block w-full p-4 text-lg outline-none rounded-sm bg-black border-none"
-    //   />
-    //   <div className="flex justify-between">
-    //     <label className="mr-2">Already have an accout?</label>
-    //     <Link href={Routes.LoginPage()}>
-    //       <a className="text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-    //         Log In
-    //       </a>
-    //     </Link>
-    //   </div>
-    // </Form>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   )
 }
 

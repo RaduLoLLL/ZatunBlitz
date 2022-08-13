@@ -41,7 +41,7 @@ export const LoginForm = (props: LoginFormProps) => {
       >
         <div className="py-6 mx-8">
           <div className="flex justify-center">
-            <Image src="/Logo2.svg" width={400} height={300} />
+            <Image src="/Logo2.svg" width={400} height={300} alt="Logo" />
           </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
@@ -98,6 +98,7 @@ export const LoginForm = (props: LoginFormProps) => {
               type="password"
               className="inputs"
             />
+
             <div className="flex justify-between mx-5">
               <Link href={Routes.ForgotPasswordPage()}>
                 <a className="text-sm text-gray-100 hover:text-gray-400">Ai uitat parola?</a>

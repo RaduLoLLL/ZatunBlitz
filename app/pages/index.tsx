@@ -25,18 +25,6 @@ export const UserInfo = () => {
 const Home: BlitzPage = () => {
   return (
     <>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Josefin+Slab&display=swap"
-          rel="stylesheet"
-        ></link>
-      </Head>
       <div className="container min-w-full">
         <div className="block md:flex md:min-h-screen">
           <div
