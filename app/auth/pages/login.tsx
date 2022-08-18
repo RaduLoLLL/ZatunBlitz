@@ -8,22 +8,7 @@ const LoginPage: BlitzPage = () => {
 
   return (
     <div className="">
-      <LoginForm
-        onSuccess={(_user) => {
-          const next = router.query.next
-            ? decodeURIComponent(router.query.next as string)
-            : "/rezervarile-mele"
-          const adminNext = router.query.next
-            ? decodeURIComponent(router.query.next as string)
-            : "/dashboard"
-
-          if (session.role == "ADMIN") {
-            router.push(adminNext)
-          } else {
-            router.push(next)
-          }
-        }}
-      />
+      <LoginForm />
     </div>
   )
 }

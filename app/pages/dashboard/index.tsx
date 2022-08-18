@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import { BlitzPage, useQuery, Link, Routes, getSession } from "blitz"
 import format from "date-fns/format"
 import getLast7DaysBookings from "./queries/getLast7DaysBookgins"
-
+import getLocalBooking from "./queries/getLocalBookings"
 import getBookingsBetween from "./queries/getBookingsBetween"
 import getLast7DaysUsers from "./queries/getLast7DaysUsers"
 import getUsersBetween from "./queries/getUsersBetween"
@@ -17,6 +18,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts"
+import getLocalLast7Days from "./queries/getLocalLast7Days"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -24,7 +26,7 @@ export const getServerSideProps = async ({ req, res }) => {
   if (session.role != "ADMIN") {
     return {
       redirect: {
-        destination: "/",
+        destination: "/login",
         permanent: false,
       },
     }
@@ -40,7 +42,7 @@ const Chart = () => {
   bookings.map((booking) => {
     data.push({ data: format(booking.starts_at, "dd.MM.yyyy"), total: booking.total_price })
   })
-  console.log(data)
+
   return (
     <>
       <ResponsiveContainer width={700} height={400} className="hidden md:block">
@@ -160,6 +162,45 @@ const NumarRezervari = () => {
             clipRule="evenodd"
           ></path>
         </svg>
+      </div>
+    </>
+  )
+}
+
+const RezervariDirecte = () => {
+  const result = useQuery(getLocalBooking, undefined)
+  const bookings = result[0]
+
+  return (
+    <>
+      <div className="flex-shrink-0">
+        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+          {bookings.length}
+        </span>
+        <h3 className="text-base font-normal text-gray-500">
+          Rezervari directe in aceasta saptamana
+        </h3>
+      </div>
+    </>
+  )
+}
+
+const IncasariDirecte = () => {
+  const result = useQuery(getLocalLast7Days, undefined)
+  const bookings = result[0]
+
+  let TotalPrice = 0
+  bookings.map((booking, i) => {
+    TotalPrice += booking.total_price
+  })
+
+  return (
+    <>
+      <div className="flex-shrink-0">
+        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+          {TotalPrice} Lei
+        </span>
+        <h3 className="text-base font-normal text-gray-500">Incasati Direct</h3>
       </div>
     </>
   )
@@ -303,6 +344,35 @@ const Dashboard: BlitzPage = () => {
                         }
                       >
                         <NumarUseri />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
+                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                    <div className="flex items-center">
+                      <Suspense
+                        fallback={
+                          <div className="min-h-screen flex justify-center items-center">
+                            <div className="ping"></div>
+                          </div>
+                        }
+                      >
+                        <RezervariDirecte />
+                      </Suspense>
+                    </div>
+                  </div>
+                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                    <div className="flex items-center">
+                      <Suspense
+                        fallback={
+                          <div className="min-h-screen flex justify-center items-center">
+                            <div className="ping"></div>
+                          </div>
+                        }
+                      >
+                        <IncasariDirecte />
                       </Suspense>
                     </div>
                   </div>
