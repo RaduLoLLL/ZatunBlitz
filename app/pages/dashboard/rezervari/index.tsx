@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import Sidebar from "../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"
+import { format } from "date-fns"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -36,6 +37,12 @@ const Rezervari: BlitzPage = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Data
+              </th>
               <th
                 scope="col"
                 className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -80,6 +87,15 @@ const Rezervari: BlitzPage = () => {
               bookings?.map((booking, i) => {
                 return (
                   <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {format(booking.starts_at, "dd.MM.yyyy")}
+                    </td>
                     <td
                       className={
                         i % 2

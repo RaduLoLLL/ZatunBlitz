@@ -5,6 +5,7 @@ import { UserInfo } from "app/pages"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import addDays from "date-fns/addDays"
+
 import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
@@ -264,11 +265,6 @@ const Add: BlitzPage = () => {
         </Transition>
       </>
     )
-  }
-
-  // Date state handler
-  const handleDate = (date) => {
-    setStartDate(date)
   }
 
   // Update the price as soon as any of the options changed
