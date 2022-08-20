@@ -8,7 +8,7 @@ import { Dialog, Transition } from "@headlessui/react"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "VERIFICARE") {
+  if (session.role != "ADMIN") {
     return {
       redirect: {
         destination: "/",
@@ -246,6 +246,7 @@ const VerificareBilet: BlitzPage = () => {
                             <QrReader
                               onResult={(result, error) => {
                                 if (!!result) {
+                                  //@ts-ignore
                                   setQrData(result?.text)
                                 }
 
@@ -253,6 +254,7 @@ const VerificareBilet: BlitzPage = () => {
                                   console.info(error)
                                 }
                               }}
+                              //@ts-ignore
                               style={{ width: "100%" }}
                             />
                             <p>{qrData}</p>
