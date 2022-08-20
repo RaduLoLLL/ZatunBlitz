@@ -277,7 +277,7 @@ function RezervarileMele({ bookings }) {
                           }
                         </>
                       ) : (
-                        <Link href={"/checkout?booking_id=" + booking.id}>
+                        <Link href={"/checkout?booking=" + booking.id}>
                           <button
                             type="button"
                             className="focus:outline-none mt-5 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:focus:ring-yellow-900"

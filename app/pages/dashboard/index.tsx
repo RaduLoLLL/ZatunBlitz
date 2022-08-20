@@ -149,7 +149,7 @@ const NumarRezervari = () => {
         <h3 className="text-base font-normal text-gray-500">Rezervari in aceasta saptamana</h3>
       </div>
       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-        {procent}%
+        {Math.round(procent)}%
         <svg
           className="w-5 h-5"
           fill="currentColor"

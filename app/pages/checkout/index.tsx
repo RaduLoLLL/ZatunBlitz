@@ -37,7 +37,7 @@ const getStripe = () => {
 
 const Checkout: BlitzPage = () => {
   const query = useRouterQuery()
-
+  console.log(query.booking)
   const [createCheckoutMutation, { error }] = useMutation(createCheckoutSession)
 
   if (error) {
@@ -55,7 +55,8 @@ const Checkout: BlitzPage = () => {
     })
   }
   const createCheckoutWithId = async () => {
-    const res = await invoke(createCheckoutSessionWithId, query.booking_id)
+    console.log("create", query.booking)
+    const res = await invoke(createCheckoutSessionWithId, query.booking)
     if (!res) {
       return
     }
@@ -66,7 +67,7 @@ const Checkout: BlitzPage = () => {
   }
 
   const Sumar = () => {
-    const booking = useLatestBooking(query.booking_id)
+    const booking = useLatestBooking(query.booking)
     const currentUser = useCurrentUser()
 
     if (booking?.userId != currentUser?.id) {
@@ -212,7 +213,7 @@ const Checkout: BlitzPage = () => {
                 w-full
               "
                 >
-                  {query.booking_id ? (
+                  {query.booking ? (
                     <button
                       onClick={createCheckoutWithId}
                       className="w-full bg-indigo-600 text-white px-2 py-2 rounded-md"
