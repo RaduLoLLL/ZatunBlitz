@@ -57,6 +57,7 @@ function RezervarileMele({ bookings }) {
       )
     }
     const downloadQrCode = () => {
+      //@ts-ignore
       let canvas = ref.current.querySelector("canvas")
       let image = canvas.toDataURL("image/png")
       console.log(image)
