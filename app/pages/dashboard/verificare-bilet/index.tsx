@@ -244,6 +244,7 @@ const VerificareBilet: BlitzPage = () => {
                         >
                           <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                             <QrReader
+                              constraints={{ facingMode: { exact: "environment" } }}
                               onResult={(result, error) => {
                                 if (!!result) {
                                   //@ts-ignore
@@ -257,7 +258,6 @@ const VerificareBilet: BlitzPage = () => {
                               }}
                               //@ts-ignore
                               style={{ width: "100%" }}
-                              constraints={{ facingMode: "enviroment" }}
                             />
                             <p>{state.sessionId}</p>
                           </Dialog.Panel>
