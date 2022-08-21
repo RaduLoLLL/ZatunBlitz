@@ -247,7 +247,8 @@ const VerificareBilet: BlitzPage = () => {
                               onResult={(result, error) => {
                                 if (!!result) {
                                   //@ts-ignore
-                                  setQrData(result?.text)
+                                  setState({ ...state, sessionId: result?.text })
+                                  closeModal()
                                 }
 
                                 if (!!error) {
@@ -256,8 +257,9 @@ const VerificareBilet: BlitzPage = () => {
                               }}
                               //@ts-ignore
                               style={{ width: "100%" }}
+                              constraints={{ facingMode: "enviroment" }}
                             />
-                            <p>{qrData}</p>
+                            <p>{state.sessionId}</p>
                           </Dialog.Panel>
                         </Transition.Child>
                       </div>

@@ -4,7 +4,7 @@ import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
 import { QRCodeCanvas } from "qrcode.react"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import db from "db"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -29,8 +29,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 function RezervarileMele({ bookings }) {
   const ref = useRef()
 
+  const [display, setDisplay] = useState(false)
+
   const DisplayBookings = () => {
-    const QrCode = (value: string) => {
+    const QrCode = ({ bookingId }: { bookingId: string }) => {
       return (
         <>
           <div className="flex items-center justify-center mt-6 bg-white">
@@ -45,8 +47,8 @@ function RezervarileMele({ bookings }) {
               <QRCodeCanvas
                 //@ts-ignore
                 id="qrCodeId"
-                size={300}
-                value={value}
+                size={500}
+                value={bookingId}
                 className="object-cover w-full aspect-square group-hover:scale-110 transition duration-300 ease-in-out"
               />
             </div>
@@ -54,13 +56,13 @@ function RezervarileMele({ bookings }) {
         </>
       )
     }
-    const downloadQrCode = (name: string) => {
-      //@ts-ignore
+    const downloadQrCode = () => {
       let canvas = ref.current.querySelector("canvas")
       let image = canvas.toDataURL("image/png")
+      console.log(image)
       let anchor = document.createElement("a")
       anchor.href = image
-      anchor.download = name + ".png"
+      anchor.download = "BiletZatun.png"
       document.body.appendChild(anchor)
       anchor.click()
       document.body.removeChild(anchor)
@@ -79,10 +81,15 @@ function RezervarileMele({ bookings }) {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-3">
-          {bookings.map((booking) => {
+          {bookings.map((booking, i) => {
             return (
               <>
-                <div className="p-10 max-w-md bg-white rounded-lg border shadow-md sm:p-12 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden">
+                <div
+                  className="p-10 max-w-md bg-white rounded-lg border shadow-md sm:p-12 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden"
+                  key={i}
+                  onMouseEnter={() => setDisplay(true)}
+                  onMouseLeave={() => setDisplay(false)}
+                >
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                       {format(booking.starts_at, "dd.MM.yyyy")}
