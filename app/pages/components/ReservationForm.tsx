@@ -1,10 +1,12 @@
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { invoke, useRouter, useSession } from "blitz"
-import { addDays } from "date-fns"
+import { addDays, subDays } from "date-fns"
 import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Select from "react-select"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 const ReservationForm = () => {
   //State for all options that will be added for the booking
@@ -22,7 +24,6 @@ const ReservationForm = () => {
     casuta: [],
     totalPrice: 0,
   })
-  const [availableSezlong, setAvailableSezlong] = useState(21)
   //Date state added separately
   const [startDate, setStartDate] = useState(new Date())
 
@@ -182,6 +183,7 @@ const ReservationForm = () => {
 
     toast.success("Rezervare adaugata cu succes")
     setState({ ...initialState })
+    setStartDate(new Date())
   }
 
   // State handler for everything but the price, that updates in the useEffect
@@ -204,6 +206,22 @@ const ReservationForm = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <h5 className="text-xl font-medium text-gray-900 ">Fa o rezervare noua</h5>
             <>
+              <div>
+                <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
+                  Alege Data
+                </label>
+                <div className="border-2 rounded">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    dateFormat="dd/MM/yyyy"
+                    includeDateIntervals={[
+                      { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },
+                    ]}
+                    className="cursor-pointer p-2"
+                  />
+                </div>
+              </div>
               <div>
                 <label htmlFor="intrare" className="block mb-2 text-sm font-medium text-gray-900 ">
                   Bilete Agrement

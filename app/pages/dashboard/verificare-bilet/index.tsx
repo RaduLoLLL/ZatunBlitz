@@ -1,14 +1,13 @@
-import { BlitzPage, getSession, Image, Link, useQuery, useRouterQuery } from "blitz"
+import { BlitzPage, getSession, Image, Link, Routes, useQuery, useRouterQuery } from "blitz"
 import { format } from "date-fns"
-import { Fragment, Suspense, useState } from "react"
+import { Suspense, useState } from "react"
+import Sidebar from "../components/Sidebar"
 import getBookings from "../queries/getBookings"
-import { QrReader } from "react-qr-reader"
-import { Dialog, Transition } from "@headlessui/react"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "PORTAR" && session.role != "ADMIN") {
     return {
       redirect: {
         destination: "/",
@@ -21,15 +20,6 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 const VerificareBilet: BlitzPage = () => {
-  const [qrData, setQrData] = useState("")
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  function closeModal() {
-    setIsModalOpen(false)
-  }
-
-  function openModal() {
-    setIsModalOpen(true)
-  }
   const router = useRouterQuery()
 
   const [state, setState] = useState({
@@ -42,8 +32,22 @@ const VerificareBilet: BlitzPage = () => {
 
   const DisplayBookings = () => {
     const bookings = useQuery(getBookings, state)[0]
+    console.log(bookings)
     return (
       <>
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex justify-center items-center">
+              <div className="ping"></div>
+            </div>
+          }
+        >
+          <Sidebar />
+        </Suspense>
+        <div
+          className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
+          id="sidebarBackdrop"
+        ></div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -69,66 +73,82 @@ const VerificareBilet: BlitzPage = () => {
                 scope="col"
                 className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
+                Intrari Confirmate
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Detalii
               </th>
             </tr>
           </thead>
 
           <tbody className="bg-white">
-            {
-              //@ts-ignore
-              bookings?.map((booking, i) => {
-                return (
-                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {format(booking.starts_at, "dd.MM.yyyy")}
-                    </td>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.name} {booking.User?.surname}
-                    </td>
+            {bookings?.map((booking, i) => {
+              return (
+                <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {format(booking.starts_at, "dd.MM.yyyy")}
+                  </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.User?.name} {booking.User?.surname}
+                  </td>
 
-                    <td
-                      className={
-                        booking.paid
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
-                      }
-                    >
-                      {booking.paid ? "Platit" : "Neplatit"}
-                    </td>
+                  <td
+                    className={
+                      booking.paid
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                    }
+                  >
+                    {booking.paid ? "Platit" : "Neplatit"}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
-                        <button
-                          type="button"
-                          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                          Detalii
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                )
-              })
-            }
+                  <td
+                    className={
+                      booking.paid
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                    }
+                  >
+                    {`${booking.intrari_confirmate}/${
+                      booking.intrare_complex +
+                      (booking.loc_pescuit.length > 0 || booking.casuta.length > 0 ? 1 : 0)
+                    }`}
+                  </td>
+
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    <Link href={`/dashboard/verificare-bilet/${booking.stripeSessionId}`}>
+                      <button
+                        type="button"
+                        className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      >
+                        Detalii
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </>
@@ -207,65 +227,7 @@ const VerificareBilet: BlitzPage = () => {
                     />
                   </div>
                 </div>
-                <div className="mt-6 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={openModal}
-                    className="w-full block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Scaneaza Biletul
-                  </button>
-                </div>
 
-                <Transition appear show={isModalOpen} as={Fragment}>
-                  <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                      <div className="flex min-h-full items-center justify-center p-4 text-center">
-                        <Transition.Child
-                          as={Fragment}
-                          enter="ease-out duration-300"
-                          enterFrom="opacity-0 scale-95"
-                          enterTo="opacity-100 scale-100"
-                          leave="ease-in duration-200"
-                          leaveFrom="opacity-100 scale-100"
-                          leaveTo="opacity-0 scale-95"
-                        >
-                          <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                            <QrReader
-                              constraints={{ facingMode: { exact: "environment" } }}
-                              onResult={(result, error) => {
-                                if (!!result) {
-                                  //@ts-ignore
-                                  setState({ ...state, sessionId: result?.text })
-                                  closeModal()
-                                }
-
-                                if (!!error) {
-                                  console.info(error)
-                                }
-                              }}
-                              //@ts-ignore
-                              style={{ width: "100%" }}
-                            />
-                            <p>{state.sessionId}</p>
-                          </Dialog.Panel>
-                        </Transition.Child>
-                      </div>
-                    </div>
-                  </Dialog>
-                </Transition>
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                   <Suspense
                     fallback={
@@ -285,5 +247,7 @@ const VerificareBilet: BlitzPage = () => {
     </>
   )
 }
+
+VerificareBilet.authenticate = { redirectTo: Routes.Home() }
 
 export default VerificareBilet

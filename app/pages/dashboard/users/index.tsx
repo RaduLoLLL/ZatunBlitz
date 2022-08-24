@@ -6,7 +6,7 @@ import { Suspense } from "react"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
     return {
       redirect: {
         destination: "/",
@@ -162,4 +162,5 @@ const Users: BlitzPage = () => {
     </>
   )
 }
+Users.authenticate = { redirectTo: Routes.Home() }
 export default Users

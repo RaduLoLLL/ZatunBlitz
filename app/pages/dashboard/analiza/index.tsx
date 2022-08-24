@@ -1,4 +1,4 @@
-import { BlitzPage, getSession, useQuery } from "blitz"
+import { BlitzPage, getSession, Routes, useQuery } from "blitz"
 import { Suspense, useState } from "react"
 import Sidebar from "../components/Sidebar"
 import DatePicker from "react-datepicker"
@@ -11,7 +11,7 @@ import getBookingsByDateOnline from "./queries/getBookingsByDateOnline"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
     return {
       redirect: {
         destination: "/",
@@ -209,4 +209,6 @@ const Analiza: BlitzPage = () => {
     </div>
   )
 }
+
+Analiza.authenticate = { redirectTo: Routes.Home() }
 export default Analiza

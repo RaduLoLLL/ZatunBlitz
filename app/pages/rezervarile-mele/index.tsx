@@ -3,8 +3,6 @@ import { Link, getSession, Routes, GetServerSideProps } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
-import { QRCodeCanvas } from "qrcode.react"
-import { useRef, useState } from "react"
 import db from "db"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -27,48 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 }
 
 function RezervarileMele({ bookings }) {
-  const ref = useRef()
-
-  const [display, setDisplay] = useState(false)
-
   const DisplayBookings = () => {
-    const QrCode = ({ bookingId }: { bookingId: string }) => {
-      return (
-        <>
-          <div className="flex items-center justify-center mt-6 bg-white">
-            <div className="overflow-hidden aspect-square bg-red-400 cursor-pointer rounded-xl relative group">
-              <div className="rounded-xl z-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out cursor-pointer absolute from-black  to-transparent bg-gradient-to-t inset-x-0 -bottom-2 pt-30 text-white flex items-end">
-                <div>
-                  <div className="  p-4 space-y-3 text-xl group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pb-10  transition duration-300 ease-in-out">
-                    <div className="font-bold">Descarca Biletul</div>
-                  </div>
-                </div>
-              </div>
-              <QRCodeCanvas
-                //@ts-ignore
-                id="qrCodeId"
-                size={500}
-                value={bookingId}
-                className="object-cover w-full aspect-square group-hover:scale-110 transition duration-300 ease-in-out"
-              />
-            </div>
-          </div>
-        </>
-      )
-    }
-    const downloadQrCode = () => {
-      //@ts-ignore
-      let canvas = ref.current.querySelector("canvas")
-      let image = canvas.toDataURL("image/png")
-      console.log(image)
-      let anchor = document.createElement("a")
-      anchor.href = image
-      anchor.download = "BiletZatun.png"
-      document.body.appendChild(anchor)
-      anchor.click()
-      document.body.removeChild(anchor)
-    }
-
     return (
       <div className="mb-12">
         <div className="flex items-center justify-center">
@@ -88,8 +45,6 @@ function RezervarileMele({ bookings }) {
                 <div
                   className="p-10 max-w-md bg-white rounded-lg border shadow-md sm:p-12 dark:bg-gray-800 dark:border-gray-700 mt-10 mx-auto relative overflow-hidden"
                   key={i}
-                  onMouseEnter={() => setDisplay(true)}
-                  onMouseLeave={() => setDisplay(false)}
                 >
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
@@ -261,26 +216,15 @@ function RezervarileMele({ bookings }) {
                           {
                             //@ts-ignore
 
-                            <div ref={ref} className="mt-5">
-                              <button
-                                onClick={() => {
-                                  //@ts-ignore
-                                  downloadQrCode(booking?.stripeSessionId)
-                                }}
-                                type="button"
-                                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                              >
-                                Descarca Biletul
-                              </button>
-                              {
-                                //@ts-ignore
-                              }
-                              <span className="hidden">
-                                {
-                                  //@ts-ignore
-                                  QrCode(booking.stripeSessionId)
-                                }
-                              </span>
+                            <div className="mt-5">
+                              <Link href={`/rezervarile-mele/${booking.stripeSessionId}`}>
+                                <button
+                                  type="button"
+                                  className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                >
+                                  Genereaza Biletul
+                                </button>
+                              </Link>
                             </div>
                           }
                         </>

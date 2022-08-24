@@ -23,10 +23,18 @@ import getLocalLast7Days from "./queries/getLocalLast7Days"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role === "USER") {
     return {
       redirect: {
         destination: "/login",
+        permanent: false,
+      },
+    }
+  }
+  if (session.role === "PORTAR") {
+    return {
+      redirect: {
+        destination: Routes.VerificareBilet(),
         permanent: false,
       },
     }
@@ -228,7 +236,15 @@ const Dashboard: BlitzPage = () => {
     <>
       <div>
         <div className="flex overflow-hidden bg-white pt-16">
-          <Sidebar />
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="ping"></div>
+              </div>
+            }
+          >
+            <Sidebar />
+          </Suspense>
           <div
             className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
             id="sidebarBackdrop"
@@ -395,4 +411,5 @@ const Dashboard: BlitzPage = () => {
     </>
   )
 }
+Dashboard.authenticate = { redirectTo: Routes.Home() }
 export default Dashboard

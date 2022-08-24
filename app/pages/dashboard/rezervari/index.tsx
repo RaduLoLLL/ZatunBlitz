@@ -1,4 +1,4 @@
-import { BlitzPage, useQuery, getSession, useRouterQuery, Link } from "blitz"
+import { BlitzPage, useQuery, getSession, useRouterQuery, Link, Routes } from "blitz"
 import { Suspense } from "react"
 import Sidebar from "../components/Sidebar"
 import getBookings from "../queries/getBookings"
@@ -8,7 +8,7 @@ import { format } from "date-fns"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
     return {
       redirect: {
         destination: "/",
@@ -272,4 +272,6 @@ const Rezervari: BlitzPage = () => {
     </>
   )
 }
+
+Rezervari.authenticate = { redirectTo: Routes.Home() }
 export default Rezervari

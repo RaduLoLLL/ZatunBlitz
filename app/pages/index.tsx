@@ -1,4 +1,4 @@
-import { BlitzPage, getSession, Head, Link, Routes } from "blitz"
+import { BlitzPage, getSession, Head, Link, Routes, useSession } from "blitz"
 import CookieConsent from "react-cookie-consent"
 
 import Navbar from "./components/Navbar"
@@ -6,10 +6,18 @@ import Navbar from "./components/Navbar"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role === "ADMIN") {
+  if (session?.role === "ADMIN" || session.role === "CONTABIL") {
     return {
       redirect: {
         destination: "/dashboard",
+        permanent: true,
+      },
+    }
+  }
+  if (session?.role === "PORTAR") {
+    return {
+      redirect: {
+        destination: Routes.VerificareBilet(),
         permanent: true,
       },
     }

@@ -10,6 +10,7 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
+import { subDays } from "date-fns"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -37,9 +38,9 @@ const Add: BlitzPage = () => {
     casuta: [],
     totalPrice: 0,
   })
-  const [availableSezlong, setAvailableSezlong] = useState(21)
+
   //Date state added separately
-  const [startDate, setStartDate] = useState(addDays(new Date(), 1))
+  const [startDate, setStartDate] = useState(new Date())
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -364,7 +365,9 @@ const Add: BlitzPage = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="dd/MM/yyyy"
-                    includeDateIntervals={[{ start: new Date(), end: addDays(new Date(), 30) }]}
+                    includeDateIntervals={[
+                      { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },
+                    ]}
                     className="cursor-pointer p-2"
                   />
                 </div>
