@@ -128,7 +128,7 @@ const VerificareRezervare: BlitzPage = () => {
               </div>
             </div>
           </div>
-        </div>{" "}
+        </div>
       </>
     )
   }

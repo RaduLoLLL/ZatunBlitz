@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import { BlitzPage, useQuery, Link, Routes, getSession } from "blitz"
+import { BlitzPage, useQuery, Routes, getSession } from "blitz"
 import format from "date-fns/format"
 import getLast7DaysBookings from "./queries/getLast7DaysBookgins"
 import getLatestBookings from "./queries/getLatestBookings"
