@@ -1,4 +1,4 @@
-import { BlitzPage, useQuery } from "blitz"
+import { BlitzPage, getSession, Routes, useQuery } from "blitz"
 import { Suspense, useState } from "react"
 import Sidebar from "../components/Sidebar"
 import DatePicker from "react-datepicker"
@@ -7,6 +7,21 @@ import subDays from "date-fns/subDays"
 import { format } from "date-fns"
 import getBookingsByDate from "./queries/getBookingsByDate"
 import getBookingsByDateOnline from "./queries/getBookingsByDateOnline"
+
+export const getServerSideProps = async ({ req, res }) => {
+  const session = await getSession(req, res)
+
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return { props: {} }
+}
 
 const Analiza: BlitzPage = () => {
   const [startDate, setStartDate] = useState(new Date())
@@ -194,4 +209,6 @@ const Analiza: BlitzPage = () => {
     </div>
   )
 }
+
+Analiza.authenticate = { redirectTo: Routes.Home() }
 export default Analiza

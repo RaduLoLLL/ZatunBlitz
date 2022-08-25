@@ -1,14 +1,13 @@
-import { BlitzPage, useQuery, getSession, useRouterQuery, Link, Routes } from "blitz"
-import { Suspense } from "react"
+import { BlitzPage, getSession, Image, Link, Routes, useQuery, useRouterQuery } from "blitz"
+import { format } from "date-fns"
+import { Suspense, useState } from "react"
 import Sidebar from "../components/Sidebar"
 import getBookings from "../queries/getBookings"
-import { useState } from "react"
-import { format } from "date-fns"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN" && session.role != "CONTABIL") {
+  if (session.role != "PORTAR" && session.role != "ADMIN") {
     return {
       redirect: {
         destination: "/",
@@ -20,7 +19,7 @@ export const getServerSideProps = async ({ req, res }) => {
   return { props: {} }
 }
 
-const Rezervari: BlitzPage = () => {
+const VerificareBilet: BlitzPage = () => {
   const router = useRouterQuery()
 
   const [state, setState] = useState({
@@ -30,10 +29,25 @@ const Rezervari: BlitzPage = () => {
     email: router.email,
     phone: router.phone,
   })
+
   const DisplayBookings = () => {
     const bookings = useQuery(getBookings, state)[0]
+    console.log(bookings)
     return (
       <>
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex justify-center items-center">
+              <div className="ping"></div>
+            </div>
+          }
+        >
+          <Sidebar />
+        </Suspense>
+        <div
+          className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
+          id="sidebarBackdrop"
+        ></div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -53,25 +67,13 @@ const Rezervari: BlitzPage = () => {
                 scope="col"
                 className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Email
-              </th>
-              <th
-                scope="col"
-                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Numar de telefon
-              </th>
-              <th
-                scope="col"
-                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Cost Total
-              </th>
-              <th
-                scope="col"
-                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
                 Status Rezervare
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Intrari Confirmate
               </th>
               <th
                 scope="col"
@@ -81,91 +83,72 @@ const Rezervari: BlitzPage = () => {
               </th>
             </tr>
           </thead>
+
           <tbody className="bg-white">
-            {
-              //@ts-ignore
-              bookings?.map((booking, i) => {
-                return (
-                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {format(booking.starts_at, "dd.MM.yyyy")}
-                    </td>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.name} {booking.User?.surname}
-                    </td>
+            {bookings?.map((booking, i) => {
+              return (
+                <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {format(booking.starts_at, "dd.MM.yyyy")}
+                  </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.User?.name} {booking.User?.surname}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.email}
-                    </td>
+                  <td
+                    className={
+                      booking.paid
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                    }
+                  >
+                    {booking.paid ? "Platit" : "Neplatit"}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.phone}
-                    </td>
+                  <td
+                    className={
+                      booking.paid
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                    }
+                  >
+                    {`${booking.intrari_confirmate}/${
+                      booking.intrare_complex +
+                      (booking.loc_pescuit.length > 0 || booking.casuta.length > 0 ? 1 : 0)
+                    }`}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.total_price}
-                    </td>
-
-                    <td
-                      className={
-                        booking.paid
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
-                      }
-                    >
-                      {booking.paid ? "Platit" : "Neplatit"}
-                    </td>
-
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
-                        <button
-                          type="button"
-                          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                          Detalii
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                )
-              })
-            }
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    <Link href={`/dashboard/verificare-bilet/${booking.stripeSessionId}`}>
+                      <button
+                        type="button"
+                        className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      >
+                        Detalii
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </>
@@ -181,15 +164,6 @@ const Rezervari: BlitzPage = () => {
   return (
     <>
       <div className="flex overflow-hidden bg-white pt-16">
-        <Suspense
-          fallback={
-            <div className="min-h-screen flex justify-center items-center">
-              <div className="ping"></div>
-            </div>
-          }
-        >
-          <Sidebar />
-        </Suspense>
         <div
           className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
           id="sidebarBackdrop"
@@ -253,6 +227,7 @@ const Rezervari: BlitzPage = () => {
                     />
                   </div>
                 </div>
+
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                   <Suspense
                     fallback={
@@ -273,5 +248,6 @@ const Rezervari: BlitzPage = () => {
   )
 }
 
-Rezervari.authenticate = { redirectTo: Routes.Home() }
-export default Rezervari
+VerificareBilet.authenticate = { redirectTo: Routes.Home() }
+
+export default VerificareBilet

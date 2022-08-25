@@ -23,10 +23,18 @@ import getLocalLast7Days from "./queries/getLocalLast7Days"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role === "USER") {
     return {
       redirect: {
         destination: "/login",
+        permanent: false,
+      },
+    }
+  }
+  if (session.role === "PORTAR") {
+    return {
+      redirect: {
+        destination: Routes.VerificareBilet(),
         permanent: false,
       },
     }
@@ -149,7 +157,7 @@ const NumarRezervari = () => {
         <h3 className="text-base font-normal text-gray-500">Rezervari in aceasta saptamana</h3>
       </div>
       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-        {procent}%
+        {Math.round(procent)}%
         <svg
           className="w-5 h-5"
           fill="currentColor"
@@ -228,7 +236,15 @@ const Dashboard: BlitzPage = () => {
     <>
       <div>
         <div className="flex overflow-hidden bg-white pt-16">
-          <Sidebar />
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="ping"></div>
+              </div>
+            }
+          >
+            <Sidebar />
+          </Suspense>
           <div
             className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
             id="sidebarBackdrop"
@@ -395,4 +411,5 @@ const Dashboard: BlitzPage = () => {
     </>
   )
 }
+Dashboard.authenticate = { redirectTo: Routes.Home() }
 export default Dashboard

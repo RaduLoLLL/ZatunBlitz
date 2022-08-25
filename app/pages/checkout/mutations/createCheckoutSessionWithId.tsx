@@ -10,6 +10,7 @@ const stripe = new Stripe(
 )
 
 export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) {
+  console.log("mutation", booking_id)
   const booking = await db.booking.findFirst({
     where: { userId: ctx.session.userId, paid: false, id: parseInt(booking_id) },
     orderBy: {
@@ -18,19 +19,33 @@ export default async function createCheckoutSessionWithId(booking_id, ctx: Ctx) 
   })
   if (!booking) return
 
-  const productData = [
-    {
+  console.log("booking", booking)
+
+  type productDatatype = {
+    price_data: {
+      currency: string
+      unit_amount: number
+      product_data: {
+        name: string
+      }
+    }
+    quantity: number
+  }
+
+  const productData: productDatatype[] = []
+
+  if (booking.intrare_complex > 0) {
+    productData.push({
       price_data: {
         currency: "ron",
-        unit_amount: 2000,
+        unit_amount: 1000,
         product_data: {
           name: "Intrare Complex",
         },
       },
       quantity: booking.intrare_complex,
-    },
-  ]
-
+    })
+  }
   if (booking.loc_parcare > 0) {
     productData.push({
       price_data: {

@@ -2,9 +2,10 @@ import db from "db"
 
 export default async function getBookings(params) {
   if (params.sessionId) {
-    return db.booking.findFirst({
+    return db.booking.findMany({
       where: { stripeSessionId: { equals: params.sessionId } },
       take: 5,
+      include: { User: true },
     })
   }
 

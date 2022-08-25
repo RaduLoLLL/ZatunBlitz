@@ -1,4 +1,4 @@
-import { BlitzPage, getSession } from "blitz"
+import { BlitzPage, getSession, Routes } from "blitz"
 import Sidebar from "../components/Sidebar"
 
 import { Suspense } from "react"
@@ -7,7 +7,7 @@ import ReservationForm from "app/pages/components/ReservationForm"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "PORTAR") {
     return {
       redirect: {
         destination: "/",
@@ -43,4 +43,5 @@ const Adauga: BlitzPage = () => {
     </>
   )
 }
+Adauga.authenticate = { redirectTo: Routes.Home() }
 export default Adauga
