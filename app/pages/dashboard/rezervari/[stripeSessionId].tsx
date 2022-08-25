@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
     return {
       redirect: {
         destination: "/",
