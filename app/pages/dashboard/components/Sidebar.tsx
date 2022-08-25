@@ -1,4 +1,4 @@
-import { Link, Router, Routes, useMutation, useSession } from "blitz"
+import { Link, Routes, useMutation, useSession } from "blitz"
 import logout from "app/auth/mutations/logout"
 
 const Sidebar = () => {

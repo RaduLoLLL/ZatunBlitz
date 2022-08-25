@@ -135,8 +135,22 @@ const VerificareRezervare: BlitzPage = () => {
 
   return (
     <>
-      <Sidebar />
-      <Suspense fallback="...">
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
+        <Sidebar />
+      </Suspense>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
         <DisplayBooking />
       </Suspense>
     </>
