@@ -1,5 +1,5 @@
 import { BlitzPage, getSession, Routes } from "blitz"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 
 import { Suspense } from "react"
 import ReservationForm from "app/pages/components/ReservationForm"

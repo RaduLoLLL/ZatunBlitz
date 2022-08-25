@@ -1,6 +1,6 @@
 import { BlitzPage, getSession, Routes, useQuery } from "blitz"
 import { Suspense, useState } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import subDays from "date-fns/subDays"

@@ -7,7 +7,7 @@ import getLocalBooking from "./queries/getLocalBookings"
 import getBookingsBetween from "./queries/getBookingsBetween"
 import getLast7DaysUsers from "./queries/getLast7DaysUsers"
 import getUsersBetween from "./queries/getUsersBetween"
-import Sidebar from "./components/Sidebar"
+import Sidebar from "../../components/Sidebar"
 
 import { Suspense } from "react"
 import {

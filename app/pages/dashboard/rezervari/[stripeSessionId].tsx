@@ -1,7 +1,7 @@
 import { useParam, useQuery, BlitzPage, getSession } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
 import { Suspense } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
