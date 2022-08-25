@@ -1,4 +1,4 @@
-import { BlitzPage, useRouterQuery, invoke, useQuery, Router, Routes } from "blitz"
+import { BlitzPage, useRouterQuery, invoke, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import confirmOrderPaid from "./mutations/confirmOrderPaid"
 import { QRCodeCanvas } from "qrcode.react"
