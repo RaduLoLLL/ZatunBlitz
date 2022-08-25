@@ -135,7 +135,15 @@ const Rezervare: BlitzPage = () => {
 
   return (
     <>
-      <Sidebar />
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
+        <Sidebar />
+      </Suspense>
       <Suspense fallback="...">
         <DisplayBooking />
       </Suspense>
