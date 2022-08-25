@@ -1,7 +1,7 @@
-import { BlitzPage, getSession, Image, Link, Routes, useQuery, useRouterQuery } from "blitz"
+import { BlitzPage, getSession, Link, Routes, useQuery, useRouterQuery } from "blitz"
 import { format } from "date-fns"
 import { Suspense, useState } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 import getBookings from "../queries/getBookings"
 
 export const getServerSideProps = async ({ req, res }) => {

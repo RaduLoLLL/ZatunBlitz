@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import { BlitzPage, useQuery, Link, Routes, getSession } from "blitz"
+import { BlitzPage, useQuery, Routes, getSession } from "blitz"
 import format from "date-fns/format"
 import getLast7DaysBookings from "./queries/getLast7DaysBookgins"
+import getLatestBookings from "./queries/getLatestBookings"
 import getLocalBooking from "./queries/getLocalBookings"
 import getBookingsBetween from "./queries/getBookingsBetween"
 import getLast7DaysUsers from "./queries/getLast7DaysUsers"
 import getUsersBetween from "./queries/getUsersBetween"
-import Sidebar from "./components/Sidebar"
+import Sidebar from "../../components/Sidebar"
 
 import { Suspense } from "react"
 import {
@@ -75,7 +76,7 @@ const Chart = () => {
 }
 
 const UltimeleRezervari = () => {
-  const result = useQuery(getLast7DaysBookings, undefined)
+  const result = useQuery(getLatestBookings, undefined)
   const bookings = result[0]
   return (
     <>
@@ -295,7 +296,7 @@ const Dashboard: BlitzPage = () => {
                       <div className="overflow-x-auto rounded-lg">
                         <div className="align-middle inline-block min-w-full">
                           <div className="shadow overflow-hidden sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-200">
+                            <table className="min-w-full divide-y divide-gray-200 overflow-auto ">
                               <thead className="bg-gray-50">
                                 <tr>
                                   <th

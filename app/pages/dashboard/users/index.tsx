@@ -1,5 +1,5 @@
 import { BlitzPage, useQuery, getSession, Link, Routes } from "blitz"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 import getAllUsers from "../queries/getAllUsers"
 import { Suspense } from "react"
 

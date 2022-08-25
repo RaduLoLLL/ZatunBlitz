@@ -1,12 +1,12 @@
 import { useParam, useQuery, BlitzPage, getSession } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
 import { Suspense } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL") {
     return {
       redirect: {
         destination: "/",
@@ -135,7 +135,15 @@ const Rezervare: BlitzPage = () => {
 
   return (
     <>
-      <Sidebar />
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
+        <Sidebar />
+      </Suspense>
       <Suspense fallback="...">
         <DisplayBooking />
       </Suspense>

@@ -1,6 +1,6 @@
 import { BlitzPage, useQuery, getSession, useRouterQuery, Link, Routes } from "blitz"
 import { Suspense } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"
 import { format } from "date-fns"

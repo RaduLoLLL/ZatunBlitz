@@ -1,7 +1,7 @@
 import { useParam, useQuery, BlitzPage, getSession } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
 import { Suspense } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../../../components/Sidebar"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -128,15 +128,29 @@ const VerificareRezervare: BlitzPage = () => {
               </div>
             </div>
           </div>
-        </div>{" "}
+        </div>
       </>
     )
   }
 
   return (
     <>
-      <Sidebar />
-      <Suspense fallback="...">
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
+        <Sidebar />
+      </Suspense>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="ping"></div>
+          </div>
+        }
+      >
         <DisplayBooking />
       </Suspense>
     </>

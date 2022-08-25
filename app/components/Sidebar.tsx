@@ -1,5 +1,6 @@
-import { Link, Router, Routes, useMutation, useSession } from "blitz"
+import { Link, Routes, useMutation, useSession } from "blitz"
 import logout from "app/auth/mutations/logout"
+import { Suspense } from "react"
 
 const Sidebar = () => {
   const [logoutMutation] = useMutation(logout)
@@ -153,15 +154,16 @@ const Sidebar = () => {
                         clipRule="evenodd"
                       ></path>
                     </svg>
-
-                    <span
-                      className="ml-3 flex-1 whitespace-nowrap"
-                      onClick={async () => {
-                        await logoutMutation()
-                      }}
-                    >
-                      Sign Out
-                    </span>
+                    <Suspense fallback="...">
+                      <span
+                        className="ml-3 flex-1 whitespace-nowrap"
+                        onClick={async () => {
+                          await logoutMutation()
+                        }}
+                      >
+                        Sign Out
+                      </span>
+                    </Suspense>
                   </a>
                 </li>
               </ul>
