@@ -89,7 +89,7 @@ const Home: BlitzPage = () => {
               <div
                 className="min-h-screen md:min-h-min md:h-1/2 relative group"
                 style={{
-                  backgroundImage: "url(/DespreNoi.png)",
+                  backgroundImage: "url(/DespreNoi-2.jpg)",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   backgroundSize: "cover",
