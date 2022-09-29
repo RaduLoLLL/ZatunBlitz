@@ -11,8 +11,7 @@ type LoginFormProps = {
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
 
-  const bgUrl =
-    "https://images.unsplash.com/photo-1493787039806-2edcbe808750?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370"
+  const bgUrl = "/bg-min.jpg"
 
   return (
     <section className=" min-h-screen flex items-stretch text-white">
