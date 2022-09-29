@@ -38,7 +38,7 @@ const Home: BlitzPage = () => {
           <div
             className="block md:w-4/6 relative group min-h-screen "
             style={{
-              backgroundImage: "url(/Main.png)",
+              backgroundImage: "url(/Main-2.png)",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
             }}
