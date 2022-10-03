@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between xl:px-44 flex-1 sm:shadow-md xl:shadow-xl shadow-slate-200 px-4 py-2 z-50">
         <Link href={Routes.Home()} scroll={false}>
           <div className="relative h-20 w-20 xl:h-32 xl:w-32 flex-shrink-0 cursor-pointer">
-            <Image src="/Logo.svg" layout="fill" priority={true} />
+            <Image src="/logoExtern.png" layout="fill" priority={true} />
           </div>
         </Link>
         <div>
@@ -47,7 +47,9 @@ const Navbar = () => {
             <Link href={Routes.RezervarileMele()} scroll={false}>
               <li className="cursor-pointer hover:text-DEB52D">Contul Meu</li>
             </Link>
-            <li className="cursor-pointer hover:text-DEB52D">Contact</li>
+            <Link href={Routes.Contact()} scroll={false}>
+              <li className="cursor-pointer hover:text-DEB52D">Contact</li>
+            </Link>
           </ul>
           <div>
             <MenuIcon
@@ -56,7 +58,11 @@ const Navbar = () => {
             />
           </div>
         </div>
+        <div className="relative h-20 w-20 xl:h-32 xl:w-32 flex-shrink-0 cursor-pointer">
+          <Image src="/logoConsiliu.webp" layout="fill" priority={true} />
+        </div>
       </div>
+
       {isOpen && (
         <div className="relative">
           <div
@@ -87,12 +93,14 @@ const Navbar = () => {
                 Contul Meu
               </div>
             </Link>
-            <div
-              className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
-              onClick={closeMenu}
-            >
-              Contact
-            </div>
+            <Link href={Routes.Contact()}>
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
+                Contact
+              </div>
+            </Link>
           </div>
         </div>
       )}

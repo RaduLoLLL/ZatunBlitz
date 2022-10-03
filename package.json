@@ -38,6 +38,7 @@
     "final-form": "4.20.7",
     "framer-motion": "6.3.4",
     "g": "2.0.1",
+    "google-map-react": "2.2.0",
     "multiselect-react-dropdown": "2.0.22",
     "next-auth": "4.3.4",
     "passport-auth0": "1.4.2",

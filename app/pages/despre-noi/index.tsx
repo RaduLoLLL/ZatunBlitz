@@ -31,7 +31,7 @@ const DespreNoi: BlitzPage = () => {
           </p>
         </div>
         <div className="relative ml-16 hidden xl:block">
-          <Image src="/DespreNoiImage.png" width={747} height={660} />
+          <Image src="/DespreNoiImage-3.webp" width={747} height={660} />
         </div>
       </div>
     </>

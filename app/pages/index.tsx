@@ -1,4 +1,4 @@
-import { BlitzPage, getSession, Head, Link, Routes, useSession } from "blitz"
+import { BlitzPage, getSession, Head, Image, Link, Routes, useSession } from "blitz"
 import CookieConsent from "react-cookie-consent"
 
 import Navbar from "./components/Navbar"
@@ -38,7 +38,7 @@ const Home: BlitzPage = () => {
           <div
             className="block md:w-4/6 relative group min-h-screen "
             style={{
-              backgroundImage: "url(/Main-2.jpg)",
+              backgroundImage: "url(/Main-3.webp)",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "cover",
@@ -71,9 +71,9 @@ const Home: BlitzPage = () => {
             <div
               className="min-h-screen md:min-h-min md:h-1/2 relative group"
               style={{
-                backgroundImage: "url(/ContulMeu.png)",
+                backgroundImage: "url(/ContulMeu-3.webp)",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "left",
+                backgroundPosition: "center",
                 backgroundSize: "cover",
               }}
             >
@@ -89,7 +89,7 @@ const Home: BlitzPage = () => {
               <div
                 className="min-h-screen md:min-h-min md:h-1/2 relative group"
                 style={{
-                  backgroundImage: "url(/DespreNoi-2.jpg)",
+                  backgroundImage: "url(/DespreNoi-3.webp)",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   backgroundSize: "cover",

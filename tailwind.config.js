@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         DEB52D: "#DEB52D",
         D161616: "#161616",
+        D838383: "#838383",
       },
       dropShadow: {
         "3xl": "0 0 0 rgba(196,196,196 0.5)",

@@ -11,7 +11,7 @@ type LoginFormProps = {
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
 
-  const bgUrl = "/bg-min.jpg"
+  const bgUrl = "/LoginForm.webp"
 
   return (
     <section className=" min-h-screen flex items-stretch text-white">
@@ -19,7 +19,8 @@ export const LoginForm = (props: LoginFormProps) => {
         className="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
         style={{
           background: "url(" + bgUrl + ")",
-          backgroundPosition: "right",
+          backgroundPosition: "top",
+          backgroundSize: "cover",
         }}
       >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -34,6 +35,8 @@ export const LoginForm = (props: LoginFormProps) => {
           window.innerWidth < 900
             ? {
                 background: "url(" + bgUrl + ")",
+                backgroundPosition: "top",
+                backgroundSize: "cover",
               }
             : {}
         }
