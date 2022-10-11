@@ -48,7 +48,7 @@ const Home: BlitzPage = () => {
               <div className="flex flex-col justify-center items-center mx-auto md:ml-12">
                 <div
                   className="text-6xl md:text-8xl text-center"
-                  style={{ fontFamily: "Amatic SC" }}
+                  style={{ fontFamily: "Josefin Slab" }}
                 >
                   Balta Zatun
                 </div>
