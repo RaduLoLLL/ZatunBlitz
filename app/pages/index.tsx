@@ -111,7 +111,10 @@ const Home: BlitzPage = () => {
           overlay
           buttonText={"Sunt de acord"}
         >
-          Acest site folosește cookies.
+          Acest site folosește cookies. Pentru mai multe informații accesați{" "}
+          <Link href={Routes.Cookies()}>
+            <span className="text-orange-300 cursor-pointer">Politica de Cookies</span>
+          </Link>
         </CookieConsent>
       </div>
     </>

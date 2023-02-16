@@ -1,9 +1,6 @@
 import { Head, BlitzLayout } from "blitz"
 import { Suspense } from "react"
-import { UserInfo } from "app/pages"
 import Navbar from "app/pages/components/Navbar"
-import { motion } from "framer-motion"
-import { Toaster } from "react-hot-toast"
 
 const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
