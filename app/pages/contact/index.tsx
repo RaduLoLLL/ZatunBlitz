@@ -16,14 +16,14 @@ const Contact: BlitzPage = () => {
             loading="lazy"
           ></iframe>
         </div>
-        <div className=" mt-24 lg:flex lg:justify-between lg:mx-72 mx-2">
+        <div className=" mt-24 lg:flex lg:justify-center space-x-72 lg:mx-72 mx-2">
           <div>
             <p style={{ fontFamily: "Josefin Slab" }} className="text-DEB52D text-5xl">
               Contact
             </p>
             <p
               style={{ fontFamily: "Josefin Sans" }}
-              className="font-thin text-6xl mt-5 lg:text-justify"
+              className="font-light text-6xl mt-5 lg:text-justify"
             >
               Unde ne găsiți?
             </p>
@@ -43,7 +43,7 @@ const Contact: BlitzPage = () => {
                 </svg>
                 <p
                   style={{ fontFamily: "Josefin Sans" }}
-                  className="font-thin text-4xl lg:text-justify ml-7"
+                  className="font-light text-4xl lg:text-justify ml-7"
                 >
                   Calea Prutului Nr. 87 Galati
                 </p>
@@ -65,7 +65,7 @@ const Contact: BlitzPage = () => {
 
                 <p
                   style={{ fontFamily: "Josefin Sans" }}
-                  className="font-thin text-4xl lg:text-justify ml-7"
+                  className="font-light text-4xl lg:text-justify ml-7"
                 >
                   +(40) 746 068 113
                 </p>
@@ -84,7 +84,7 @@ const Contact: BlitzPage = () => {
 
                 <p
                   style={{ fontFamily: "Josefin Sans" }}
-                  className="font-thin text-4xl lg:text-justify ml-7"
+                  className="font-light text-4xl lg:text-justify ml-7"
                 >
                   secretariat@spjadppgalati.ro
                 </p>
@@ -107,7 +107,7 @@ const Contact: BlitzPage = () => {
 
                 <p
                   style={{ fontFamily: "Josefin Sans" }}
-                  className="font-thin text-4xl lg:text-justify ml-7"
+                  className="font-light text-4xl lg:text-justify ml-7"
                 >
                   L-V 06ºº- 20ºº
                 </p>
