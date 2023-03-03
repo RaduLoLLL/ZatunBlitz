@@ -11,6 +11,7 @@ import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
 import { subDays } from "date-fns"
+import Layout from "app/core/layouts/Layout"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -457,3 +458,4 @@ const Add: BlitzPage = () => {
   )
 }
 export default Add
+Add.getLayout = (page) => <Layout title="Add">{page}</Layout>
