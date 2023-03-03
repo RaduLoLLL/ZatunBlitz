@@ -17,7 +17,7 @@ export default passportAuth({
           clientSecret: "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",
           callbackURL:
             process.env.NODE_ENV === "production"
-              ? "https://zatun-blitz.vercel.app/api/auth/google/callback"
+              ? "https://www.baltazatun.ro/api/auth/google/callback"
               : "http://localhost:3000/api/auth/google/callback",
           includeEmail: true,
         },
