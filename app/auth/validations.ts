@@ -6,16 +6,28 @@ export const email = z
   .transform((str) => str.toLowerCase().trim())
 
 export const password = z
-  .string()
-  .min(10)
+  .string({
+    required_error: "Câmpul nu poate fi gol",
+    invalid_type_error: "Câmpul nu poate fi gol",
+  })
+  .min(8, { message: "Parola trebuie să conțină cel puțin 8 caractere" })
   .max(100)
   .transform((str) => str.trim())
 
-export const name = z.string()
+export const name = z.string({
+  required_error: "Câmpul nu poate fi gol",
+  invalid_type_error: "Câmpul nu poate fi gol",
+})
 
-export const surname = z.string()
+export const surname = z.string({
+  required_error: "Câmpul nu poate fi gol",
+  invalid_type_error: "Câmpul nu poate fi gol",
+})
 
-export const phone = z.string()
+export const phone = z.string({
+  required_error: "Câmpul nu poate fi gol",
+  invalid_type_error: "Câmpul nu poate fi gol",
+})
 
 export const Signup = z.object({
   name,

@@ -41,6 +41,7 @@
     "google-map-react": "2.2.0",
     "multiselect-react-dropdown": "2.0.22",
     "next-auth": "4.3.4",
+    "nodemailer": "6.9.1",
     "passport-auth0": "1.4.2",
     "passport-facebook": "3.0.0",
     "passport-google-oauth2": "0.2.0",
