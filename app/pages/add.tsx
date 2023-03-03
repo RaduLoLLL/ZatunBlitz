@@ -346,16 +346,6 @@ const Add: BlitzPage = () => {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="min-h-screen flex justify-center items-center">
-            <div className="ping"></div>
-          </div>
-        }
-      >
-        <UserInfo />
-      </Suspense>
-
       <div className="mx-auto max-w-xs lg:max-w-md ">
         <div className="my-10 p-4  bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
           <form className="space-y-6" onSubmit={handleSubmit}>
