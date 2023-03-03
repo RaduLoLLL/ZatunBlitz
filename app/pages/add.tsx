@@ -456,7 +456,7 @@ const Add: BlitzPage = () => {
               Trimite
             </button>
             <p className="text-center">
-              Prin finalizarea rezervării sunteți de acord cu{" "}
+              *Prin finalizarea rezervării sunteți de acord cu{" "}
               <Link href={Routes.TC()}>
                 <span className="font-bold cursor-pointer">Termenii și Condițiile</span>
               </Link>{" "}
@@ -465,6 +465,10 @@ const Add: BlitzPage = () => {
                 <span className="font-bold cursor-pointer">Regulamentele</span>
               </Link>{" "}
               din cadrul complexului
+            </p>
+            <p className="text-center">
+              ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
+              anulării rezervării.
             </p>
           </form>
         </div>
