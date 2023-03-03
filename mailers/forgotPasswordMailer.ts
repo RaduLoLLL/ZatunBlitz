@@ -10,21 +10,33 @@ type ResetPasswordMailer = {
   token: string
 }
 
-export function forgotPasswordMailer({to, token}: ResetPasswordMailer) {
+export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   // In production, set APP_ORIGIN to your production server origin
   const origin = process.env.APP_ORIGIN || process.env.BLITZ_DEV_SERVER_ORIGIN
   const resetUrl = `${origin}/reset-password?token=${token}`
+  const nodemailer = require("nodemailer")
+  const username = process.env.EMAIL_USERNAME
+  const password = process.env.EMAIL_PASSWORD
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: username,
+      pass: password,
+    },
+  })
 
   const msg = {
-    from: "TODO@example.com",
+    from: "reset@baltazatun.ro",
     to,
-    subject: "Your Password Reset Instructions",
+    subject: "Instrucțiuni pentru resetarea parolei",
     html: `
-      <h1>Reset Your Password</h1>
-      <h3>NOTE: You must set up a production email integration in mailers/forgotPasswordMailer.ts</h3>
+      <h1>Resetează parola contului de pe Balta Zatun</h1>
+
 
       <a href="${resetUrl}">
-        Click here to set a new password
+        Apasă aici pentru a reseta parola
       </a>
     `,
   }
@@ -32,13 +44,9 @@ export function forgotPasswordMailer({to, token}: ResetPasswordMailer) {
   return {
     async send() {
       if (process.env.NODE_ENV === "production") {
-        // TODO - send the production email, like this:
-        // await postmark.sendEmail(msg)
-        throw new Error("No production email implementation in mailers/forgotPasswordMailer")
+        await transporter.sendMail(msg)
       } else {
-        // Preview email in the browser
-        const previewEmail = (await import("preview-email")).default
-        await previewEmail(msg)
+        await transporter.sendMail(msg)
       }
     },
   }

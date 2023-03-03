@@ -10,19 +10,20 @@ const ResetPasswordPage: BlitzPage = () => {
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
 
   return (
-    <div>
-      <h1>Set a New Password</h1>
+    <div className="flex flex-col items-center justify-center mt-20">
+      <h1 className="text-3xl font-semibold text-gray-700">Setează noua parolă</h1>
 
       {isSuccess ? (
         <div>
-          <h2>Password Reset Successfully</h2>
+          <h2>Parolă resetată cu succes</h2>
           <p>
-            Go to the <Link href={Routes.Home()}>homepage</Link>
+            Mergi <Link href={Routes.Home()}>acasă</Link>
           </p>
         </div>
       ) : (
         <Form
-          submitText="Reset Password"
+          submitText="Resetează parola"
+          className="mt-12"
           schema={ResetPassword}
           initialValues={{ password: "", passwordConfirmation: "", token: query.token as string }}
           onSubmit={async (values) => {
@@ -41,11 +42,17 @@ const ResetPasswordPage: BlitzPage = () => {
             }
           }}
         >
-          <LabeledTextField name="password" label="New Password" type="password" />
+          <LabeledTextField
+            name="password"
+            label="Noua parolă"
+            type="password"
+            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+          />
           <LabeledTextField
             name="passwordConfirmation"
-            label="Confirm New Password"
+            label="Confirmă noua parolă"
             type="password"
+            className=" w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
           />
         </Form>
       )}
