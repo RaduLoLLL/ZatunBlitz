@@ -15,7 +15,7 @@ const Form = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
           <div>
-            <p style={{ fontFamily: "Josefin Sans" }} className=" font-thin text-3xl">
+            <p style={{ fontFamily: "Josefin Sans" }} className="text-3xl font-light">
               Nume
             </p>
             <input
@@ -25,7 +25,7 @@ const Form = () => {
           </div>
 
           <div className="ml-5">
-            <p style={{ fontFamily: "Josefin Sans" }} className=" font-thin text-3xl">
+            <p style={{ fontFamily: "Josefin Sans" }} className=" font-light text-3xl">
               Prenume
             </p>
             <input
@@ -36,7 +36,7 @@ const Form = () => {
         </div>
 
         <div className="mt-5">
-          <p style={{ fontFamily: "Josefin Sans" }} className=" font-thin text-3xl">
+          <p style={{ fontFamily: "Josefin Sans" }} className=" font-light text-3xl">
             E-mail
           </p>
           <input
@@ -46,7 +46,7 @@ const Form = () => {
         </div>
 
         <div className="mt-5">
-          <p style={{ fontFamily: "Josefin Sans" }} className=" font-thin text-3xl">
+          <p style={{ fontFamily: "Josefin Sans" }} className=" font-light text-3xl">
             Mesaj
           </p>
           <textarea
@@ -59,7 +59,7 @@ const Form = () => {
         <div className="flex justify-center mt-5">
           <input
             style={{ fontFamily: "Josefin Sans" }}
-            className=" font-thin text-3xl bg-DEB52D py-3 w-full text-center text-white cursor-pointer"
+            className=" font-light text-3xl bg-DEB52D py-3 w-full text-center text-white cursor-pointer"
             value={"Trimite"}
             type="submit"
           ></input>

@@ -1,4 +1,4 @@
-import { BlitzPage, invoke, useRouter, getSession, Image } from "blitz"
+import { BlitzPage, invoke, useRouter, getSession, Image, Link, Routes } from "blitz"
 import { useState, useEffect, Suspense, Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { UserInfo } from "app/pages"
@@ -128,7 +128,12 @@ const Add: BlitzPage = () => {
                 >
                   <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <div className="mt-2 flex justify-center">
-                      <Image src={"/Harta.png"} width={2000} height={600} alt="Harta cu locurile" />
+                      <Image
+                        src={"/Harta.webp"}
+                        width={2000}
+                        height={600}
+                        alt="Harta cu locurile"
+                      />
                     </div>
 
                     <div className="mt-4 flex justify-center">
@@ -243,7 +248,7 @@ const Add: BlitzPage = () => {
                   <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <div className="mt-2 flex justify-center">
                       <Image
-                        src={"/HartaCasute.PNG"}
+                        src={"/HartaCasute.webp"}
                         width={1704}
                         height={845}
                         alt="Harta cu casutele"
@@ -451,6 +456,21 @@ const Add: BlitzPage = () => {
             >
               Trimite
             </button>
+            <p className="text-center">
+              *Prin finalizarea rezervării sunteți de acord cu{" "}
+              <Link href={Routes.TC()}>
+                <span className="font-bold cursor-pointer">Termenii și Condițiile</span>
+              </Link>{" "}
+              și{" "}
+              <Link href={Routes.TC()}>
+                <span className="font-bold cursor-pointer">Regulamentele</span>
+              </Link>{" "}
+              din cadrul complexului
+            </p>
+            <p className="text-center">
+              ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
+              anulării rezervării.
+            </p>
           </form>
         </div>
       </div>

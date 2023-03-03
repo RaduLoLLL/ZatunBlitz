@@ -41,7 +41,7 @@ export const ResetPassword = z
     token: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
+    message: "Parolele nu corespund",
     path: ["passwordConfirmation"], // set the path of the error
   })
 
