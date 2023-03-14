@@ -1,6 +1,6 @@
 import Layout from "app/core/layouts/Layout"
 import { loadStripe } from "@stripe/stripe-js"
-import { BlitzPage, useMutation, Link, getSession, useRouterQuery, invoke } from "blitz"
+import { BlitzPage, useMutation, Link, getSession, useRouterQuery, invoke, useSession } from "blitz"
 import createCheckoutSession from "./mutations/createCheckoutSession"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
@@ -37,7 +37,9 @@ const getStripe = () => {
 
 const Checkout: BlitzPage = () => {
   const query = useRouterQuery()
-  console.log(query.booking)
+
+  const booking = useLatestBooking(query.booking)
+  const currentUser = useCurrentUser()
   const [createCheckoutMutation, { error }] = useMutation(createCheckoutSession)
 
   if (error) {
@@ -45,7 +47,7 @@ const Checkout: BlitzPage = () => {
   }
 
   const createCheckout = async () => {
-    const res = await createCheckoutMutation()
+    const res = await createCheckoutMutation(currentUser)
     if (!res) {
       return
     }
@@ -67,9 +69,6 @@ const Checkout: BlitzPage = () => {
   }
 
   const Sumar = () => {
-    const booking = useLatestBooking(query.booking)
-    const currentUser = useCurrentUser()
-
     if (booking?.userId != currentUser?.id) {
       return <>Acces neautorizat. Te rugam sa accesezi doar rezervarile tale!</>
     }

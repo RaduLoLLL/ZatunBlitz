@@ -3,7 +3,8 @@
 
 datasource db {
   provider = "postgres"
-  url      = env("DATABASE_URL")
+  //url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:Tryndamere321@db.jeqiowpgxrqkbcrnecew.supabase.co:5432/postgres"
 }
 
 generator client {
@@ -76,6 +77,12 @@ model Booking {
 
   userId Int?
   User   User? @relation(fields: [userId], references: [id])
+}
+
+model BlockedDates {
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
 }
 
 // NOTE: It's highly recommended to use an enum for the token type
