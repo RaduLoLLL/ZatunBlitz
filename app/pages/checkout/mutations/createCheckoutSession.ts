@@ -106,7 +106,7 @@ export default async function createCheckoutSession(user: any, ctx: Ctx) {
     amount: booking.total_price /* int */,
     currency: 946 /* int */,
     description: "Plata rezervarii Balta Zatun" /* string */,
-    returnUrl: `http://localhost:3000/checkout/succes?session_id=${booking.id}` /* string */,
+    returnUrl: `https://www.baltazatun.ro/checkout/succes?session_id=${booking.id}` /* string */,
     orderBundle: {
       orderCreationDate: format(new Date(), "yyyy-MM-dd") /* 2023-03-13 */,
       customerDetails: {
