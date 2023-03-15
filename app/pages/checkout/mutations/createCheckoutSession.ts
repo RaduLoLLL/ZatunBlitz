@@ -80,52 +80,91 @@ export default async function createCheckoutSession(user: any, ctx: Ctx) {
   const bt_username = process.env.BT_USERNAME
   const bt_password = process.env.BT_PASSWORD
 
-  // const plata = console.log(
-  // await fetch("https://ecclients.btrl.ro:5443/payment/rest/register.do", {
-  //   method: "POST",
-  //   body: `userName=test_iPay3_api&password=test_iPay3_ap!e4r&orderNumber=${booking.id}&ammout=${
-  //     booking.total_price
-  //   }&currency=946&description=${"Plata balta zatun"}&returnUrl=https://baltazatun.ro/checkout/succes?session_id=${
-  //     booking.id
-  //   }&jsonParams={"FORCE_3DS2":"true"}&orderBundle={"billingInfo":{"country":"642","city":"Galati","postAdress":"Balta Zatun"}}`,
-  //   headers: new Headers({ "content-type": "x-www-form-urlencoded" }),
-  //   mode: "no-cors",
-  // })
+  // const plata2 = console.log(
+  //   await fetch("https://ecclients.btrl.ro:5443/payment/rest/register.do", {
+  //     method: "POST",
+  //     body: `userName=test_iPay3_api&password=test_iPay3_ap!e4r&orderNumber=${booking.id}&amout=${
+  //       booking.total_price
+  //     }&currency=946&description=${"Plata balta zatun"}&returnUrl=https://baltazatun.ro/checkout/succes?session_id=${
+  //       booking.id
+  //     }&orderBundle={"orderCreationDate":${format(
+  //       new Date(),
+  //       "yyyy-MM-dd"
+  //     )},"customerDetails":{"email":${user.email},"phone":${parseInt(
+  //       "4" + user.phone
+  //     )},"deliveryInfo":{"deliveryType":"Delivery",country":"642","city":"Galati","postAdress":"Balta Zatun"} ,"billingInfo":{"country":"642","city":"Galati","postAdress":"Balta Zatun"}}}`,
+  //     headers: new Headers({ "content-type": "x-www-form-urlencoded" }),
+  //     mode: "no-cors",
+  //   })
   // )
 
-  const plata = console.log(
-    await fetch("https://ecclients.btrl.ro:5443/payment/rest/register.do", {
-      method: "POST",
-      body: JSON.stringify({
-        userName: "test_iPay3_api",
-        password: "test_iPay3_ap!e4r",
-        orderNumber: booking.id.toString() /* string */,
-        amount: booking.total_price /* int */,
-        currency: 946 /* int */,
-        description: "Plata rezervarii Balta Zatun" /* string */,
-        returnUrl: `https://baltazatun.ro/checkout/succes?session_id=${booking.id}` /* string */,
-        orderBundle: {
-          orderCreationDate: format(new Date(), "yyyy-MM-dd") /* 2023-03-13 */,
-          customerDetails: {
-            email: user.email /* string */,
-            phone: parseInt("4" + user.phone) /* int */,
-            deliveryInfo: {
-              deliveryType: "DELIVERY" /* string */,
-              country: 642 /* int */,
-              city: "Galati" /* string */,
-              postAddress: "Balta Zatun" /* string */,
-            },
-            billingInfo: {
-              deliveryType: "DELIVERY" /* string */,
-              country: 642 /* int */,
-              city: "Galati" /* string */,
-              postAddress: "Balta Zatun" /* string */,
-            },
-          },
+  const axios = require("axios")
+  const payload = {
+    userName: "test_iPay3_api",
+    password: "test_iPay3_ap!e4r",
+    orderNumber: booking.id.toString() /* string */,
+    amount: booking.total_price /* int */,
+    currency: 946 /* int */,
+    description: "Plata rezervarii Balta Zatun" /* string */,
+    returnUrl: `http://localhost:3000/checkout/succes?session_id=${booking.id}` /* string */,
+    orderBundle: {
+      orderCreationDate: format(new Date(), "yyyy-MM-dd") /* 2023-03-13 */,
+      customerDetails: {
+        email: user.email /* string */,
+        phone: parseInt("4" + user.phone) /* int */,
+        deliveryInfo: {
+          deliveryType: "DELIVERY" /* string */,
+          country: 642 /* int */,
+          city: "Galati" /* string */,
+          postAddress: "Balta Zatun" /* string */,
         },
-      }),
-    })
-  )
+        billingInfo: {
+          deliveryType: "DELIVERY" /* string */,
+          country: 642 /* int */,
+          city: "Galati" /* string */,
+          postAddress: "Balta Zatun" /* string */,
+        },
+      },
+    },
+  }
+
+  const res = axios.post("https://ecclients.btrl.ro:5443/payment/rest/register.do", payload)
+  console.log(res)
+  // const plata = console.log(
+  //   await fetch("https://ecclients.btrl.ro:5443/payment/rest/register.do", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       userName: "test_iPay3_api",
+  //       password: "test_iPay3_ap!e4r",
+  //       orderNumber: booking.id.toString() /* string */,
+  //       amount: booking.total_price /* int */,
+  //       currency: 946 /* int */,
+  //       description: "Plata rezervarii Balta Zatun" /* string */,
+  //       returnUrl: `http://localhost:3000/checkout/succes?session_id=${booking.id}` /* string */,
+  //       orderBundle: {
+  //         orderCreationDate: format(new Date(), "yyyy-MM-dd") /* 2023-03-13 */,
+  //         customerDetails: {
+  //           email: user.email /* string */,
+  //           phone: parseInt("4" + user.phone) /* int */,
+  //           deliveryInfo: {
+  //             deliveryType: "DELIVERY" /* string */,
+  //             country: 642 /* int */,
+  //             city: "Galati" /* string */,
+  //             postAddress: "Balta Zatun" /* string */,
+  //           },
+  //           billingInfo: {
+  //             deliveryType: "DELIVERY" /* string */,
+  //             country: 642 /* int */,
+  //             city: "Galati" /* string */,
+  //             postAddress: "Balta Zatun" /* string */,
+  //           },
+  //         },
+  //       },
+  //     }),
+  //     headers: new Headers({ "content-type": "application/json" }),
+  //     mode: "no-cors",
+  //   })
+  // )
 
   // const session = await stripe.checkout.sessions.create({
   //   mode: "payment",
