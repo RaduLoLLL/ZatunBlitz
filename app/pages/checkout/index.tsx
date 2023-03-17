@@ -1,6 +1,14 @@
 import Layout from "app/core/layouts/Layout"
-import { loadStripe } from "@stripe/stripe-js"
-import { BlitzPage, useMutation, Link, getSession, useRouterQuery, invoke, useSession } from "blitz"
+import {
+  BlitzPage,
+  useMutation,
+  Link,
+  getSession,
+  useRouterQuery,
+  invoke,
+  useSession,
+  Router,
+} from "blitz"
 import createCheckoutSession from "./mutations/createCheckoutSession"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
@@ -25,47 +33,31 @@ export const getServerSideProps = async ({ req, res }) => {
   return { props: {} }
 }
 
-let stripePromise
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(
-      "pk_test_51KwksbK12xH0MvuUJ8ntnaUFq3GVyJ4aAdrVaAUuxy91ND5ZliY6VP55FHWgGWajLB7nuSqBptwTHHGt6dPwCzAf00OWj1gYvv"
-    )
-  }
-  return stripePromise
-}
-
 const Checkout: BlitzPage = () => {
   const query = useRouterQuery()
 
   const booking = useLatestBooking(query.booking)
   const currentUser = useCurrentUser()
-  const [createCheckoutMutation, { error }] = useMutation(createCheckoutSession)
-
-  if (error) {
-    throw error
-  }
 
   const createCheckout = async () => {
-    const res = await createCheckoutMutation(currentUser)
+    const res = await invoke(createCheckoutSession, {
+      user: currentUser,
+      booking_id: booking?.id,
+    })
     if (!res) {
       return
     }
-    const stripe = await getStripe()
-    await stripe.redirectToCheckout({
-      sessionId: res.sessionId,
-    })
+    Router.push(res.data.formUrl)
   }
   const createCheckoutWithId = async () => {
-    console.log("create", query.booking)
-    const res = await invoke(createCheckoutSessionWithId, query.booking)
+    const res = await invoke(createCheckoutSessionWithId, {
+      booking_id: booking?.id,
+      user: currentUser,
+    })
     if (!res) {
       return
     }
-    const stripe = await getStripe()
-    await stripe.redirectToCheckout({
-      sessionId: res.sessionId,
-    })
+    Router.push(res.formUrl)
   }
 
   const Sumar = () => {
