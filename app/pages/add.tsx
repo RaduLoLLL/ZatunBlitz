@@ -49,7 +49,6 @@ const Add: BlitzPage = () => {
     endDate: subDays(new Date(), 30),
   }
 
-  console.log(blockedDates)
   //Date state added separately
   const [startDate, setStartDate] = useState(
     isBefore(new Date(), blockedDates?.endDate)
@@ -359,8 +358,6 @@ const Add: BlitzPage = () => {
       [name]: value,
     })
   }
-
-  console.log("blocked dates", blockedDates)
 
   return (
     <>
