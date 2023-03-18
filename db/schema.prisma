@@ -74,6 +74,7 @@ model Booking {
   stripeSessionId    String?  @default("")
   paid               Boolean  @default(false)
   intrari_confirmate Int      @default(0)
+  verificat          Boolean  @default(false)
 
   userId Int?
   User   User? @relation(fields: [userId], references: [id])

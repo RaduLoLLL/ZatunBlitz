@@ -22,8 +22,8 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
       loc_pescuit: booking.loc_pescuit,
       casuta: booking.casuta,
       total_price: Number(booking.total_price),
+      paid: true,
       userId: ctx.session.userId,
     },
   })
-  console.log(booking)
 }
