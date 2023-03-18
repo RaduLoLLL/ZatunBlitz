@@ -17,13 +17,13 @@ export default async function createCheckoutSession({ user, booking_id }, ctx: C
 
   const axios = require("axios")
 
-  // 4140 4960 7036 0105
+  // 4140 4960 7036 0105  test_iPay3_ap%21e4r
 
   const uuid = uuidv4().replace(/-/g, "")
   const urlencodedPayload =
-    `userName=test_iPay3_api&password=test_iPay3_ap%21e4r&orderNumber=${uuid}&amount=${
+    `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
       booking.total_price * 100
-    }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=http%3A%2F%2Flocalhost:3000%2Fcheckout%2Fsucces%3Fbooking_id%3D${
+    }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=http%3A%2F%2Fbaltazatun.ro%2Fcheckout%2Fsucces%3Fbooking_id%3D${
       booking.id
     }&` +
     `orderBundle%3D%7B%22orderCreationDate%22%3A%22${new Date()}%22%2C%22customerDetails%22%3A%7B%22email%22%3A${
