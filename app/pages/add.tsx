@@ -397,6 +397,7 @@ const Add: BlitzPage = () => {
                   pattern="[0-9]*"
                   inputMode="numeric"
                   name="intrare"
+                  min={0}
                   id="intrare"
                   placeholder="1"
                   value={state.intrare}
@@ -419,7 +420,7 @@ const Add: BlitzPage = () => {
                   name="locParcare"
                   id="locParcare"
                   placeholder="0"
-                  min="0"
+                  min={0}
                   value={state.locParcare}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
