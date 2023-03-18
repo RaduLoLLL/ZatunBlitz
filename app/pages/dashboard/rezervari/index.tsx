@@ -1,9 +1,12 @@
-import { BlitzPage, useQuery, getSession, useRouterQuery, Link, Routes } from "blitz"
+import { BlitzPage, useQuery, getSession, useRouterQuery, Link, Routes, invoke } from "blitz"
 import { Suspense } from "react"
 import Sidebar from "../../../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"
 import { format } from "date-fns"
+import { CheckCircleIcon } from "@heroicons/react/solid"
+import insertVerificare from "../mutations/insertVerificare"
+import toast from "react-hot-toast"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -30,6 +33,14 @@ const Rezervari: BlitzPage = () => {
     email: router.email,
     phone: router.phone,
   })
+
+  async function verificaBilet(booking_id) {
+    const verificare = toast.loading("Se inregistreaza intrarea")
+    const res = await invoke(insertVerificare, booking_id)
+    res && toast.success("Inregistrare realizata cu succes", { id: verificare })
+    !res && toast.error("Whoops, a intervenit o eroare", { id: verificare })
+    setState({ ...state })
+  }
   const DisplayBookings = () => {
     const bookings = useQuery(getBookings, state)[0]
     return (
@@ -78,6 +89,12 @@ const Rezervari: BlitzPage = () => {
                 className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Detalii
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Confirma Intrarea
               </th>
             </tr>
           </thead>
@@ -162,6 +179,22 @@ const Rezervari: BlitzPage = () => {
                         </button>
                       </Link>
                     </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.verificat ? (
+                        <CheckCircleIcon className="h-8 text-green-500 " />
+                      ) : (
+                        <CheckCircleIcon
+                          className="h-8 text-red-500 cursor-pointer"
+                          onClick={() => verificaBilet(booking.id)}
+                        />
+                      )}
+                    </td>
                   </tr>
                 )
               })
@@ -176,6 +209,7 @@ const Rezervari: BlitzPage = () => {
     const name = evt.target.name
     const value = evt.target.value
     setState({ ...state, [name]: value })
+    console.log(state)
   }
 
   return (

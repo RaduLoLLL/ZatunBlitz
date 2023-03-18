@@ -6,7 +6,13 @@ export default async function getBookingsByDateOnline(date: string) {
     where: {
       AND: {
         starts_at: { gte: new Date(date), lte: addDays(new Date(date), 1) },
-        NOT: { User: { email: { startsWith: "admin" } } },
+        NOT: {
+          OR: [
+            { User: { email: { startsWith: "acces" } } },
+            { User: { email: { startsWith: "paslaru" } } },
+            { User: { email: { startsWith: "agache" } } },
+          ],
+        },
       },
     },
   })

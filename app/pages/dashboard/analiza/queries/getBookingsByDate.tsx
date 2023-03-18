@@ -6,7 +6,7 @@ export default async function getBookingsByDate(date: string) {
     where: {
       AND: {
         starts_at: { gte: new Date(date), lte: addDays(new Date(date), 1) },
-        User: { email: { startsWith: "admin" } },
+        User: { email: { startsWith: "acces" } },
       },
     },
   })
