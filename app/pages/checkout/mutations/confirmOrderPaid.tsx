@@ -6,8 +6,6 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
   const intBookingId = parseInt(booking_id)
   const booking = await db.booking.findFirst({ where: { id: intBookingId } })
 
-  console.log(booking)
-
   const urlencodedPayload = `userName=test_iPay3_api&password=test_iPay3_ap%21e4r&orderId=${orderId}`
   const orderStatus = await axios.post(
     "https://ecclients.btrl.ro:5443/payment/rest/getOrderStatusExtended.do",
@@ -19,8 +17,6 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
     }
   )
 
-  console.log("Ored Status:", orderStatus.data)
-
   const updateBooking =
     orderStatus.data.orderStatus === 2
       ? await db.booking.update({
@@ -29,5 +25,5 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
         })
       : false
 
-  return updateBooking && true
+  return updateBooking
 }
