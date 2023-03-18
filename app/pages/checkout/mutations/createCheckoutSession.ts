@@ -1,15 +1,8 @@
 import db from "db"
-import Stripe from "stripe"
 import { Ctx } from "blitz/dist/declarations/src"
+import { v4 as uuidv4 } from "uuid"
 
-const stripe = new Stripe(
-  "sk_test_51KwksbK12xH0MvuUqzI0ibWFUlkVQl6OsQqLS6eyGr6Z1I3vs6mWA8bE6qQ3FSUIsQRxszXDH1tC2uGBw4HGvMpj00F2WMUy0T",
-  {
-    apiVersion: "2020-08-27",
-  }
-)
-
-export default async function createCheckoutSession(_, ctx: Ctx) {
+export default async function createCheckoutSession({ user, booking_id }, ctx: Ctx) {
   const booking = await db.booking.findFirst({
     where: { paid: false, userId: ctx.session.userId },
     orderBy: {
@@ -19,70 +12,35 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
 
   if (!booking) return
 
-  const productData: {
-    price_data: { currency: string; unit_amount: number; product_data: { name: string } }
-    quantity: number
-  }[] = []
+  const bt_username = process.env.BT_USERNAME
+  const bt_password = process.env.BT_PASSWORD
 
-  if (booking.intrare_complex > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 2000,
-        product_data: {
-          name: "Intrare Agrement",
-        },
+  const axios = require("axios")
+
+  // 4140 4960 7036 0105  test_iPay3_ap%21e4r
+
+  const uuid = uuidv4().replace(/-/g, "")
+  const urlencodedPayload =
+    `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
+      booking.total_price * 100
+    }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=http%3A%2F%2Fbaltazatun.ro%2Fcheckout%2Fsucces%3Fbooking_id%3D${
+      booking.id
+    }&` +
+    `orderBundle%3D%7B%22orderCreationDate%22%3A%22${new Date()}%22%2C%22customerDetails%22%3A%7B%22email%22%3A${
+      user.email
+    }%2C%22phone%22%3A%22${
+      "4" + user.phone
+    }%22%2C%22deliveryInfo%22%3A%7B%22deliveryType%22%3A%22Delivery%22%2Ccountry%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%20%2C%22billingInfo%22%3A%7B%22country%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%7D%7D%60%2C%0A%20%20%20%20`
+
+  const res = await axios.post(
+    "https://ecclients.btrl.ro:5443/payment/rest/register.do",
+    urlencodedPayload,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      quantity: booking.intrare_complex,
-    })
-  }
-
-  if (booking.loc_parcare > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 500,
-        product_data: {
-          name: "Loc de Parcare",
-        },
-      },
-      quantity: booking.loc_parcare,
-    })
-  }
-
-  if (booking.loc_pescuit.length > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 5000,
-        product_data: {
-          name: "Loc de Pescuit " + booking.loc_pescuit,
-        },
-      },
-      quantity: booking.loc_pescuit.length,
-    })
-  }
-
-  if (booking.casuta.length > 0) {
-    productData.push({
-      price_data: {
-        currency: "ron",
-        unit_amount: 10000,
-        product_data: {
-          name: "Casuta numarul " + booking.casuta,
-        },
-      },
-      quantity: booking.casuta.length,
-    })
-  }
-
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: productData,
-    success_url: "https://zatun-blitz.vercel.app/checkout/succes?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: "https://zatun-blitz.vercel.app",
-  })
+    }
+  )
 
   const bookingId = await db.booking.findFirst({
     where: { userId: ctx.session.userId },
@@ -91,10 +49,10 @@ export default async function createCheckoutSession(_, ctx: Ctx) {
 
   const updateBooking = await db.booking.update({
     where: { id: bookingId?.id },
-    data: { stripeSessionId: session.id },
+    data: { stripeSessionId: res.orderId },
   })
 
   return {
-    sessionId: session.id,
+    data: res.data,
   }
 }

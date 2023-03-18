@@ -1,7 +1,6 @@
-import { BlitzPage, invoke, useRouter, getSession, Image, Link, Routes } from "blitz"
+import { BlitzPage, invoke, useRouter, getSession, Image, Link, Routes, useQuery } from "blitz"
 import { useState, useEffect, Suspense, Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import { UserInfo } from "app/pages"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import addDays from "date-fns/addDays"
@@ -10,8 +9,9 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { subDays } from "date-fns"
+import { isAfter, isBefore, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
+import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -40,8 +40,24 @@ const Add: BlitzPage = () => {
     totalPrice: 0,
   })
 
+  type BlockedDates = {
+    startDate: Date
+    endDate: Date
+  }
+  const blockedDates: BlockedDates = useQuery(getLatestBlocked, undefined)[0][0] || {
+    startDate: subDays(new Date(), 30),
+    endDate: subDays(new Date(), 30),
+  }
+
+  console.log(blockedDates)
   //Date state added separately
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(
+    isBefore(new Date(), blockedDates?.endDate)
+      ? isAfter(new Date(), blockedDates?.startDate)
+        ? addDays(blockedDates?.endDate, 1)
+        : new Date()
+      : new Date()
+  )
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -344,6 +360,8 @@ const Add: BlitzPage = () => {
     })
   }
 
+  console.log("blocked dates", blockedDates)
+
   return (
     <>
       <div className="mx-auto max-w-xs lg:max-w-md ">
@@ -361,8 +379,13 @@ const Add: BlitzPage = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="dd/MM/yyyy"
-                    includeDateIntervals={[
-                      { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },
+                    // includeDateIntervals={[
+                    //   { start: null, end: addDays(new Date(), 30) },
+                    // ]}
+                    minDate={new Date()}
+                    maxDate={addDays(new Date(), 30)}
+                    excludeDateIntervals={[
+                      { start: blockedDates?.startDate, end: blockedDates?.endDate },
                     ]}
                     className="cursor-pointer p-2"
                   />
