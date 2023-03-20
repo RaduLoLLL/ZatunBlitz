@@ -17,8 +17,6 @@ export default async function createCheckoutSession({ user, booking_id }, ctx: C
 
   const axios = require("axios")
 
-  // 4140 4960 7036 0105  test_iPay3_ap%21e4r
-
   const uuid = uuidv4().replace(/-/g, "")
   const urlencodedPayload =
     `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
@@ -33,7 +31,7 @@ export default async function createCheckoutSession({ user, booking_id }, ctx: C
     }%22%2C%22deliveryInfo%22%3A%7B%22deliveryType%22%3A%22Delivery%22%2Ccountry%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%20%2C%22billingInfo%22%3A%7B%22country%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%7D%7D%60%2C%0A%20%20%20%20`
 
   const res = await axios.post(
-    "https://ecclients.btrl.ro:5443/payment/rest/register.do",
+    "https://ecclients.btrl.ro/payment/rest/register.do",
     urlencodedPayload,
     {
       headers: {
