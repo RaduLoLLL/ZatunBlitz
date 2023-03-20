@@ -59,7 +59,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="relative h-20 w-20 xl:h-32 xl:w-32 flex-shrink-0 cursor-pointer">
-          <Image src="/logoConsiliu.webp" layout="fill" priority={true} />
+          <Image src="/logoConsiliu.jpg" layout="fill" alt="Logo consiliu" priority={true} />
         </div>
       </div>
 

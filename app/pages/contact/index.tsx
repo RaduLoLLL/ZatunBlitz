@@ -8,7 +8,7 @@ const Contact: BlitzPage = () => {
       <div className=" mt-20 mb-20">
         <div className="flex justify-center">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26424.5187049245!2d28.174998064376766!3d45.42773611778083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b6de494824b96b%3A0xe7a4b0ec140ffb48!2sZ%C4%83tun%20S.A.!5e0!3m2!1sen!2sro!4v1664822343626!5m2!1sen!2sro"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2800.034032459819!2d28.171674897514336!3d45.42881529954041!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b720311e386909%3A0x8ad544f39afa8949!2sCentru%20De%20Agrement%20Z%C4%83tun!5e0!3m2!1sen!2sro!4v1679332177962!5m2!1sen!2sro"
             width="1620"
             height="300"
             style={{ border: 0 }}

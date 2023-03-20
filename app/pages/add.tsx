@@ -461,6 +461,27 @@ const Add: BlitzPage = () => {
                   <CasutaSelect />
                 </Suspense>
               </div>
+              <div className="flex  mb-4">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  required
+                  className="w-12 h-12 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="default-checkbox"
+                  className="ml-2 text-sm dark:text-gray-300 text-left"
+                >
+                  Sunt de acord cu Termenii si Conditiile de utilizare si cu Regulamentele din
+                  cadrul complexului.{" "}
+                  <Link href={Routes.TC()}>
+                    <a className="font-bold text-blue-500">
+                      Citeste termenii si conditiile si Regulamentul complexului
+                    </a>
+                  </Link>
+                </label>
+              </div>
             </>
 
             <button
@@ -469,17 +490,7 @@ const Add: BlitzPage = () => {
             >
               Trimite
             </button>
-            <p className="text-center">
-              *Prin finalizarea rezervării sunteți de acord cu{" "}
-              <Link href={Routes.TC()}>
-                <span className="font-bold cursor-pointer">Termenii și Condițiile</span>
-              </Link>{" "}
-              și{" "}
-              <Link href={Routes.TC()}>
-                <span className="font-bold cursor-pointer">Regulamentele</span>
-              </Link>{" "}
-              din cadrul complexului
-            </p>
+
             <p className="text-center">
               ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
               anulării rezervării.
