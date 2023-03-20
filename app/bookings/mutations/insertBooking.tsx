@@ -13,6 +13,8 @@ type booking = {
 
 export default async function insertBooking(booking: booking, ctx: Ctx) {
   ctx.session.$authorize()
+
+  console.log(ctx.session.userId)
   await db.booking.create({
     data: {
       starts_at: booking.starts_at,
@@ -22,7 +24,6 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
       loc_pescuit: booking.loc_pescuit,
       casuta: booking.casuta,
       total_price: Number(booking.total_price),
-      paid: true,
       userId: ctx.session.userId,
     },
   })
