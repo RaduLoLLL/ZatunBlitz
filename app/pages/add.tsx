@@ -382,7 +382,7 @@ const Add: BlitzPage = () => {
                     //   { start: null, end: addDays(new Date(), 30) },
                     // ]}
                     minDate={new Date()}
-                    maxDate={addDays(new Date(), 30)}
+                    maxDate={addDays(new Date(), 10)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
                     ]}
