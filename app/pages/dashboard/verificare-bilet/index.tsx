@@ -214,6 +214,15 @@ const VerificareBilet: BlitzPage = () => {
   return (
     <>
       <div className="flex overflow-hidden bg-white pt-16">
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex justify-center items-center">
+              <div className="ping"></div>
+            </div>
+          }
+        >
+          <Sidebar />
+        </Suspense>
         <div
           className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
           id="sidebarBackdrop"
