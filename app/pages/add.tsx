@@ -292,10 +292,10 @@ const Add: BlitzPage = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * 20 +
-      state.locParcare * 5 +
-      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
 
@@ -344,9 +344,11 @@ const Add: BlitzPage = () => {
       total_price: state.totalPrice,
     }
 
-    invoke(insertBooking, booking) // Insert the new created booking into the database
-
-    router.push("/checkout")
+    const toastId = toast.loading("Iti inregistram rezervarea...")
+    await invoke(insertBooking, booking).then(() => {
+      toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
+      router.push("/checkout")
+    }) // Insert the new created booking into the database
   }
 
   // State handler for everything but the price, that updates in the useEffect
@@ -390,7 +392,7 @@ const Add: BlitzPage = () => {
               </div>
               <div>
                 <label htmlFor="intrare" className="block mb-2 text-sm font-medium text-gray-900 ">
-                  Bilete Agrement
+                  Taxa Agrement
                 </label>
                 <input
                   type="number"

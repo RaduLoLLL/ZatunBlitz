@@ -14,6 +14,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
+import toast from "react-hot-toast"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -43,21 +44,17 @@ const Checkout: BlitzPage = () => {
     const res = await invoke(createCheckoutSession, {
       user: currentUser,
       booking_id: booking?.id,
+    }).then((res) => {
+      Router.push(res?.data.formUrl)
     })
-    if (!res) {
-      return
-    }
-    Router.push(res.data.formUrl)
   }
   const createCheckoutWithId = async () => {
     const res = await invoke(createCheckoutSessionWithId, {
       booking_id: booking?.id,
       user: currentUser,
+    }).then((res) => {
+      Router.push(res?.data.formUrl)
     })
-    if (!res) {
-      return
-    }
-    Router.push(res.formUrl)
   }
 
   const Sumar = () => {
@@ -110,11 +107,11 @@ const Checkout: BlitzPage = () => {
                 border-b-2 border-gray-200
               "
                   >
-                    <p className="text-gray-400 ml-4">Bilete intrare complex</p>
+                    <p className="text-gray-400 ml-4">Taxa Agrement</p>
                     {booking?.intrare_complex > 1 ? (
-                      <p className="text-black mr-4">{booking?.intrare_complex} x 20 Lei</p>
+                      <p className="text-black mr-4">{booking?.intrare_complex} x 15 Lei</p>
                     ) : (
-                      <p className="text-black mr-4">20 Lei</p>
+                      <p className="text-black mr-4">15 Lei</p>
                     )}
                   </div>
                 ) : (
@@ -132,11 +129,11 @@ const Checkout: BlitzPage = () => {
                 border-b-2 border-gray-200
               "
                   >
-                    <p className="text-gray-400 ml-4">Loc de Parcare</p>
+                    <p className="text-gray-400 ml-4">Taxa Parcare</p>
                     {booking.loc_parcare > 1 ? (
-                      <p className="text-black mr-4">{booking.loc_parcare} x 5 Lei</p>
+                      <p className="text-black mr-4">{booking.loc_parcare} x 10 Lei</p>
                     ) : (
-                      <p className="text-black mr-4"> 5 Lei</p>
+                      <p className="text-black mr-4"> 10 Lei</p>
                     )}
                   </div>
                 ) : (
@@ -155,9 +152,9 @@ const Checkout: BlitzPage = () => {
         "
                   >
                     <p className="text-gray-400 ml-4">
-                      Loc de Pescuit ( Nr. {booking.loc_pescuit.join(", ")} )
+                      Taxa Loc de Pescuit ( Nr. {booking.loc_pescuit.join(", ")} )
                     </p>
-                    <p className="text-black mr-4">{booking.loc_pescuit.length} x 50 Lei</p>
+                    <p className="text-black mr-4">{booking.loc_pescuit.length} x 75 Lei</p>
                   </div>
                 ) : (
                   <div></div>
@@ -174,8 +171,10 @@ const Checkout: BlitzPage = () => {
           border-b-2 border-gray-200
         "
                   >
-                    <p className="text-gray-400 ml-4">Casuta ( Nr. {booking.casuta.join(", ")} )</p>
-                    <p className="text-black mr-4"> {booking.casuta.length} x 100 Lei</p>
+                    <p className="text-gray-400 ml-4">
+                      Taxa Casuta ( Nr. {booking.casuta.join(", ")} )
+                    </p>
+                    <p className="text-black mr-4"> {booking.casuta.length} x 93.42 Lei</p>
                   </div>
                 ) : (
                   <div></div>
@@ -216,7 +215,7 @@ const Checkout: BlitzPage = () => {
                       onClick={createCheckout}
                       className="w-full bg-indigo-600 text-white px-2 py-2 rounded-md"
                     >
-                      Confirma Rezervarea
+                      Continua catre plata
                     </button>
                   )}
                 </div>

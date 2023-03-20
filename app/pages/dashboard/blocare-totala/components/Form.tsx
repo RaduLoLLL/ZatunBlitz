@@ -20,8 +20,10 @@ const BlockedForm = () => {
     event.preventDefault()
     const toastId = toast.loading("Se blochează datele selectate")
 
-    await invoke(insertBlockedDates, { startDate: startDate, endDate: endDate })
-    toast.success("Datele au fost blocate cu succes", { id: toastId })
+    await invoke(insertBlockedDates, { startDate: startDate, endDate: endDate }).then(() => {
+      toast.success("Datele au fost blocate cu succes", { id: toastId })
+    })
+
     setStartDate(null)
     setEndDate(null)
   }

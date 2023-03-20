@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Booking" ALTER COLUMN "total_price" SET DATA TYPE DOUBLE PRECISION;

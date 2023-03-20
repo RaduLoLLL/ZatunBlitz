@@ -28,14 +28,58 @@ const Analiza: BlitzPage = () => {
   const RezervariDirecte = () => {
     const result = useQuery(getBookingsByDate, format(startDate, "yyyy-MM-dd"))
     const bookings = result[0]
+    let locuri_pescuit = 0
+    let casute = 0
+    let agrement = 0
+    let parcare = 0
+    bookings.map((booking, i) => {
+      locuri_pescuit += booking.loc_pescuit.length
+      casute += booking.casuta.length
+      agrement += booking.intrare_complex
+      parcare += booking.loc_parcare
+    })
 
     return (
       <>
-        <div className="flex-shrink-0">
-          <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-            {bookings.length}
-          </span>
-          <h3 className="text-base font-normal text-gray-500">Rezervari directe in aceasta zi</h3>
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+          <div className="flex space-y-6 flex-col">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {locuri_pescuit}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Locuri pescuit</h3>
+              </div>
+              <div>{locuri_pescuit * 75}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {casute}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Casute</h3>
+              </div>
+              <div>{casute * 93.42}Lei</div>
+            </div>
+            <div className="flex items-center justify-between  ">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {agrement}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Bilete agrement</h3>
+              </div>
+              <div>{agrement * 15}Lei</div>
+            </div>
+            <div className="flex items-center justify-between  ">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {parcare}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Locuri parcare</h3>
+              </div>
+              <div>{parcare * 10}Lei</div>
+            </div>
+          </div>
         </div>
       </>
     )
@@ -65,14 +109,57 @@ const Analiza: BlitzPage = () => {
   const RezervariOnline = () => {
     const result = useQuery(getBookingsByDateOnline, format(startDate, "yyyy-MM-dd"))
     const bookings = result[0]
-
+    let locuri_pescuit = 0
+    let casute = 0
+    let agrement = 0
+    let parcare = 0
+    bookings.map((booking, i) => {
+      locuri_pescuit += booking.loc_pescuit.length
+      casute += booking.casuta.length
+      agrement += booking.intrare_complex
+      parcare += booking.loc_parcare
+    })
     return (
       <>
-        <div className="flex-shrink-0">
-          <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-            {bookings.length}
-          </span>
-          <h3 className="text-base font-normal text-gray-500">Rezervari Online in aceasta zi</h3>
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+          <div className="flex space-y-6 flex-col">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {locuri_pescuit}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Locuri pescuit</h3>
+              </div>
+              <div>{locuri_pescuit * 75}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {casute}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Casute</h3>
+              </div>
+              <div>{casute * 93.42}Lei</div>
+            </div>
+            <div className="flex items-center justify-between  ">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {agrement}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Bilete agrement</h3>
+              </div>
+              <div>{agrement * 15}Lei</div>
+            </div>
+            <div className="flex items-center justify-between  ">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {parcare}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Locuri parcare</h3>
+              </div>
+              <div>{parcare * 10}Lei</div>
+            </div>
+          </div>
         </div>
       </>
     )
@@ -116,19 +203,16 @@ const Analiza: BlitzPage = () => {
           </div>
         </div>
         <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
-          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <Suspense
-                fallback={
-                  <div className="min-h-screen flex justify-center items-center">
-                    <div className="ping"></div>
-                  </div>
-                }
-              >
-                <RezervariDirecte />
-              </Suspense>
-            </div>
-          </div>
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="ping"></div>
+              </div>
+            }
+          >
+            <RezervariDirecte />
+          </Suspense>
+
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
             <div className="flex items-center">
               <Suspense
@@ -145,19 +229,16 @@ const Analiza: BlitzPage = () => {
         </div>
 
         <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
-          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <Suspense
-                fallback={
-                  <div className="min-h-screen flex justify-center items-center">
-                    <div className="ping"></div>
-                  </div>
-                }
-              >
-                <RezervariOnline />
-              </Suspense>
-            </div>
-          </div>
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="ping"></div>
+              </div>
+            }
+          >
+            <RezervariOnline />
+          </Suspense>
+
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
             <div className="flex items-center">
               <Suspense
