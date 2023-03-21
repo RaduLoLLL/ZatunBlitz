@@ -1,5 +1,5 @@
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
-import insertBooking from "app/bookings/mutations/insertBooking"
+
 import { invoke, useRouter, useSession } from "blitz"
 import { addDays, addHours, subDays } from "date-fns"
 import { Suspense, useEffect, useState } from "react"
@@ -7,6 +7,7 @@ import toast from "react-hot-toast"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import insertBooking from "../dashboard/adauga/mutations/inserBooking"
 
 const ReservationForm = () => {
   //State for all options that will be added for the booking
