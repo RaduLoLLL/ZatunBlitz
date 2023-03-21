@@ -10,7 +10,7 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
 
   const urlencodedPayload = `userName=${bt_username}&password=${bt_password}&orderId=${orderId}`
   const orderStatus = await axios.post(
-    "https://ecclients.btrl.ro:5443/payment/rest/getOrderStatusExtended.do",
+    "https://ecclients.btrl.ro/payment/rest/getOrderStatusExtended.do",
     urlencodedPayload,
     {
       headers: {

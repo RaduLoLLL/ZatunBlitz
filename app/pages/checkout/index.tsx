@@ -34,7 +34,6 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 const Checkout: BlitzPage = () => {
-  console.log("Pret Agrement", process.env.PRET_AGREMENT)
   const query = useRouterQuery()
 
   const booking = useLatestBooking(query.booking)
