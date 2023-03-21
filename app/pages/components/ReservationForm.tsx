@@ -113,10 +113,10 @@ const ReservationForm = () => {
 
   const CalculatePrice = () => {
     const totalPrice =
-      state.intrare * 20 +
-      state.locParcare * 5 +
-      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <>
         <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
@@ -126,10 +126,10 @@ const ReservationForm = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * 20 +
-      state.locParcare * 5 +
-      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
 
     state.totalPrice = totalPrice
   }, [state])
