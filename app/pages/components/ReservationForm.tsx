@@ -7,7 +7,7 @@ import toast from "react-hot-toast"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import insertBooking from "../dashboard/adauga/mutations/inserBooking"
+import insertBooking from "../dashboard/adauga/mutations/insertBooking"
 
 const ReservationForm = () => {
   //State for all options that will be added for the booking
