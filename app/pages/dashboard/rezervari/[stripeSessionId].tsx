@@ -44,9 +44,11 @@ const Rezervare: BlitzPage = () => {
                   >
                     <p className="text-gray-400 ml-4">Bilete intrare complex</p>
                     {booking?.intrare_complex > 1 ? (
-                      <p className="text-black mr-4">{booking?.intrare_complex} x 20 Lei</p>
+                      <p className="text-black mr-4">
+                        {booking?.intrare_complex} x {process.env.PRET_AGREMENT} Lei
+                      </p>
                     ) : (
-                      <p className="text-black mr-4">20 Lei</p>
+                      <p className="text-black mr-4">{process.env.PRET_AGREMENT} Lei</p>
                     )}
                   </div>
                 ) : (
@@ -66,9 +68,11 @@ const Rezervare: BlitzPage = () => {
                   >
                     <p className="text-gray-400 ml-4">Loc de Parcare</p>
                     {booking.loc_parcare > 1 ? (
-                      <p className="text-black mr-4">{booking.loc_parcare} x 5 Lei</p>
+                      <p className="text-black mr-4">
+                        {booking.loc_parcare} x {process.env.PRET_PARCARE} Lei
+                      </p>
                     ) : (
-                      <p className="text-black mr-4"> 5 Lei</p>
+                      <p className="text-black mr-4"> {process.env.PRET_PARCARE} Lei</p>
                     )}
                   </div>
                 ) : (
@@ -89,7 +93,9 @@ const Rezervare: BlitzPage = () => {
                     <p className="text-gray-400 ml-4">
                       Loc de Pescuit ( Nr. {booking?.loc_pescuit.join(", ")} )
                     </p>
-                    <p className="text-black mr-4">{booking?.loc_pescuit.length} x 50 Lei</p>
+                    <p className="text-black mr-4">
+                      {booking?.loc_pescuit.length} x {process.env.PRET_PESCUIT} Lei
+                    </p>
                   </div>
                 ) : (
                   <div></div>
@@ -107,7 +113,10 @@ const Rezervare: BlitzPage = () => {
   "
                   >
                     <p className="text-gray-400 ml-4">Casuta ( Nr. {booking.casuta.join(", ")} )</p>
-                    <p className="text-black mr-4"> {booking.casuta.length} x 100 Lei</p>
+                    <p className="text-black mr-4">
+                      {" "}
+                      {booking.casuta.length} x {process.env.PRET_CASUTA} Lei
+                    </p>
                   </div>
                 ) : (
                   <div></div>

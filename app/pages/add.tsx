@@ -12,6 +12,7 @@ import toast from "react-hot-toast"
 import { addHours, isAfter, isBefore, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
+import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -30,6 +31,10 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Add: BlitzPage = () => {
   const router = useRouter()
+
+  useEffect(() => {
+    invoke(deleteUnpaidBooking, undefined)
+  })
 
   //State for all options that will be added for the booking
   const [state, setState] = useState({
@@ -53,9 +58,9 @@ const Add: BlitzPage = () => {
   const [startDate, setStartDate] = useState(
     isBefore(new Date(), blockedDates?.endDate)
       ? isAfter(new Date(), blockedDates?.startDate)
-        ? addDays(blockedDates?.endDate, 1)
-        : addHours(new Date(), 4)
-      : addHours(new Date(), 4)
+        ? addHours(blockedDates?.endDate, 26)
+        : addHours(new Date(), 2)
+      : addHours(new Date(), 2)
   )
 
   const PescuitSelect = () => {
@@ -292,10 +297,14 @@ const Add: BlitzPage = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * 15 +
-      state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+      state.intrare * parseInt(process.env.PRET_AGREMENT || "1") +
+      state.locParcare * parseInt(process.env.PRET_PARCARE || "1") +
+      (state.casuta.length > 0
+        ? parseFloat(process.env.PRET_CASUTA || "1") * state.casuta.length
+        : 0) +
+      (state.locPescuit.length > 0
+        ? parseInt(process.env.PESCUIT || "1") * state.locPescuit.length
+        : 0)
     state.totalPrice = totalPrice
   }, [state])
 
@@ -376,13 +385,10 @@ const Add: BlitzPage = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(addHours(date, 4))}
+                    onChange={(date) => setStartDate(addHours(date, 2))}
                     dateFormat="dd/MM/yyyy"
-                    // includeDateIntervals={[
-                    //   { start: null, end: addDays(new Date(), 30) },
-                    // ]}
                     minDate={new Date()}
-                    maxDate={addDays(new Date(), 10)}
+                    maxDate={addDays(new Date(), 12)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
                     ]}

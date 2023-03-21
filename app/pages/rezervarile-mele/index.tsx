@@ -62,11 +62,12 @@ function RezervarileMele({ bookings }) {
                                 Bilete Agrement
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                {booking.intrare_complex} x 20 Lei
+                                {booking.intrare_complex} x {process.env.PRET_AGREMENT} Lei
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.intrare_complex * 20} Lei
+                              {booking.intrare_complex * parseInt(process.env.PRET_AGREMENT || "1")}
+                              Lei
                             </div>
                           </div>
                         </li>
@@ -83,11 +84,11 @@ function RezervarileMele({ bookings }) {
                                 Loc de parcare
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                {booking.loc_parcare} x 5 Lei
+                                {booking.loc_parcare} x {process.env.PRET_PARCARE} Lei
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.loc_parcare * 5} Lei
+                              {booking.loc_parcare * parseInt(process.env.PRET_PARCARE || "1")} Lei
                             </div>
                           </div>
                         </li>
@@ -108,7 +109,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              50 Lei
+                              {process.env.PRET_PESCUIT} Lei
                             </div>
                           </div>
                         </li>
@@ -129,65 +130,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              100 Lei
-                            </div>
-                          </div>
-                        </li>
-                      ) : (
-                        <></>
-                      )}
-
-                      {booking.sezlong ? (
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0"></div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                Sezlong
-                              </p>
-                              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                Sezlongul numarul {booking.sezlong}
-                              </p>
-                            </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              15 Lei
-                            </div>
-                          </div>
-                        </li>
-                      ) : (
-                        <></>
-                      )}
-                      {booking.sedinta_foto ? (
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0"></div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                Sedinta Foto
-                              </p>
-                              <p className="text-sm text-gray-500 truncate dark:text-gray-400"></p>
-                            </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              100 Lei
-                            </div>
-                          </div>
-                        </li>
-                      ) : (
-                        <></>
-                      )}
-
-                      {booking.petrecere_privata ? (
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0"></div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                Petrecere Privata
-                              </p>
-                              <p className="text-sm text-gray-500 truncate dark:text-gray-400"></p>
-                            </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              200 Lei
+                              {process.env.PRET_CASUTA} Lei
                             </div>
                           </div>
                         </li>

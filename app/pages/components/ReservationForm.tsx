@@ -113,10 +113,14 @@ const ReservationForm = () => {
 
   const CalculatePrice = () => {
     const totalPrice =
-      state.intrare * 15 +
-      state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+      state.intrare * parseInt(process.env.PRET_AGREMENT || "1") +
+      state.locParcare * parseInt(process.env.PRET_PARCARE || "1") +
+      (state.casuta.length > 0
+        ? parseFloat(process.env.PRET_CASUTA || "1") * state.casuta.length
+        : 0) +
+      (state.locPescuit.length > 0
+        ? parseInt(process.env.PESCUIT || "1") * state.locPescuit.length
+        : 0)
     return (
       <>
         <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
@@ -126,11 +130,14 @@ const ReservationForm = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * 15 +
-      state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
-
+      state.intrare * parseInt(process.env.PRET_AGREMENT || "1") +
+      state.locParcare * parseInt(process.env.PRET_PARCARE || "1") +
+      (state.casuta.length > 0
+        ? parseFloat(process.env.PRET_CASUTA || "1") * state.casuta.length
+        : 0) +
+      (state.locPescuit.length > 0
+        ? parseInt(process.env.PESCUIT || "1") * state.locPescuit.length
+        : 0)
     state.totalPrice = totalPrice
   }, [state])
 

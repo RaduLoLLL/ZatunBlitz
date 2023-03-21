@@ -14,7 +14,6 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
-import toast from "react-hot-toast"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -35,6 +34,7 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 const Checkout: BlitzPage = () => {
+  console.log("Pret Agrement", process.env.PRET_AGREMENT)
   const query = useRouterQuery()
 
   const booking = useLatestBooking(query.booking)
@@ -109,9 +109,11 @@ const Checkout: BlitzPage = () => {
                   >
                     <p className="text-gray-400 ml-4">Taxa Agrement</p>
                     {booking?.intrare_complex > 1 ? (
-                      <p className="text-black mr-4">{booking?.intrare_complex} x 15 Lei</p>
+                      <p className="text-black mr-4">
+                        {booking?.intrare_complex} x {process.env.PRET_AGREMENT} Lei
+                      </p>
                     ) : (
-                      <p className="text-black mr-4">15 Lei</p>
+                      <p className="text-black mr-4">{process.env.PRET_AGREMENT} Lei</p>
                     )}
                   </div>
                 ) : (
@@ -131,9 +133,11 @@ const Checkout: BlitzPage = () => {
                   >
                     <p className="text-gray-400 ml-4">Taxa Parcare</p>
                     {booking.loc_parcare > 1 ? (
-                      <p className="text-black mr-4">{booking.loc_parcare} x 10 Lei</p>
+                      <p className="text-black mr-4">
+                        {booking.loc_parcare} x {process.env.PRET_PARCARE} Lei
+                      </p>
                     ) : (
-                      <p className="text-black mr-4"> 10 Lei</p>
+                      <p className="text-black mr-4"> {process.env.PRET_PARCARE} Lei</p>
                     )}
                   </div>
                 ) : (
@@ -154,7 +158,9 @@ const Checkout: BlitzPage = () => {
                     <p className="text-gray-400 ml-4">
                       Taxa Loc de Pescuit ( Nr. {booking.loc_pescuit.join(", ")} )
                     </p>
-                    <p className="text-black mr-4">{booking.loc_pescuit.length} x 75 Lei</p>
+                    <p className="text-black mr-4">
+                      {booking.loc_pescuit.length} x {process.env.PRET_PESCUIT} Lei
+                    </p>
                   </div>
                 ) : (
                   <div></div>
@@ -174,7 +180,10 @@ const Checkout: BlitzPage = () => {
                     <p className="text-gray-400 ml-4">
                       Taxa Casuta ( Nr. {booking.casuta.join(", ")} )
                     </p>
-                    <p className="text-black mr-4"> {booking.casuta.length} x 93.42 Lei</p>
+                    <p className="text-black mr-4">
+                      {" "}
+                      {booking.casuta.length} x {process.env.PRET_CASUTA} Lei
+                    </p>
                   </div>
                 ) : (
                   <div></div>
