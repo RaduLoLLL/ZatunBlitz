@@ -1,7 +1,7 @@
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { invoke, useRouter, useSession } from "blitz"
-import { addDays, subDays } from "date-fns"
+import { addDays, addHours, subDays } from "date-fns"
 import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Select from "react-select"
@@ -25,7 +25,7 @@ const ReservationForm = () => {
     totalPrice: 0,
   })
   //Date state added separately
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -113,14 +113,10 @@ const ReservationForm = () => {
 
   const CalculatePrice = () => {
     const totalPrice =
-      state.intrare * parseInt(process.env.PRET_AGREMENT || "1") +
-      state.locParcare * parseInt(process.env.PRET_PARCARE || "1") +
-      (state.casuta.length > 0
-        ? parseFloat(process.env.PRET_CASUTA || "1") * state.casuta.length
-        : 0) +
-      (state.locPescuit.length > 0
-        ? parseInt(process.env.PESCUIT || "1") * state.locPescuit.length
-        : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <>
         <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
@@ -130,14 +126,10 @@ const ReservationForm = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * parseInt(process.env.PRET_AGREMENT || "1") +
-      state.locParcare * parseInt(process.env.PRET_PARCARE || "1") +
-      (state.casuta.length > 0
-        ? parseFloat(process.env.PRET_CASUTA || "1") * state.casuta.length
-        : 0) +
-      (state.locPescuit.length > 0
-        ? parseInt(process.env.PESCUIT || "1") * state.locPescuit.length
-        : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
 
@@ -220,7 +212,7 @@ const ReservationForm = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => setStartDate(addHours(date, 2))}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
                       { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },

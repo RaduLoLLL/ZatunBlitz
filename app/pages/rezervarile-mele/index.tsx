@@ -62,11 +62,11 @@ function RezervarileMele({ bookings }) {
                                 Bilete Agrement
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                {booking.intrare_complex} x {process.env.PRET_AGREMENT} Lei
+                                {booking.intrare_complex} x 15 Lei
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.intrare_complex * parseInt(process.env.PRET_AGREMENT || "1")}
+                              {booking.intrare_complex * 15}
                               Lei
                             </div>
                           </div>
@@ -84,11 +84,11 @@ function RezervarileMele({ bookings }) {
                                 Loc de parcare
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                {booking.loc_parcare} x {process.env.PRET_PARCARE} Lei
+                                {booking.loc_parcare} x 10 Lei
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.loc_parcare * parseInt(process.env.PRET_PARCARE || "1")} Lei
+                              {booking.loc_parcare * 10} Lei
                             </div>
                           </div>
                         </li>
@@ -109,7 +109,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {process.env.PRET_PESCUIT} Lei
+                              75 Lei
                             </div>
                           </div>
                         </li>
@@ -130,7 +130,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {process.env.PRET_CASUTA} Lei
+                              93.42 Lei
                             </div>
                           </div>
                         </li>

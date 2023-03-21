@@ -53,6 +53,7 @@ const Checkout: BlitzPage = () => {
       booking_id: booking?.id,
       user: currentUser,
     }).then((res) => {
+      console.log(res)
       Router.push(res?.data.formUrl)
     })
   }

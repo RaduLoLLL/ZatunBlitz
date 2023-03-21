@@ -20,9 +20,9 @@ export default async function createCheckoutSessionWithId({ booking_id, user }, 
   const urlencodedPayload =
     `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
       booking.total_price * 100
-    }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=http%3A%2F%2Fbaltazatun.ro%2Fcheckout%2Fsucces%3Fbooking_id%3D${
+    }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=http%3A%2F%2Flocalhost:3000%2Fcheckout%2Fsucces%3Fbooking_id%3D${
       booking.id
-    }0&` +
+    }&` +
     `orderBundle%3D%7B%22orderCreationDate%22%3A%22${new Date()}%22%2C%22customerDetails%22%3A%7B%22email%22%3A${
       user.email
     }%2C%22phone%22%3A%22${
@@ -44,5 +44,7 @@ export default async function createCheckoutSessionWithId({ booking_id, user }, 
     data: { stripeSessionId: res.orderId },
   })
 
-  return res.data
+  return {
+    data: res.data,
+  }
 }
