@@ -9,7 +9,7 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { isAfter, isBefore, subDays } from "date-fns"
+import { addHours, isAfter, isBefore, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 
@@ -54,8 +54,8 @@ const Add: BlitzPage = () => {
     isBefore(new Date(), blockedDates?.endDate)
       ? isAfter(new Date(), blockedDates?.startDate)
         ? addDays(blockedDates?.endDate, 1)
-        : new Date()
-      : new Date()
+        : addHours(new Date(), 4)
+      : addHours(new Date(), 4)
   )
 
   const PescuitSelect = () => {
@@ -376,7 +376,7 @@ const Add: BlitzPage = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => setStartDate(addHours(date, 4))}
                     dateFormat="dd/MM/yyyy"
                     // includeDateIntervals={[
                     //   { start: null, end: addDays(new Date(), 30) },
