@@ -7,7 +7,7 @@ import toast from "react-hot-toast"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import insertBooking from "../dashboard/adauga/mutations/insertBooking"
+import insertBookingPaid from "../dashboard/adauga/mutations/insertBookingPaid"
 
 const ReservationForm = () => {
   //State for all options that will be added for the booking
@@ -179,7 +179,7 @@ const ReservationForm = () => {
       total_price: state.totalPrice,
     }
 
-    await invoke(insertBooking, booking) // Insert the new created booking into the database
+    await invoke(insertBookingPaid, booking) // Insert the new created booking into the database
 
     toast.success("Rezervare adaugata cu succes")
     setState({ ...initialState })

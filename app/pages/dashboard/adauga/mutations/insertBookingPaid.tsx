@@ -11,7 +11,7 @@ type booking = {
   total_price: number
 }
 
-export default async function insertBooking(booking: booking, ctx: Ctx) {
+export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
   ctx.session.$authorize()
 
   console.log(ctx.session.userId)
