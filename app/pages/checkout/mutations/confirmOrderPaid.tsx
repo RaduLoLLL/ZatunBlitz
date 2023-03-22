@@ -19,13 +19,12 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
     }
   )
 
-  const updateBooking =
-    orderStatus.data.orderStatus === 2
-      ? await db.booking.update({
-          where: { id: booking?.id },
-          data: { paid: true, stripeSessionId: orderId },
-        })
-      : false
+  orderStatus.data.orderStatus === 2
+    ? await db.booking.update({
+        where: { id: booking?.id },
+        data: { paid: true, stripeSessionId: orderId },
+      })
+    : false
 
   return orderStatus.data.orderStatus === 2
 }
