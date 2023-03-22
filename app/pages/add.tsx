@@ -74,6 +74,7 @@ const Add: BlitzPage = () => {
         spotsArray.push(booking.loc_pescuit)
       }
     })
+    spotsArray.push([1, 2, 9, 10])
     const ocuppiedFishingSpots = [].concat.apply([], spotsArray)
 
     const availableFishingSpots = totalFishingSpots.filter((x) => !ocuppiedFishingSpots.includes(x))

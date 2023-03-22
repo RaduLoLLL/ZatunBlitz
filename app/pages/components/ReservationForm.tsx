@@ -26,7 +26,7 @@ const ReservationForm = () => {
     totalPrice: 0,
   })
   //Date state added separately
-  console.log("Initial state: ", addHours(new Date(), 2))
+
   const [startDate, setStartDate] = useState(addHours(new Date(), 2))
 
   const PescuitSelect = () => {
@@ -216,7 +216,6 @@ const ReservationForm = () => {
                     selected={startDate}
                     onChange={(date) => {
                       setStartDate(date)
-                      console.log("Date after change: ", addHours(date, 2))
                     }}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
