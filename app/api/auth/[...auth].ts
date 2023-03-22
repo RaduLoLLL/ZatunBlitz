@@ -1,7 +1,6 @@
-import { passportAuth, useSession } from "blitz"
+import { passportAuth } from "blitz"
 import db from "db"
 import { Strategy as GoogleAuth } from "passport-google-oauth20"
-import { Strategy as FacebookAuth } from "passport-facebook"
 
 export default passportAuth({
   successRedirectUrl: "/",
@@ -14,7 +13,7 @@ export default passportAuth({
           authorizationURL: "https://accounts.google.com/o/oauth2/auth",
           tokenURL: "https://accounts.google.com/o/oauth2/token",
           clientID: "892847437429-n0jcmcebjjesp8939afak7h23qu26le3.apps.googleusercontent.com",
-          clientSecret: "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",
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
           callbackURL:
             process.env.NODE_ENV === "production"
               ? "https://www.baltazatun.ro/api/auth/google/callback"

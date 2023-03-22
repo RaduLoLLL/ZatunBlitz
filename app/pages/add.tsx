@@ -9,9 +9,10 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { isAfter, isBefore, subDays } from "date-fns"
+import { addHours, isAfter, isBefore, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
+import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -30,6 +31,10 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Add: BlitzPage = () => {
   const router = useRouter()
+
+  useEffect(() => {
+    invoke(deleteUnpaidBooking, undefined)
+  })
 
   //State for all options that will be added for the booking
   const [state, setState] = useState({
@@ -53,9 +58,9 @@ const Add: BlitzPage = () => {
   const [startDate, setStartDate] = useState(
     isBefore(new Date(), blockedDates?.endDate)
       ? isAfter(new Date(), blockedDates?.startDate)
-        ? addDays(blockedDates?.endDate, 1)
-        : new Date()
-      : new Date()
+        ? addHours(blockedDates?.endDate, 26)
+        : addHours(new Date(), 2)
+      : addHours(new Date(), 2)
   )
 
   const PescuitSelect = () => {
@@ -376,13 +381,10 @@ const Add: BlitzPage = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => setStartDate(addHours(date, 2))}
                     dateFormat="dd/MM/yyyy"
-                    // includeDateIntervals={[
-                    //   { start: null, end: addDays(new Date(), 30) },
-                    // ]}
                     minDate={new Date()}
-                    maxDate={addDays(new Date(), 30)}
+                    maxDate={addDays(new Date(), 12)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
                     ]}
@@ -461,6 +463,27 @@ const Add: BlitzPage = () => {
                   <CasutaSelect />
                 </Suspense>
               </div>
+              <div className="flex  mb-4">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  required
+                  className="w-12 h-12 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="default-checkbox"
+                  className="ml-2 text-sm dark:text-gray-300 text-left"
+                >
+                  Sunt de acord cu Termenii si Conditiile de utilizare si cu Regulamentele din
+                  cadrul complexului.{" "}
+                  <Link href={Routes.TC()}>
+                    <a className="font-bold text-blue-500">
+                      Citeste termenii si conditiile si Regulamentul complexului
+                    </a>
+                  </Link>
+                </label>
+              </div>
             </>
 
             <button
@@ -469,17 +492,7 @@ const Add: BlitzPage = () => {
             >
               Trimite
             </button>
-            <p className="text-center">
-              *Prin finalizarea rezervării sunteți de acord cu{" "}
-              <Link href={Routes.TC()}>
-                <span className="font-bold cursor-pointer">Termenii și Condițiile</span>
-              </Link>{" "}
-              și{" "}
-              <Link href={Routes.TC()}>
-                <span className="font-bold cursor-pointer">Regulamentele</span>
-              </Link>{" "}
-              din cadrul complexului
-            </p>
+
             <p className="text-center">
               ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
               anulării rezervării.

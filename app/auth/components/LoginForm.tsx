@@ -41,9 +41,9 @@ export const LoginForm = (props: LoginFormProps) => {
             : {}
         }
       >
-        <div className="py-6 mx-8">
-          <div className="flex justify-center">
-            <Image src="/Logo2.svg" width={400} height={300} alt="Logo" />
+        <div className="py-6 mx-8 w-1/2">
+          <div className="flex justify-center mb-6">
+            <Image src="/logoExtern.png" width={200} height={200} alt="Logo" />
           </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
@@ -73,7 +73,7 @@ export const LoginForm = (props: LoginFormProps) => {
           <p className="text-gray-100">sau foloseste email-ul si parola</p>
           <Form
             submitText="Intra in cont"
-            className="text-gray-100 mt-10 space-y-10"
+            className="text-gray-100 mt-10 space-y-10 flex-1"
             schema={Login}
             initialValues={{ email: "", password: "" }}
             onSubmit={async (values) => {

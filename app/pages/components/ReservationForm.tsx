@@ -1,12 +1,13 @@
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
-import insertBooking from "app/bookings/mutations/insertBooking"
+
 import { invoke, useRouter, useSession } from "blitz"
-import { addDays, subDays } from "date-fns"
+import { addDays, addHours, subDays } from "date-fns"
 import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import insertBookingPaid from "../dashboard/adauga/mutations/insertBookingPaid"
 
 const ReservationForm = () => {
   //State for all options that will be added for the booking
@@ -25,7 +26,7 @@ const ReservationForm = () => {
     totalPrice: 0,
   })
   //Date state added separately
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -74,7 +75,7 @@ const ReservationForm = () => {
   const CasutaSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalCasuta = [...Array(12).keys()].map((x) => x + 2)
+    const totalCasuta = [...Array(17).keys()].map((x) => x + 2)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -113,10 +114,10 @@ const ReservationForm = () => {
 
   const CalculatePrice = () => {
     const totalPrice =
-      state.intrare * 20 +
-      state.locParcare * 5 +
-      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0)
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <>
         <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
@@ -126,11 +127,10 @@ const ReservationForm = () => {
   // Update the price as soon as any of the options changed
   useEffect(() => {
     const totalPrice =
-      state.intrare * 20 +
-      state.locParcare * 5 +
-      (state.casuta.length > 0 ? 100 * state.casuta.length : 0) +
-      (state.locPescuit.length > 0 ? 50 * state.locPescuit.length : 0)
-
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
 
@@ -179,7 +179,7 @@ const ReservationForm = () => {
       total_price: state.totalPrice,
     }
 
-    await invoke(insertBooking, booking) // Insert the new created booking into the database
+    await invoke(insertBookingPaid, booking) // Insert the new created booking into the database
 
     toast.success("Rezervare adaugata cu succes")
     setState({ ...initialState })
@@ -213,7 +213,7 @@ const ReservationForm = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => setStartDate(addHours(date, 2))}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
                       { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },

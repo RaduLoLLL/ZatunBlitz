@@ -14,7 +14,6 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
-import toast from "react-hot-toast"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -53,6 +52,7 @@ const Checkout: BlitzPage = () => {
       booking_id: booking?.id,
       user: currentUser,
     }).then((res) => {
+      console.log(res)
       Router.push(res?.data.formUrl)
     })
   }

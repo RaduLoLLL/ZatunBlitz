@@ -5,8 +5,10 @@ const axios = require("axios")
 export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx) {
   const intBookingId = parseInt(booking_id)
   const booking = await db.booking.findFirst({ where: { id: intBookingId } })
+  const bt_username = process.env.DEV_BT_USERNAME
+  const bt_password = process.env.DEV_BT_PASSWORD
 
-  const urlencodedPayload = `userName=test_iPay3_api&password=test_iPay3_ap%21e4r&orderId=${orderId}`
+  const urlencodedPayload = `userName=${bt_username}&password=${bt_password}&orderId=${orderId}`
   const orderStatus = await axios.post(
     "https://ecclients.btrl.ro:5443/payment/rest/getOrderStatusExtended.do",
     urlencodedPayload,

@@ -1,14 +1,34 @@
-import { useForm } from "react-hook-form"
+import { useForm, useFormState } from "react-hook-form"
+import { contactMailer } from "mailers/contactMailer"
+import { useMutation } from "blitz"
+import sendEmail from "../mutations/sendEmail"
+import toast from "react-hot-toast"
+import { useEffect } from "react"
 
 const Form = () => {
+  const [sendEmailMutation, { isSuccess }] = useMutation(sendEmail)
   const {
     register,
     handleSubmit,
+    reset,
     watch,
-    formState: { errors },
-  } = useForm()
+    formState: { errors, isSubmitSuccessful },
+  } = useForm({ defaultValues: { nume: "", prenume: "", email: "", mesaj: "" } })
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    const toastId = toast.loading("Se transmite mesajul")
+    await sendEmailMutation(data).then(() => {
+      toast.success("Mesajul a fost trimis cu succes", { id: toastId })
+      reset(data)
+    })
+
+    console.log(data)
+  }
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ nume: "", prenume: "", email: "", mesaj: "" })
+    }
+  }, [reset, isSubmitSuccessful])
 
   return (
     <div>
