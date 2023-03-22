@@ -9,8 +9,6 @@ export default async function getBookingsByDate(date: string) {
         OR: [
           { User: { email: "acces1@baltazatun.ro" } },
           { User: { email: "acces2@baltazatun.ro" } },
-          { User: { email: "agache.catalin@baltazatun.ro" } },
-          { User: { email: "paslaru.alexandru@baltazatun.ro" } },
           { User: { email: "contabilitate@baltazatun.ro" } },
         ],
       },
