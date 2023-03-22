@@ -3,7 +3,7 @@ import Layout from "app/core/layouts/Layout"
 import { QRCodeCanvas } from "qrcode.react"
 import { useRef, useEffect, useState, Suspense } from "react"
 
-import confirmOrderPaid from "./mutations/confirmOrderPaid"
+import confirmOrderPaid from "./queries/confirmOrderPaid"
 
 const Succes: BlitzPage = () => {
   const ref = useRef()
