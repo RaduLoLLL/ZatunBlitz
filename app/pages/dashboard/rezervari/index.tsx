@@ -3,7 +3,7 @@ import { Suspense } from "react"
 import Sidebar from "../../../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"
-import { format } from "date-fns"
+import { format, subHours } from "date-fns"
 import { CheckCircleIcon } from "@heroicons/react/solid"
 import insertVerificare from "../mutations/insertVerificare"
 import toast from "react-hot-toast"
@@ -111,7 +111,7 @@ const Rezervari: BlitzPage = () => {
                           : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
                       }
                     >
-                      {format(booking.starts_at, "dd.MM.yyyy")}
+                      {format(subHours(booking.starts_at, 2), "dd.MM.yyyy")}
                     </td>
                     <td
                       className={
