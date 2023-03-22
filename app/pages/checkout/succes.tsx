@@ -1,10 +1,9 @@
-import { BlitzPage, useRouterQuery, invoke, Link, Routes } from "blitz"
+import { BlitzPage, useRouterQuery, invoke, Link, Routes, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { QRCodeCanvas } from "qrcode.react"
 import { useRef, useEffect, useState, Suspense } from "react"
 
 import confirmOrderPaid from "./mutations/confirmOrderPaid"
-import { useConfirmPaid } from "./hooks/useConfirmPaid"
 
 const Succes: BlitzPage = () => {
   const ref = useRef()
@@ -26,7 +25,8 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
-    const confirmed: Boolean = useConfirmPaid({ orderId, booking_id })[0]
+    const confirmed = useQuery(confirmOrderPaid, { orderId, booking_id })[0]
+    //const confirmed: Boolean = useConfirmPaid({ orderId, booking_id })[0]
 
     if (confirmed === true) {
       return (
