@@ -26,7 +26,6 @@ const Succes: BlitzPage = () => {
 
   const Result = () => {
     const [useConfirmPaidMutation] = useMutation(confirmOrderPaid)
-    setConfirmed(useConfirmPaidMutation)
     //const confirmed: Boolean = useConfirmPaid({ orderId, booking_id })[0]
 
     if (confirmed === true) {
