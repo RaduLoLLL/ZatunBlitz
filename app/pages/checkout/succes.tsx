@@ -12,6 +12,11 @@ const Succes: BlitzPage = () => {
   const orderId = query.orderId
   const booking_id = query.booking_id
 
+  useEffect(() => {
+    const confirm = invoke(confirmOrderPaid, { orderId, booking_id })
+    setConfirmed(true)
+  }, [])
+
   const downloadQrCode = () => {
     //@ts-ignore
     let canvas = ref.current.querySelector("canvas")
@@ -25,10 +30,7 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
-    const [useConfirmPaidMutation] = useMutation(confirmOrderPaid)
-    //const confirmed: Boolean = useConfirmPaid({ orderId, booking_id })[0]
-
-    if (confirmed === true) {
+    if (query.approvalCode) {
       return (
         <>
           <div className="flex justify-center items-center font-bold flex-col mt-20">
