@@ -4,22 +4,15 @@ import { QRCodeCanvas } from "qrcode.react"
 import { useRef, useEffect, useState, Suspense } from "react"
 
 import confirmOrderPaid from "./mutations/confirmOrderPaid"
+import { useConfirmPaid } from "./hooks/useConfirmPaid"
 
 const Succes: BlitzPage = () => {
   const ref = useRef()
   const query = useRouterQuery()
-  const [confirmed, setConfirmed] = useState(false)
+  //const [confirmed, setConfirmed] = useState(false)
   const orderId = query.orderId
   const booking_id = query.booking_id
 
-  const confirm_paid = async () => {
-    const confirm = await invoke(confirmOrderPaid, { orderId, booking_id })
-    setConfirmed(confirm)
-  }
-
-  useEffect(() => {
-    confirm_paid()
-  }, [])
   const downloadQrCode = () => {
     //@ts-ignore
     let canvas = ref.current.querySelector("canvas")
@@ -33,6 +26,8 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
+    const confirmed = useConfirmPaid(query.)
+
     if (confirmed === true) {
       return (
         <>
