@@ -12,8 +12,8 @@ export default async function createCheckoutSession({ user, booking_id }, ctx: C
 
   if (!booking) return
 
-  const bt_username = process.env.BT_USERNAME
-  const bt_password = process.env.BT_PASSWORD
+  const bt_username = process.env.DEV_BT_USERNAME
+  const bt_password = process.env.DEV_BT_PASSWORD
 
   const axios = require("axios")
 

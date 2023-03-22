@@ -14,8 +14,8 @@ export default async function createCheckoutSessionWithId({ booking_id, user }, 
   if (!booking) return
 
   const uuid = uuidv4().replace(/-/g, "")
-  const bt_username = process.env.BT_USERNAME
-  const bt_password = process.env.BT_PASSWORD
+  const bt_username = process.env.DEV_BT_USERNAME
+  const bt_password = process.env.DEV_BT_PASSWORD
 
   const urlencodedPayload =
     `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
