@@ -5,7 +5,7 @@ export default async function getBookingsByDateOnline(date: string) {
   return db.booking.findMany({
     where: {
       AND: {
-        starts_at: { gte: new Date(date), lte: addDays(new Date(date), 1) },
+        createdAt: { gte: new Date(date), lte: addDays(new Date(date), 1) },
         NOT: {
           OR: [
             { User: { email: { startsWith: "acces" } } },
