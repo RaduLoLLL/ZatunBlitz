@@ -166,6 +166,7 @@ const Analiza: BlitzPage = () => {
   }
 
   const IncasariOnline = () => {
+    console.log("Client date", new Date(startDate))
     const result = useQuery(getBookingsByDateOnline, format(startDate, "yyyy-MM-dd"))
     const bookings = result[0]
 

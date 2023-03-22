@@ -2,6 +2,7 @@ import { addDays } from "date-fns"
 import db from "db"
 
 export default async function getBookingsByDateOnline(date: string) {
+  console.log("Server date", new Date(date))
   return db.booking.findMany({
     where: {
       AND: {
