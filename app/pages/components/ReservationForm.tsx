@@ -26,6 +26,7 @@ const ReservationForm = () => {
     totalPrice: 0,
   })
   //Date state added separately
+  console.log("Initial state: ", addHours(new Date(), 2))
   const [startDate, setStartDate] = useState(addHours(new Date(), 2))
 
   const PescuitSelect = () => {
@@ -213,7 +214,10 @@ const ReservationForm = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(addHours(date, 2))}
+                    onChange={(date) => {
+                      setStartDate(addHours(date, 2))
+                      console.log("Date after change: ", addHours(date, 2))
+                    }}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
                       { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },
