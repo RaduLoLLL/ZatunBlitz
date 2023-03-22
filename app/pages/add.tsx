@@ -381,7 +381,7 @@ const Add: BlitzPage = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(addHours(date, 2))}
+                    onChange={(date) => setStartDate(date)}
                     dateFormat="dd/MM/yyyy"
                     minDate={new Date()}
                     maxDate={addDays(new Date(), 12)}
