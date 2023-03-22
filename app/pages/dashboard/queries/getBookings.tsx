@@ -67,7 +67,6 @@ export default async function getBookings(params) {
   return db.booking.findMany({
     where: { paid: true },
     orderBy: { createdAt: "desc" },
-    take: 15,
     include: { User: true },
   })
 }
