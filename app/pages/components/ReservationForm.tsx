@@ -27,7 +27,7 @@ const ReservationForm = () => {
   })
   //Date state added separately
   console.log("Initial state: ", addHours(new Date(), 2))
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -215,7 +215,7 @@ const ReservationForm = () => {
                   <DatePicker
                     selected={startDate}
                     onChange={(date) => {
-                      setStartDate(addHours(date, 2))
+                      setStartDate(date)
                       console.log("Date after change: ", addHours(date, 2))
                     }}
                     dateFormat="dd/MM/yyyy"
