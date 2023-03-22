@@ -178,7 +178,7 @@ const Analiza: BlitzPage = () => {
       <>
         <div className="flex-shrink-0">
           <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-            {TotalPrice} Lei
+            {TotalPrice.toFixed(2)} Lei
           </span>
           <h3 className="text-base font-normal text-gray-500">Incasati Online</h3>
         </div>
