@@ -10,10 +10,11 @@ export default async function getBookingsByDateOnline(date: string) {
         createdAt: { gte: new Date(date), lte: addDays(new Date(date), 1) },
         NOT: {
           OR: [
-            { User: { email: { startsWith: "acces" } } },
-            { User: { email: { startsWith: "paslaru" } } },
-            { User: { email: { startsWith: "agache" } } },
-            { User: { email: { startsWith: "contabilitate" } } },
+            { User: { email: "acces1@baltazatun.ro" } },
+            { User: { email: "acces2@baltazatun.ro" } },
+            { User: { email: "agache.catalin@baltazatun.ro" } },
+            { User: { email: "paslaru.alexandru@baltazatun.ro" } },
+            { User: { email: "contabilitate@baltazatun.ro" } },
           ],
         },
       },
