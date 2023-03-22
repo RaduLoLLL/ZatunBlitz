@@ -26,7 +26,7 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
-    const confirmed = useConfirmPaid(query.)
+    const confirmed: Boolean = useConfirmPaid({ orderId, booking_id })[0]
 
     if (confirmed === true) {
       return (
