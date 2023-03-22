@@ -27,5 +27,5 @@ export default async function confirmOrderPaid({ orderId, booking_id }, ctx: Ctx
         })
       : false
 
-  return updateBooking
+  return orderStatus.data.orderStatus === 2
 }
