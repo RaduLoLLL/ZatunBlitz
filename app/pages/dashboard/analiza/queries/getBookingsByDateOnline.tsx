@@ -11,6 +11,7 @@ export default async function getBookingsByDateOnline(date: string) {
             { User: { email: { startsWith: "acces" } } },
             { User: { email: { startsWith: "paslaru" } } },
             { User: { email: { startsWith: "agache" } } },
+            { User: { email: { startsWith: "contabilitate" } } },
           ],
         },
       },
