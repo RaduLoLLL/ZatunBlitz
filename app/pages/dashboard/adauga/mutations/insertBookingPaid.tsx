@@ -1,5 +1,6 @@
 import db from "db"
 import { Ctx } from "blitz"
+import { v4 as uuidv4 } from "uuid"
 
 type booking = {
   starts_at: Date
@@ -26,6 +27,7 @@ export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
       total_price: Number(booking.total_price),
       userId: ctx.session.userId,
       paid: true,
+      stripeSessionId: uuidv4(),
     },
   })
 }
