@@ -148,7 +148,7 @@ function RezervarileMele({ bookings }) {
                             <p className="text-sm text-gray-500 truncate dark:text-gray-400"></p>
                           </div>
                           <div className="inline-flex items-center text-base font-semibold text-indigo-600 dark:text-white">
-                            {booking.total_price} Lei
+                            {booking.total_price.toFixed(2)} Lei
                           </div>
                         </div>
                       </li>

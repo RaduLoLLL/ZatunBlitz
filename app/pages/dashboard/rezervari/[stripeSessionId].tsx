@@ -124,7 +124,7 @@ const Rezervare: BlitzPage = () => {
         "
               >
                 <p className="text-gray-400 ml-4">Total</p>
-                <p className="text-indigo-600 mr-4">{booking?.total_price} Lei</p>
+                <p className="text-indigo-600 mr-4">{booking?.total_price.toFixed(2)} Lei</p>
               </div>
             </div>
           </div>

@@ -121,7 +121,7 @@ const ReservationForm = () => {
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <>
-        <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
+        <p className="my-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
       </>
     )
   }
