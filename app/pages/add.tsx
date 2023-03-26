@@ -386,7 +386,7 @@ const Add: BlitzPage = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="dd/MM/yyyy"
-                    minDate={new Date()}
+                    minDate={addHours(new Date(), 26)}
                     maxDate={addDays(new Date(), 12)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
