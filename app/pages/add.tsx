@@ -9,7 +9,7 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { addHours, isAfter, isBefore, subDays } from "date-fns"
+import { addHours, isAfter, isBefore, isEqual, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
@@ -56,8 +56,8 @@ const Add: BlitzPage = () => {
 
   //Date state added separately
   const [startDate, setStartDate] = useState(
-    isBefore(new Date(), blockedDates?.endDate)
-      ? isAfter(new Date(), blockedDates?.startDate)
+    isBefore(new Date(), blockedDates?.endDate) || isEqual(new Date(), blockedDates?.endDate)
+      ? isAfter(new Date(), blockedDates?.startDate) || isEqual(new Date(), blockedDates?.startDate)
         ? addHours(blockedDates?.endDate, 26)
         : addHours(new Date(), 2)
       : addHours(new Date(), 2)
