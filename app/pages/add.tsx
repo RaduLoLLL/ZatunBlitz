@@ -60,7 +60,7 @@ const Add: BlitzPage = () => {
       ? isAfter(new Date(), blockedDates?.startDate) || isEqual(new Date(), blockedDates?.startDate)
         ? addHours(blockedDates?.endDate, 26)
         : addHours(new Date(), 2)
-      : addHours(new Date(), 2)
+      : addHours(new Date(), 26)
   )
 
   const PescuitSelect = () => {
