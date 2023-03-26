@@ -1,6 +1,7 @@
 import db from "db"
 import { Ctx } from "blitz"
 import { v4 as uuidv4 } from "uuid"
+import { addHours } from "date-fns"
 
 type booking = {
   starts_at: Date
@@ -18,6 +19,7 @@ export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
   console.log(ctx.session.userId)
   await db.booking.create({
     data: {
+      createdAt: addHours(new Date(), 3),
       starts_at: booking.starts_at,
       ends_at: booking.ends_at,
       intrare_complex: Number(booking.intrare_complex),
