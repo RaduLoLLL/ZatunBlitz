@@ -215,7 +215,7 @@ const ReservationForm = () => {
                   <DatePicker
                     selected={startDate}
                     onChange={(date) => {
-                      setStartDate(date)
+                      setStartDate(addHours(date, 3))
                     }}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
