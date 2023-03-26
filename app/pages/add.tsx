@@ -56,13 +56,13 @@ const Add: BlitzPage = () => {
 
   //Date state added separately
   const [startDate, setStartDate] = useState(
-    isBefore(addHours(new Date(), 26), blockedDates?.endDate) ||
+    isBefore(addHours(new Date(), 27), blockedDates?.endDate) ||
       isEqual(new Date(), blockedDates?.endDate)
-      ? isAfter(addHours(new Date(), 26), blockedDates?.startDate) ||
+      ? isAfter(addHours(new Date(), 27), blockedDates?.startDate) ||
         isEqual(new Date(), blockedDates?.startDate)
-        ? addHours(blockedDates?.endDate, 26)
-        : addHours(new Date(), 26)
-      : addHours(new Date(), 26)
+        ? addHours(blockedDates?.endDate, 27)
+        : addHours(new Date(), 27)
+      : addHours(new Date(), 27)
   )
 
   const PescuitSelect = () => {
