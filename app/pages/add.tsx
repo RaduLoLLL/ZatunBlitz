@@ -368,11 +368,26 @@ const Add: BlitzPage = () => {
       [name]: value,
     })
   }
+  const CalculatePrice = () => {
+    const totalPrice =
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+    return (
+      <>
+        <p className="my-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
+      </>
+    )
+  }
 
   return (
     <>
       <div className="mx-auto max-w-xs lg:max-w-md ">
         <div className="my-10 p-4  bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+          <Suspense fallback="...">
+            <CalculatePrice />
+          </Suspense>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <h5 className="text-xl font-medium text-gray-900 ">Fa o rezervare noua</h5>
 

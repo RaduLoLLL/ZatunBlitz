@@ -4,6 +4,7 @@ import db from "db"
 export default async function getBookingsByDateOnline(date: string) {
   console.log("Server date start", new Date(date))
   console.log("Server date end", addDays(new Date(date), 1))
+
   return db.booking.findMany({
     where: {
       AND: {
@@ -17,6 +18,7 @@ export default async function getBookingsByDateOnline(date: string) {
             { User: { email: "contabilitate@baltazatun.ro" } },
           ],
         },
+        paid: true,
       },
     },
   })
