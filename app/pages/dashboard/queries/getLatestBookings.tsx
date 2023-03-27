@@ -7,5 +7,6 @@ export default async function getLatestBookings() {
     where: { starts_at: { gte: subDays(new Date(), 7), lte: addDays(new Date(), 1) }, paid: true },
     include: { User: true },
     take: 7,
+    orderBy: { createdAt: "desc" },
   })
 }
