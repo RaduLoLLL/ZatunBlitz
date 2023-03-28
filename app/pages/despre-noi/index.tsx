@@ -1,9 +1,14 @@
 import Layout from "app/core/layouts/Layout"
-import { BlitzPage, Head, Image } from "blitz"
+import { BlitzPage, Image } from "blitz"
+import { NextSeo } from "next-seo"
 
 const DespreNoi: BlitzPage = () => {
   return (
     <>
+      <NextSeo
+        title="Balta Zatun Galati - Despre Noi"
+        description="Balta Zatun Galati este un complex de agrement situat pe malul Dunarii, la circa 15 km distanță de municipiul Galați. Este cea mai apropiată bază de agrement pentru pescari, având un luciu de apă de 28 de ha în care se află diverse specii de pește, de la crap și caras până la știucă."
+      />
       <div className="mt-24 mx-12 lg:mx-44 lg:mr-12 flex items-center mb-12">
         <div className="max-w-2xl">
           <p style={{ fontFamily: "Josefin Slab" }} className="text-DEB52D text-5xl">
