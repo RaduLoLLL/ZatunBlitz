@@ -2,6 +2,7 @@ import { useParam, useQuery, BlitzPage, getSession } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
 import { Suspense } from "react"
 import Sidebar from "../../../components/Sidebar"
+import { format, subHours } from "date-fns"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -31,6 +32,16 @@ const Rezervare: BlitzPage = () => {
             <div className="w-3/4 lg:w-1/2 mx-auto bg-white rounded-md">
               <div className="flex flex-col justify-center items-center">
                 <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
+                {booking?.starts_at ? (
+                  <p>{format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}</p>
+                ) : (
+                  <></>
+                )}
+                <div className="flex space-x-2">
+                  {booking?.User?.name ? <span>{booking.User.name}</span> : <></>}
+                  {booking?.User?.surname ? <span>{booking.User.surname}</span> : <></>}
+                </div>
+
                 {booking?.intrare_complex ? (
                   <div
                     className="

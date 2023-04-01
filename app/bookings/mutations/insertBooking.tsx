@@ -19,8 +19,8 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
   await db.booking.create({
     data: {
       createdAt: addHours(new Date(), 3),
-      starts_at: booking.starts_at,
-      ends_at: booking.ends_at,
+      starts_at: addHours(booking.starts_at, 3),
+      ends_at: addHours(booking.ends_at, 3),
       intrare_complex: Number(booking.intrare_complex),
       loc_parcare: Number(booking.loc_parcare),
       loc_pescuit: booking.loc_pescuit,

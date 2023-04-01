@@ -4,6 +4,7 @@ import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
 import db from "db"
+import { subDays, subHours } from "date-fns"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -40,6 +41,7 @@ function RezervarileMele({ bookings }) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-3">
           {bookings.map((booking, i) => {
+            console.log("DB Date", subHours(booking.starts_at, 3))
             return (
               <>
                 <div
@@ -48,7 +50,7 @@ function RezervarileMele({ bookings }) {
                 >
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                      {format(booking.starts_at, "dd.MM.yyyy")}
+                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
                     </h5>
                   </div>
                   <div className="flow-root">

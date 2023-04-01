@@ -4,12 +4,11 @@ import { Dialog, Transition } from "@headlessui/react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import addDays from "date-fns/addDays"
-
 import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { addHours, isAfter, isBefore, isEqual, subDays } from "date-fns"
+import { addHours, differenceInDays, getHours, isAfter, isBefore, isEqual, subDays } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
@@ -56,15 +55,17 @@ const Add: BlitzPage = () => {
 
   //Date state added separately
   const [startDate, setStartDate] = useState(
-    isBefore(addHours(new Date(), 27), blockedDates?.endDate) ||
+    isBefore(addHours(new Date(), 24), blockedDates?.endDate) ||
       isEqual(new Date(), blockedDates?.endDate)
-      ? isAfter(addHours(new Date(), 27), blockedDates?.startDate) ||
+      ? isAfter(addHours(new Date(), 24), blockedDates?.startDate) ||
         isEqual(new Date(), blockedDates?.startDate)
-        ? addHours(blockedDates?.endDate, 27)
-        : addHours(new Date(), 27)
-      : addHours(new Date(), 27)
+        ? addHours(blockedDates?.endDate, 24)
+        : addHours(new Date(), 24)
+      : addHours(new Date(), 24)
   )
-
+  console.log("start date", startDate)
+  console.log("new date", new Date())
+  console.log("diif in days", differenceInDays(startDate, new Date()))
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
@@ -327,8 +328,14 @@ const Add: BlitzPage = () => {
     }
     event.preventDefault()
 
+    if (differenceInDays(startDate, new Date()) === 0 && getHours(startDate) >= 18) {
+      toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
+      return <></>
+    }
+
     if (state.totalPrice == 0) {
       toast.error("Nu ati introdus niciun camp. Rezervarea nu poate fi goala")
+
       return <></>
     }
 
@@ -399,9 +406,12 @@ const Add: BlitzPage = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => {
+                      setStartDate(date)
+                      console.log(date)
+                    }}
                     dateFormat="dd/MM/yyyy"
-                    minDate={addHours(new Date(), 26)}
+                    minDate={addHours(new Date(), 24)}
                     maxDate={addDays(new Date(), 12)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
