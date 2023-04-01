@@ -1,12 +1,14 @@
-import { BlitzPage, getSession, Routes, useQuery } from "blitz"
+import { BlitzPage, getSession, Link, Routes, useQuery } from "blitz"
 import { Suspense, useState } from "react"
 import Sidebar from "../../../components/Sidebar"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import subDays from "date-fns/subDays"
-import { format } from "date-fns"
+import { addDays, format, subHours } from "date-fns"
 import getBookingsByDate from "./queries/getBookingsByDate"
+import getBookingsByStartDate from "./queries/getBookingsByStartDate"
 import getBookingsByDateOnline from "./queries/getBookingsByDateOnline"
+import { CheckCircleIcon } from "@heroicons/react/solid"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -25,6 +27,7 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Analiza: BlitzPage = () => {
   const [startDate, setStartDate] = useState(new Date())
+
   const RezervariDirecte = () => {
     const result = useQuery(getBookingsByDate, format(startDate, "yyyy-MM-dd"))
     const bookings = result[0]
@@ -82,6 +85,33 @@ const Analiza: BlitzPage = () => {
           </div>
         </div>
       </>
+    )
+  }
+
+  const LocuriOcupate = () => {
+    const result = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+    const bookings = result[0]
+    const locuriOcupate: number[] = []
+
+    bookings.map((booking, i) => {
+      booking.loc_pescuit.map((loc) => {
+        locuriOcupate.push(loc)
+      })
+    })
+
+    // Sort the locuriOcupate array
+    locuriOcupate.sort((a, b) => a - b)
+
+    return (
+      <div className="flex flex-wrap">
+        {locuriOcupate.map((loc, i) => {
+          return (
+            <p className="bg-gray-300 rounded-full px-3 py-1 m-1 ml-0" key={i}>
+              {loc}
+            </p>
+          )
+        })}
+      </div>
     )
   }
 
@@ -187,6 +217,8 @@ const Analiza: BlitzPage = () => {
     )
   }
   const AnalizaComponent = () => {
+    const result = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+    const bookings = result[0]
     return (
       <>
         <div>
@@ -198,7 +230,9 @@ const Analiza: BlitzPage = () => {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               dateFormat="dd/MM/yyyy"
-              includeDateIntervals={[{ start: subDays(new Date(), 30), end: new Date() }]}
+              includeDateIntervals={[
+                { start: subDays(new Date(), 30), end: addDays(new Date(), 30) },
+              ]}
               className="cursor-pointer p-2"
             />
           </div>
@@ -215,7 +249,7 @@ const Analiza: BlitzPage = () => {
           </Suspense>
 
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
+            <div className="">
               <Suspense
                 fallback={
                   <div className="min-h-screen flex justify-center items-center">
@@ -224,6 +258,8 @@ const Analiza: BlitzPage = () => {
                 }
               >
                 <IncasariDirecte />
+                <h3 className="mt-6 font-bold">Locuri de pescuit rezervate</h3>
+                <LocuriOcupate />
               </Suspense>
             </div>
           </div>
@@ -254,6 +290,159 @@ const Analiza: BlitzPage = () => {
             </div>
           </div>
         </div>
+        <table className="min-w-full divide-y divide-gray-200 mt-12">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Data
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Nume
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Email
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Numar de telefon
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Cost Total
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Status Rezervare
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Detalii
+              </th>
+              <th
+                scope="col"
+                className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Confirma Intrarea
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white">
+            {
+              //@ts-ignore
+              bookings?.map((booking, i) => {
+                return (
+                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
+                    </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.name} {booking.User?.surname}
+                    </td>
+
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.email}
+                    </td>
+
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.User?.phone}
+                    </td>
+
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.total_price}
+                    </td>
+
+                    <td
+                      className={
+                        booking.paid
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                      }
+                    >
+                      {booking.paid ? "Platit" : "Neplatit"}
+                    </td>
+
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
+                        <button
+                          type="button"
+                          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        >
+                          Detalii
+                        </button>
+                      </Link>
+                    </td>
+                    <td
+                      className={
+                        i % 2
+                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                      }
+                    >
+                      {booking.verificat ? (
+                        <CheckCircleIcon className="h-8 text-green-500 " />
+                      ) : (
+                        <CheckCircleIcon className="h-8 text-red-500 cursor-pointer" />
+                      )}
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
       </>
     )
   }
