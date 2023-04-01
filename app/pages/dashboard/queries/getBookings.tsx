@@ -4,7 +4,6 @@ export default async function getBookings(params) {
   if (params.sessionId) {
     return db.booking.findMany({
       where: { stripeSessionId: { equals: params.sessionId } },
-      take: 5,
       include: { User: true },
     })
   }
@@ -19,7 +18,6 @@ export default async function getBookings(params) {
           ],
         },
       },
-      take: 5,
       include: { User: true },
     })
   }
@@ -33,7 +31,6 @@ export default async function getBookings(params) {
           ],
         },
       },
-      take: 5,
       include: { User: true },
     })
   }
@@ -45,8 +42,6 @@ export default async function getBookings(params) {
           phone: { contains: params.phone },
         },
       },
-      take: 5,
-
       include: { User: true },
     })
   }
@@ -58,8 +53,6 @@ export default async function getBookings(params) {
           email: { startsWith: params.email, mode: "insensitive" },
         },
       },
-      take: 5,
-
       include: { User: true },
     })
   }
