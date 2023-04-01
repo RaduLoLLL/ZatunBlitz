@@ -1,8 +1,10 @@
-import { useParam, useQuery, BlitzPage, getSession } from "blitz"
+import { useParam, useQuery, BlitzPage, getSession, invoke, Router } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
 import { Suspense } from "react"
 import Sidebar from "../../../components/Sidebar"
 import { format, subHours } from "date-fns"
+import insertVerificare from "../mutations/insertVerificare"
+import toast from "react-hot-toast"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -25,6 +27,18 @@ const Rezervare: BlitzPage = () => {
   const DisplayBooking = () => {
     const booking = useQuery(getBookingBySessionId, stripeSessionId)[0]
 
+    async function verificaBilet(booking_id) {
+      const verificare = toast.loading("Se inregistreaza intrarea")
+      const res = await invoke(insertVerificare, booking_id)
+        .then((res) => {
+          res && toast.success("Inregistrare realizata cu succes", { id: verificare })
+          !res && toast.error("Whoops, a intervenit o eroare", { id: verificare })
+        })
+        .then(() => {
+          Router.push("/dashboard/rezervari")
+        })
+    }
+
     return (
       <>
         <div className="">
@@ -33,14 +47,42 @@ const Rezervare: BlitzPage = () => {
               <div className="flex flex-col justify-center items-center">
                 <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
                 {booking?.starts_at ? (
-                  <p>{format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}</p>
+                  <div
+                    className="
+        flex
+        justify-between
+        items-center
+        w-full
+        py-5
+        border-b-2 border-gray-200
+      "
+                  >
+                    <p className="text-gray-400 ml-4">Data</p>
+                    <p className="mr-4">{format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}</p>
+                  </div>
                 ) : (
                   <></>
                 )}
-                <div className="flex space-x-2">
-                  {booking?.User?.name ? <span>{booking.User.name}</span> : <></>}
-                  {booking?.User?.surname ? <span>{booking.User.surname}</span> : <></>}
-                </div>
+                {booking?.User ? (
+                  <div
+                    className="
+      flex
+      justify-between
+      items-center
+      w-full
+      py-5
+      border-b-2 border-gray-200
+    "
+                  >
+                    <p className="text-gray-400 ml-4">Nume</p>
+                    <div className="flex space-x-2 mr-4">
+                      {booking?.User?.name ? <span>{booking.User.name}</span> : <></>}
+                      {booking?.User?.surname ? <span>{booking.User.surname}</span> : <></>}
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
 
                 {booking?.intrare_complex ? (
                   <div
@@ -137,6 +179,20 @@ const Rezervare: BlitzPage = () => {
                 <p className="text-gray-400 ml-4">Total</p>
                 <p className="text-indigo-600 mr-4">{booking?.total_price.toFixed(2)} Lei</p>
               </div>
+              {booking?.verificat ? (
+                <></>
+              ) : (
+                <div className="flex justify-center mt-12">
+                  <button
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                    onClick={() => {
+                      verificaBilet(booking?.id)
+                    }}
+                  >
+                    Confirma Intrarea
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>{" "}

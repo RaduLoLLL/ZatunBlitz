@@ -41,6 +41,8 @@ const Rezervari: BlitzPage = () => {
     res && toast.success("Inregistrare realizata cu succes", { id: verificare })
     !res && toast.error("Whoops, a intervenit o eroare", { id: verificare })
     setState({ ...state, sessionId: "" })
+    //@ts-ignore
+    inputRef.current.focus()
   }
   const inputRef = useRef(null)
   const DisplayBookings = () => {
@@ -195,8 +197,6 @@ const Rezervari: BlitzPage = () => {
                           className="h-8 text-red-500 cursor-pointer"
                           onClick={() => {
                             verificaBilet(booking.id)
-                            //@ts-ignore
-                            inputRef.current.focus()
                           }}
                         />
                       )}
@@ -249,6 +249,7 @@ const Rezervari: BlitzPage = () => {
                       className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="ID"
                       ref={inputRef}
+                      autoFocus
                       onChange={handleInputChange}
                       value={state.sessionId}
                     />
