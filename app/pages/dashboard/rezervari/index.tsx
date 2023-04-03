@@ -115,7 +115,7 @@ const Rezervari: BlitzPage = () => {
                           : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
                       }
                     >
-                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy HH:mm")}
+                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
                     </td>
                     <td
                       className={
