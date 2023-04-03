@@ -1,4 +1,14 @@
-import { BlitzPage, invoke, useRouter, getSession, Image, Link, Routes, useQuery } from "blitz"
+import {
+  BlitzPage,
+  invoke,
+  useRouter,
+  getSession,
+  Image,
+  Link,
+  Routes,
+  useQuery,
+  useMutation,
+} from "blitz"
 import { useState, useEffect, Suspense, Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import DatePicker from "react-datepicker"
@@ -8,7 +18,16 @@ import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { addHours, differenceInDays, getHours, isAfter, isBefore, isEqual, subDays } from "date-fns"
+import {
+  addHours,
+  differenceInDays,
+  format,
+  getHours,
+  isAfter,
+  isBefore,
+  isEqual,
+  subDays,
+} from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
@@ -31,7 +50,8 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Add: BlitzPage = () => {
   const router = useRouter()
-
+  const date = useQuery(getDate, undefined)[0]
+  console.log("Server Date:", date)
   useEffect(() => {
     invoke(deleteUnpaidBooking, undefined)
   })
@@ -50,20 +70,20 @@ const Add: BlitzPage = () => {
     endDate: Date
   }
   const blockedDates: BlockedDates = useQuery(getLatestBlocked, undefined)[0][0] || {
-    startDate: subDays(new Date(), 30),
-    endDate: subDays(new Date(), 30),
+    startDate: subDays(date, 30),
+    endDate: subDays(date, 30),
   }
 
   //Date state added separately
   const [startDate, setStartDate] = useState(
-    isBefore(addHours(new Date(), 24), blockedDates?.endDate) ||
-      isEqual(new Date(), blockedDates?.endDate)
-      ? isAfter(addHours(new Date(), 24), blockedDates?.startDate) ||
-        isEqual(new Date(), blockedDates?.startDate)
+    isBefore(addHours(date, 24), blockedDates?.endDate) || isEqual(date, blockedDates?.endDate)
+      ? isAfter(addHours(date, 24), blockedDates?.startDate) ||
+        isEqual(date, blockedDates?.startDate)
         ? addHours(blockedDates?.endDate, 24)
-        : addHours(new Date(), 24)
-      : addHours(new Date(), 24)
+        : addHours(date, 24)
+      : addHours(date, 24)
   )
+  console.log("startDate:", startDate)
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -327,7 +347,7 @@ const Add: BlitzPage = () => {
     }
     event.preventDefault()
 
-    if (differenceInDays(startDate, new Date()) === 0 && getHours(startDate) >= 18) {
+    if (differenceInDays(startDate, date) === 0 && getHours(startDate) >= 18) {
       toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
       return <></>
     }
@@ -386,9 +406,6 @@ const Add: BlitzPage = () => {
       </>
     )
   }
-
-  const date = useQuery(getDate, undefined)
-  console.log("Server Date:", date)
 
   return (
     <>
