@@ -12,6 +12,7 @@ import { addHours, differenceInDays, getHours, isAfter, isBefore, isEqual, subDa
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
+import getDate from "./queries/getDate"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -63,9 +64,7 @@ const Add: BlitzPage = () => {
         : addHours(new Date(), 24)
       : addHours(new Date(), 24)
   )
-  console.log("start date", startDate)
-  console.log("new date", new Date())
-  console.log("diif in days", differenceInDays(startDate, new Date()))
+
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
@@ -388,6 +387,9 @@ const Add: BlitzPage = () => {
     )
   }
 
+  const date = useQuery(getDate, undefined)
+  console.log("Server Date:", date)
+
   return (
     <>
       <div className="mx-auto max-w-xs lg:max-w-md ">
@@ -408,7 +410,6 @@ const Add: BlitzPage = () => {
                     selected={startDate}
                     onChange={(date) => {
                       setStartDate(date)
-                      console.log(date)
                     }}
                     dateFormat="dd/MM/yyyy"
                     minDate={addHours(new Date(), 24)}
