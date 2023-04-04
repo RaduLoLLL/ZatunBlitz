@@ -352,7 +352,8 @@ const Add: BlitzPage = () => {
       (differenceInDays(startDate, date) === 0 ||
         (getHours(startDate) === getHours(date) &&
           getMinutes(startDate) === getMinutes(date) &&
-          getSeconds(startDate) === getSeconds(date))) &&
+          getSeconds(startDate) === getSeconds(date) &&
+          differenceInDays(startDate, date) === 1)) &&
       getHours(startDate) >= 18
     ) {
       toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
