@@ -23,6 +23,8 @@ import {
   differenceInDays,
   format,
   getHours,
+  getMinutes,
+  getSeconds,
   isAfter,
   isBefore,
   isEqual,
@@ -83,7 +85,6 @@ const Add: BlitzPage = () => {
         : addHours(date, 24)
       : addHours(date, 24)
   )
-  console.log("startDate:", startDate)
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -348,7 +349,13 @@ const Add: BlitzPage = () => {
     }
     event.preventDefault()
 
-    if (differenceInDays(startDate, date) === 0 && getHours(startDate) >= 18) {
+    if (
+      (differenceInDays(startDate, date) === 0 ||
+        (getHours(startDate) === getHours(date) &&
+          getMinutes(startDate) === getMinutes(date) &&
+          getSeconds(startDate) === getSeconds(date))) &&
+      getHours(startDate) >= 18
+    ) {
       toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
       return <></>
     }
