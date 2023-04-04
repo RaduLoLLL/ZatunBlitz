@@ -339,7 +339,8 @@ const Add: BlitzPage = () => {
 
   // Here I handle the submit. "petrecerePrivata" means a private party. If that is checked
   // it does something, if not, something else
-
+  console.log("Diff in days", differenceInDays(startDate, date))
+  console.log("getHours", getHours(startDate))
   async function handleSubmit(event) {
     type loc = {
       value: number
