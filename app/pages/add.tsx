@@ -202,7 +202,7 @@ const Add: BlitzPage = () => {
   const CasutaSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalCasuta = [...Array(12).keys()].map((x) => x + 2)
+    const totalCasuta = [...Array(17).keys()].map((x) => x + 2)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
