@@ -13,7 +13,7 @@ import { CheckCircleIcon } from "@heroicons/react/solid"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN" && session.role != "CONTABIL") {
+  if (session.role != "ADMIN" && session.role != "PORTAR") {
     return {
       redirect: {
         destination: "/",
