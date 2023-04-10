@@ -20,7 +20,8 @@ const BlockedForm = () => {
     event.preventDefault()
     if (!endDate) {
       toast.error(
-        "Data de final nu a fost aleasa! In cazul in care doriti blocarea unei singure date, alegeti aceeasi data de 2 ori."
+        "Data de final nu a fost aleasa! In cazul in care doriti blocarea unei singure date, alegeti aceeasi data de 2 ori.",
+        { duration: 10000 }
       )
       return
     }
