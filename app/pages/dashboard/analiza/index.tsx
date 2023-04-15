@@ -91,24 +91,34 @@ const Analiza: BlitzPage = () => {
   const LocuriOcupate = () => {
     const result = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
     const bookings = result[0]
-    const locuriOcupate: number[] = []
+    const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
 
     bookings.map((booking, i) => {
       booking.loc_pescuit.map((loc) => {
-        locuriOcupate.push(loc)
+        locuriOcupate.push({
+          loc: loc,
+          nume: booking?.User?.name + " " + (booking?.User?.surname || "") || "",
+          prezentat: booking?.verificat,
+        })
       })
     })
 
     // Sort the locuriOcupate array
-    locuriOcupate.sort((a, b) => a - b)
+    locuriOcupate.sort((a, b) => a.loc - b.loc)
 
     return (
       <div className="flex flex-wrap">
         {locuriOcupate.map((loc, i) => {
           return (
-            <p className="bg-gray-300 rounded-full px-3 py-1 m-1 ml-0" key={i}>
-              {loc}
-            </p>
+            <div
+              key={i}
+              className={`${
+                loc.prezentat ? "bg-green-300 " : "bg-gray-300 "
+              }rounded-full px-6 py-3 m-1 ml-0 h-20 w-40`}
+            >
+              <p className="font-bold">{loc.loc}</p>
+              <p className="text-xs">{loc.nume}</p>
+            </div>
           )
         })}
       </div>
@@ -128,7 +138,7 @@ const Analiza: BlitzPage = () => {
       <>
         <div className="flex-shrink-0">
           <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-            {TotalPrice} Lei
+            {TotalPrice.toFixed(2)} Lei
           </span>
           <h3 className="text-base font-normal text-gray-500">Incasati Direct</h3>
         </div>
@@ -237,34 +247,21 @@ const Analiza: BlitzPage = () => {
             />
           </div>
         </div>
-        <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex justify-center items-center">
-                <div className="ping"></div>
-              </div>
-            }
-          >
-            <RezervariDirecte />
-          </Suspense>
 
-          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="">
-              <Suspense
-                fallback={
-                  <div className="min-h-screen flex justify-center items-center">
-                    <div className="ping"></div>
-                  </div>
-                }
-              >
-                <IncasariDirecte />
-                <h3 className="mt-6 font-bold">Locuri de pescuit rezervate</h3>
-                <LocuriOcupate />
-              </Suspense>
-            </div>
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-6 ">
+          <div className="">
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex justify-center items-center">
+                  <div className="ping"></div>
+                </div>
+              }
+            >
+              <h3 className="font-bold mb-3">Locuri de pescuit rezervate</h3>
+              <LocuriOcupate />
+            </Suspense>
           </div>
         </div>
-
         <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
           <Suspense
             fallback={
@@ -290,6 +287,32 @@ const Analiza: BlitzPage = () => {
             </div>
           </div>
         </div>
+        <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="ping"></div>
+              </div>
+            }
+          >
+            <RezervariDirecte />
+          </Suspense>
+
+          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div className="">
+              <Suspense
+                fallback={
+                  <div className="min-h-screen flex justify-center items-center">
+                    <div className="ping"></div>
+                  </div>
+                }
+              >
+                <IncasariDirecte />
+              </Suspense>
+            </div>
+          </div>
+        </div>
+
         <table className="min-w-full divide-y divide-gray-200 mt-12">
           <thead className="bg-gray-50">
             <tr>

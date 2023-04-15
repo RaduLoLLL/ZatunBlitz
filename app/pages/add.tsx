@@ -409,9 +409,9 @@ const Add: BlitzPage = () => {
       (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
-      <>
-        <p className="my-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
-      </>
+      <div className="flex justify-center">
+        <p className="mb-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
+      </div>
     )
   }
 
@@ -422,13 +422,11 @@ const Add: BlitzPage = () => {
           <Suspense fallback="...">
             <CalculatePrice />
           </Suspense>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <h5 className="text-xl font-medium text-gray-900 ">Fa o rezervare noua</h5>
-
+          <form className=" space-y-10" onSubmit={handleSubmit}>
             <>
               <div>
-                <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
-                  Alege Data
+                <label htmlFor="date" className="block mb-2 text-lg font-bold text-gray-900 ">
+                  Selectați data rezervării
                 </label>
                 <div className="border-2 rounded">
                   <DatePicker
@@ -446,7 +444,7 @@ const Add: BlitzPage = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="">
                 <label htmlFor="intrare" className="block mb-2 text-sm font-medium text-gray-900 ">
                   Taxa Agrement
                 </label>

@@ -14,6 +14,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId"
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
+import { format } from "date-fns"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -95,7 +96,11 @@ const Checkout: BlitzPage = () => {
           <div className="mt-10">
             <div className="w-3/4 lg:w-1/2 mx-auto bg-white rounded-md">
               <div className="flex flex-col justify-center items-center">
-                <h6 className="text-black font-medium my-4">Sumarul Rezevarii</h6>
+                <h6 className="text-black font-bold text-xl my-4">
+                  {" "}
+                  {format(booking.starts_at, "dd.MM.yyyy")}
+                </h6>
+
                 {booking.intrare_complex ? (
                   <div
                     className="
