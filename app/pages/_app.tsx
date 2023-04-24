@@ -43,7 +43,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       >
         <div>
           <Toaster />
-          <Announcement text="In data de 29.04.2023 Balta Zatun va fi inchisa publicului" />
+          <Announcement text="Căsuțele rezervate in data de 28.04 vor fi eliberate pe data de 29.04 cel tarziu la ora 10.00" />
         </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>
