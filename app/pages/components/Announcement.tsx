@@ -1,0 +1,37 @@
+import { Dialog } from "@headlessui/react"
+import React from "react"
+import Cookies from "universal-cookie"
+
+const Announcement = (props) => {
+  const cookies = new Cookies()
+  const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
+  return (
+    <div className="">
+      <Dialog open={open} onClose={() => {}}>
+        <Dialog.Overlay className="fixed z-40 inset-0 bg-black opacity-30" />
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-4 max-w-xl w-full">
+            <Dialog.Title className="text-2xl font-medium text-red-600">Atenție</Dialog.Title>
+            <div className="mt-2">
+              <p className="text-lg font-medium text-gray-500">{props.text}</p>
+            </div>
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
+                onClick={() => {
+                  cookies.set("announcement", "true", { path: "/" })
+                  setOpen(false)
+                }}
+              >
+                Am înțeles
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </div>
+  )
+}
+
+export default Announcement

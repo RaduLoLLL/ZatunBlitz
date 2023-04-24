@@ -52,6 +52,7 @@
     "qr-scanner": "1.4.1",
     "qrcode.react": "3.0.1",
     "react": "18.0.0",
+    "react-announcement-bar": "0.0.1",
     "react-burger-menu": "3.0.6",
     "react-cookie-consent": "8.0.1",
     "react-corner-ribbon": "0.0.5",
@@ -66,6 +67,7 @@
     "recharts": "2.1.9",
     "stripe": "9.4.0",
     "tailwindcss": "3.x",
+    "universal-cookie": "4.0.4",
     "uuid": "9.0.0",
     "vercel": "24.2.4",
     "zod": "3.14.4"

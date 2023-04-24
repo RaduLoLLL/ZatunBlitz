@@ -12,9 +12,16 @@ import { motion } from "framer-motion"
 
 import "app/core/styles/index.css"
 import { Toaster } from "react-hot-toast"
+import Announcement from "./components/Announcement"
+import { useEffect } from "react"
+import Cookies from "universal-cookie"
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
+  const cookies = new Cookies()
+  useEffect(() => {
+    cookies.remove("announcement", { path: "/" })
+  }, [])
 
   return (
     <ErrorBoundary
@@ -36,6 +43,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       >
         <div>
           <Toaster />
+          <Announcement text="In data de 29.04.2023 Balta Zatun va fi inchisa publicului" />
         </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>
