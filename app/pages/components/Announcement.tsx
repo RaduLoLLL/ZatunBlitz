@@ -6,10 +6,10 @@ const Announcement = (props) => {
   const cookies = new Cookies()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
   return (
-    <div className="">
+    <div className="mx-10">
       <Dialog open={open} onClose={() => {}}>
-        <Dialog.Overlay className="fixed z-40 inset-0 bg-black opacity-30" />
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <Dialog.Overlay className="fixed z-40 inset-0 bg-black opacity-70" />
+        <div className="fixed inset-0 flex items-center justify-center z-50 mx-4">
           <div className="bg-white rounded-lg shadow-lg p-4 max-w-xl w-full">
             <Dialog.Title className="text-2xl font-medium text-red-600">Atenție</Dialog.Title>
             <div className="mt-2">
@@ -20,7 +20,7 @@ const Announcement = (props) => {
                 type="button"
                 className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
                 onClick={() => {
-                  cookies.set("announcement", "true", { path: "/" })
+                  cookies.set("announcement", "true", { path: "/", maxAge: 60 * 60 * 24 * 365 })
                   setOpen(false)
                 }}
               >
