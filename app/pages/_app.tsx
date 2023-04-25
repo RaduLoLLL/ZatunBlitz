@@ -13,7 +13,7 @@ import { motion } from "framer-motion"
 import "app/core/styles/index.css"
 import { Toaster } from "react-hot-toast"
 import Announcement from "./components/Announcement"
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import Cookies from "universal-cookie"
 
 export default function App({ Component, pageProps, router }: AppProps) {
@@ -43,7 +43,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
       >
         <div>
           <Toaster />
-          <Announcement text="Căsuțele rezervate in data de 28.04 vor fi eliberate pe data de 29.04 cel tarziu la ora 10.00" />
+          <Suspense fallback={<div />}>
+            <Announcement text="Căsuțele rezervate in data de 28.04 vor fi eliberate pe data de 29.04 cel tarziu la ora 10.00" />
+          </Suspense>
         </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>

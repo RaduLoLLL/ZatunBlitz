@@ -1,7 +1,7 @@
-import { BlitzPage, useQuery, getSession, Link, Routes } from "blitz"
+import { BlitzPage, useQuery, getSession, Link, Routes, useRouterQuery } from "blitz"
 import Sidebar from "../../../components/Sidebar"
 import getAllUsers from "../queries/getAllUsers"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -19,13 +19,25 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 const Users: BlitzPage = () => {
+  const router = useRouterQuery()
+
+  const [state, setState] = useState({
+    sessionId: "",
+    name: router.name,
+    surname: router.surname,
+    email: router.email,
+    phone: router.phone,
+  })
+  const handleInputChange = (evt) => {
+    const name = evt.target.name
+    const value = evt.target.value
+    setState({ ...state, [name]: value })
+  }
   const UsersTable = () => {
-    const users = useQuery(getAllUsers, undefined)[0]
+    const users = useQuery(getAllUsers, state)[0]
+
     return (
       <>
-        <div className="flex justify-center ">
-          <h1>Lista cu toti userii</h1>
-        </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200 mt-6">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
@@ -132,10 +144,7 @@ const Users: BlitzPage = () => {
         >
           <Sidebar />
         </Suspense>
-        <div
-          className="bg-gray-900 opacity-50 hidden fixed inset-0 z-10"
-          id="sidebarBackdrop"
-        ></div>
+
         <div
           id="main-content"
           className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64"
@@ -143,6 +152,48 @@ const Users: BlitzPage = () => {
           <main>
             <div className="pt-6 px-4 min-h-screen">
               <div className="w-full grid grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-4 ">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Nume"
+                      onChange={handleInputChange}
+                      value={state.name}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="surname"
+                      className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Prenume"
+                      onChange={handleInputChange}
+                      value={state.surname}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="email"
+                      className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Email"
+                      onChange={handleInputChange}
+                      value={state.email}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="phone"
+                      className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Numar de telefon"
+                      onChange={handleInputChange}
+                      value={state.phone}
+                    />
+                  </div>
+                </div>
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                   <Suspense
                     fallback={

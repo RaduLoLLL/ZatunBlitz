@@ -1,10 +1,13 @@
 import { Dialog } from "@headlessui/react"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import React from "react"
 import Cookies from "universal-cookie"
 
 const Announcement = (props) => {
   const cookies = new Cookies()
+  const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
+  if (user?.role === "ADMIN") return <></>
   return (
     <div className="mx-10">
       <Dialog open={open} onClose={() => {}}>

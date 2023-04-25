@@ -89,12 +89,51 @@ const Analiza: BlitzPage = () => {
   }
 
   const LocuriOcupate = () => {
-    const result = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
-    const bookings = result[0]
+    const locuriRezervate = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+
+    const bookings = locuriRezervate[0]
     const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
 
     bookings.map((booking, i) => {
       booking.loc_pescuit.map((loc) => {
+        locuriOcupate.push({
+          loc: loc,
+          nume: booking?.User?.name + " " + (booking?.User?.surname || "") || "",
+          prezentat: booking?.verificat,
+        })
+      })
+    })
+
+    // Sort the locuriOcupate array
+    locuriOcupate.sort((a, b) => a.loc - b.loc)
+
+    return (
+      <div className="flex flex-wrap">
+        {locuriOcupate.map((loc, i) => {
+          return (
+            <div
+              key={i}
+              className={`${
+                loc.prezentat ? "bg-green-300 " : "bg-gray-300 "
+              }rounded-full px-6 py-3 m-1 ml-0 h-20 w-40`}
+            >
+              <p className="font-bold">{loc.loc}</p>
+              <p className="text-xs">{loc.nume}</p>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  const CasuteOcupate = () => {
+    const locuriRezervate = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+
+    const bookings = locuriRezervate[0]
+    const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
+
+    bookings.map((booking, i) => {
+      booking.casuta.map((loc) => {
         locuriOcupate.push({
           loc: loc,
           nume: booking?.User?.name + " " + (booking?.User?.surname || "") || "",
@@ -259,6 +298,16 @@ const Analiza: BlitzPage = () => {
             >
               <h3 className="font-bold mb-3">Locuri de pescuit rezervate</h3>
               <LocuriOcupate />
+            </Suspense>
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex justify-center items-center">
+                  <div className="ping"></div>
+                </div>
+              }
+            >
+              <h3 className="font-bold mb-3 mt-6">Casute Rezervate</h3>
+              <CasuteOcupate />
             </Suspense>
           </div>
         </div>
