@@ -5,7 +5,7 @@ import Cookies from "universal-cookie"
 
 const Announcement = (props) => {
   const cookies = new Cookies()
-  const user = useCurrentUser()
+  //const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
   const AnnouncementContent = () => {
     return (
@@ -36,7 +36,7 @@ const Announcement = (props) => {
       </div>
     )
   }
-  if (user?.role === "ADMIN") return <></>
+  //if (user?.role === "ADMIN") return <></>
   return (
     <Suspense fallback={<></>}>
       <AnnouncementContent />
