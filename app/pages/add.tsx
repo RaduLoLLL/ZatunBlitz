@@ -67,10 +67,13 @@ const Add: BlitzPage = () => {
   }
 
   //Date state added separately
+  console.log(date)
+  //console.log(isEqual(addHours(date, 24), blockedDates?.endDate))
   const [startDate, setStartDate] = useState(
-    isBefore(addHours(date, 24), blockedDates?.endDate) || isEqual(date, blockedDates?.endDate)
+    isBefore(addHours(date, 24), blockedDates?.endDate) ||
+      differenceInDays(date, blockedDates?.endDate) === 0
       ? isAfter(addHours(date, 24), blockedDates?.startDate) ||
-        isEqual(date, blockedDates?.startDate)
+        differenceInDays(date, blockedDates?.startDate) === 0
         ? addHours(blockedDates?.endDate, 24)
         : addHours(date, 24)
       : addHours(date, 24)
@@ -193,6 +196,7 @@ const Add: BlitzPage = () => {
     const bookings = useCurrentBookings(startDate)
 
     const totalCasuta = [...Array(17).keys()].map((x) => x + 2)
+    console.log(totalCasuta)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
