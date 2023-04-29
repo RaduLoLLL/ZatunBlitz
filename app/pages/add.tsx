@@ -69,8 +69,6 @@ const Add: BlitzPage = () => {
 
   //Date state added separately
 
-  //console.log(isEqual(addHours(date, 24), blockedDates?.endDate))
-
   const [startDate, setStartDate] = useState(
     isBefore(addHours(date, 24), blockedDates?.endDate) ||
       differenceInDays(date, blockedDates?.endDate) === 0
@@ -335,9 +333,6 @@ const Add: BlitzPage = () => {
 
   // Here I handle the submit. "petrecerePrivata" means a private party. If that is checked
   // it does something, if not, something else
-  console.log("startDate", startDate)
-  console.log("date", date)
-  console.log("diffinhours", differenceInHours(startDate, date))
 
   async function handleSubmit(event) {
     type loc = {
