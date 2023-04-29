@@ -11,6 +11,7 @@ import toast from "react-hot-toast"
 import {
   addHours,
   differenceInDays,
+  differenceInHours,
   format,
   getHours,
   getMinutes,
@@ -67,8 +68,9 @@ const Add: BlitzPage = () => {
   }
 
   //Date state added separately
-  console.log(date)
+
   //console.log(isEqual(addHours(date, 24), blockedDates?.endDate))
+
   const [startDate, setStartDate] = useState(
     isBefore(addHours(date, 24), blockedDates?.endDate) ||
       differenceInDays(date, blockedDates?.endDate) === 0
@@ -196,7 +198,6 @@ const Add: BlitzPage = () => {
     const bookings = useCurrentBookings(startDate)
 
     const totalCasuta = [...Array(17).keys()].map((x) => x + 2)
-    console.log(totalCasuta)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -334,6 +335,9 @@ const Add: BlitzPage = () => {
 
   // Here I handle the submit. "petrecerePrivata" means a private party. If that is checked
   // it does something, if not, something else
+  console.log("startDate", startDate)
+  console.log("date", date)
+  console.log("diffinhours", differenceInHours(startDate, date))
 
   async function handleSubmit(event) {
     type loc = {
@@ -342,14 +346,7 @@ const Add: BlitzPage = () => {
     }
     event.preventDefault()
 
-    if (
-      (differenceInDays(startDate, date) === 0 ||
-        (getHours(startDate) === getHours(date) &&
-          getMinutes(startDate) === getMinutes(date) &&
-          getSeconds(startDate) === getSeconds(date) &&
-          differenceInDays(startDate, date) === 1)) &&
-      getHours(startDate) >= 18
-    ) {
+    if (differenceInHours(startDate, date) <= 24 && getHours(startDate) >= 18) {
       toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
       return <></>
     }
