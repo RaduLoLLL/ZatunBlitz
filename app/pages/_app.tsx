@@ -43,9 +43,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
       >
         <div>
           <Toaster />
-          <Suspense fallback={<div />}>
+          {/* <Suspense fallback={<div />}>
             <Announcement text="Căsuțele rezervate in data de 28.04 vor fi eliberate pe data de 29.04 cel tarziu la ora 10.00" />
-          </Suspense>
+          </Suspense> */}
         </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>
