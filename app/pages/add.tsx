@@ -25,6 +25,8 @@ import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 import getDate from "./queries/getDate"
+import getBookings from "./dashboard/queries/getBookings"
+import { Booking } from "types"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -44,19 +46,21 @@ export const getServerSideProps = async ({ req, res }) => {
 const Add: BlitzPage = () => {
   const router = useRouter()
   const date = useQuery(getDate, undefined)[0]
-
   useEffect(() => {
     invoke(deleteUnpaidBooking, undefined)
-  })
+  }, [])
 
   //State for all options that will be added for the booking
-  const [state, setState] = useState({
+  const initialState = {
     intrare: 0,
     locParcare: 0,
     locPescuit: [],
     casuta: [],
     totalPrice: 0,
-  })
+  }
+  const [state, setState] = useState(initialState)
+  const [occupiedFishing, setOccupiedFishing] = useState<Number[]>()
+  const [occupiedCasuta, setOccupiedCasuta] = useState<Number[]>()
 
   type BlockedDates = {
     startDate: Date
@@ -373,10 +377,18 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
-    await invoke(insertBooking, booking).then(() => {
-      toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
-      router.push("/checkout")
-    }) // Insert the new created booking into the database
+    await invoke(insertBooking, booking)
+      .then(() => {
+        toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
+        router.push("/checkout")
+      })
+      .catch((err) => {
+        toast.error(
+          "Unul din locurile alese este deja ocupat. Te rugăm să reîncarci pagina și să încerci din nou!",
+          { id: toastId, duration: 10000 }
+        )
+        setState(initialState)
+      }) // Insert the new created booking into the database
   }
 
   // State handler for everything but the price, that updates in the useEffect
