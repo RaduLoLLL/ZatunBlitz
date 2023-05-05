@@ -1,4 +1,13 @@
-import { BlitzPage, useRouterQuery, invoke, Link, Routes, useQuery, useMutation } from "blitz"
+import {
+  BlitzPage,
+  useRouterQuery,
+  invoke,
+  Link,
+  Routes,
+  useQuery,
+  useMutation,
+  Router,
+} from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { QRCodeCanvas } from "qrcode.react"
 import { useRef, useEffect, useState, Suspense } from "react"
@@ -13,8 +22,9 @@ const Succes: BlitzPage = () => {
   const booking_id = query.booking_id
 
   useEffect(() => {
-    const confirm = invoke(confirmOrderPaid, { orderId, booking_id })
-    setConfirmed(true)
+    const confirm = invoke(confirmOrderPaid, { orderId, booking_id }).then(() => {
+      Router.push(RezervarileMele())
+    })
   }, [])
 
   const downloadQrCode = () => {

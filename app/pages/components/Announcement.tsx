@@ -16,7 +16,27 @@ const Announcement = (props) => {
             <div className="bg-white rounded-lg shadow-lg p-4 max-w-xl w-full">
               <Dialog.Title className="text-2xl font-medium text-red-600">Atenție</Dialog.Title>
               <div className="mt-2">
-                <p className="text-lg font-medium text-gray-500">{props.text}</p>
+                <p className="text-lg font-medium text-gray-500">
+                  Va informam ca in perioada 12.05 -13. 05.2023, Balta Zatun este inchisa pentru
+                  desfasurarea unui concurs de pescuit
+                </p>
+                <hr className="my-3" />
+
+                <p className="text-lg font-medium text-gray-500">
+                  Vizitatorii care au casute rezervate in data de 11.05.2023 vor trebui sa le
+                  elibereze pana la data de 12.05.2023,orele 10.00
+                </p>
+                <hr className="my-3" />
+                <p className="text-lg font-medium text-gray-500">
+                  Utilizatorii care doresc sa rezerve casute in data de 13.05.2023, o pot face
+                  incepand cu orele 15.00, la intrarea in complex sau la numarul de telefon{" "}
+                  <span>
+                    <a href="tel:0753104218">0753104218</a>
+                  </span>
+                  .{" "}
+                </p>
+                <hr className="my-3" />
+                <p className="text-lg font-medium text-gray-500">Va multumim!</p>
               </div>
               <div className="mt-4 flex justify-end">
                 <button
