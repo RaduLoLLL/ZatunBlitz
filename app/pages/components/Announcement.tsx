@@ -30,9 +30,9 @@ const Announcement = (props) => {
                 <p className="text-lg font-medium text-gray-500">
                   Utilizatorii care doresc sa rezerve casute in data de 13.05.2023, o pot face
                   incepand cu orele 15.00, la intrarea in complex sau la numarul de telefon{" "}
-                  <span>
-                    <a href="tel:0753104218">0753104218</a>
-                  </span>
+                  <a href="tel:0753104218">
+                    <span className="bg-gray-200 p-1 rounded-md">0753104218</span>
+                  </a>
                   .{" "}
                 </p>
                 <hr className="my-3" />
