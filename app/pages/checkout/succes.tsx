@@ -22,9 +22,7 @@ const Succes: BlitzPage = () => {
   const booking_id = query.booking_id
 
   useEffect(() => {
-    const confirm = invoke(confirmOrderPaid, { orderId, booking_id }).then(() => {
-      Router.push(RezervarileMele())
-    })
+    const confirm = invoke(confirmOrderPaid, { orderId, booking_id })
   }, [])
 
   const downloadQrCode = () => {
