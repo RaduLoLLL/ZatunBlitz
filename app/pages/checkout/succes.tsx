@@ -38,7 +38,7 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
-    if (query.approvalCode) {
+    if (query.approvalCode !== "000000") {
       return (
         <>
           <div className="flex justify-center items-center font-bold flex-col mt-20">

@@ -1,18 +1,16 @@
-import { Link, getSession, Routes, GetServerSideProps } from "blitz"
+import { Link, getSession, Routes, GetServerSideProps, invoke } from "blitz"
 
 import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
 import db from "db"
 import { subDays, subHours } from "date-fns"
+import { useEffect } from "react"
+import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
-
-  const bookings = await db.booking.findMany({
-    where: { userId: session.userId },
-    orderBy: [{ starts_at: "desc" }],
-  })
+  invoke(deleteUnpaidBooking, undefined)
 
   if (!session.userId) {
     return {
@@ -22,6 +20,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
+  const bookings = await db.booking.findMany({
+    where: { userId: session.userId },
+    orderBy: [{ starts_at: "desc" }],
+  })
   return { props: { bookings } }
 }
 
@@ -41,7 +43,6 @@ function RezervarileMele({ bookings }) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-3">
           {bookings.map((booking, i) => {
-            console.log("DB Date", subHours(booking.starts_at, 3))
             return (
               <>
                 <div

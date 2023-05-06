@@ -19,9 +19,6 @@ import Cookies from "universal-cookie"
 export default function App({ Component, pageProps, router }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   const cookies = new Cookies()
-  useEffect(() => {
-    cookies.remove("announcement", { path: "/" })
-  }, [])
 
   return (
     <ErrorBoundary

@@ -43,7 +43,7 @@ const Announcement = (props) => {
                   type="button"
                   className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
                   onClick={() => {
-                    cookies.set("announcement", "true", { path: "/", maxAge: 60 * 60 * 24 * 365 })
+                    cookies.set("announcement", "true", { path: "/", maxAge: 600 })
                     setOpen(false)
                   }}
                 >

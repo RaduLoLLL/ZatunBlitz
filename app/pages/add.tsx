@@ -59,8 +59,6 @@ const Add: BlitzPage = () => {
     totalPrice: 0,
   }
   const [state, setState] = useState(initialState)
-  const [occupiedFishing, setOccupiedFishing] = useState<Number[]>()
-  const [occupiedCasuta, setOccupiedCasuta] = useState<Number[]>()
 
   type BlockedDates = {
     startDate: Date

@@ -5,6 +5,7 @@ import { useCurrentBookings } from "../hooks/useCurrentBookings"
 import toast from "react-hot-toast"
 import getAllBookings from "../queries/getAllBookings"
 import getAllBookingsMutation from "./getAllBookingsMutation"
+import { v4 as uuidv4 } from "uuid"
 
 type booking = {
   starts_at: Date
@@ -18,17 +19,16 @@ type booking = {
 
 export default async function insertBooking(booking: booking, ctx: Ctx) {
   ctx.session.$authorize()
+  const uuid = uuidv4().replace(/-/g, "")
   const bookings = await invoke(getAllBookingsMutation, booking.starts_at)
-  console.log("All bookings", bookings)
+
   const spotsArray: any[] = []
   const casutaSpotsArray: any[] = []
   bookings.map((booking) => {
     if (booking.loc_pescuit.length) {
-      console.log("Loc de pescuit", booking.loc_pescuit)
       spotsArray.push(booking.loc_pescuit)
     }
     if (booking.casuta.length) {
-      console.log("Casuta", booking.casuta)
       casutaSpotsArray.push(booking.casuta)
     }
   })
@@ -36,8 +36,6 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
   const ocuppiedFishingSpots = [].concat.apply([], spotsArray)
   const occupiedCasuta = [].concat.apply([], casutaSpotsArray)
 
-  console.log("Casute ocupate", occupiedCasuta)
-  console.log("Pescuit ocupat", ocuppiedFishingSpots)
   booking.loc_pescuit?.map((loc) => {
     if (ocuppiedFishingSpots.includes(loc)) {
       throw { id: 1, loc: loc }
@@ -61,6 +59,7 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
         casuta: booking.casuta,
         total_price: Number(booking.total_price),
         userId: ctx.session.userId,
+        stripeSessionId: uuid,
       },
     })
     .then((result) => {
