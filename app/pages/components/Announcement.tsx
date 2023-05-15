@@ -1,5 +1,5 @@
 import { Dialog } from "@headlessui/react"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import { Link, Routes } from "blitz"
 import React, { Suspense } from "react"
 import Cookies from "universal-cookie"
 
@@ -17,26 +17,18 @@ const Announcement = (props) => {
               <Dialog.Title className="text-2xl font-medium text-red-600">Atenție</Dialog.Title>
               <div className="mt-2">
                 <p className="text-lg font-medium text-gray-500">
-                  Va informam ca in perioada 12.05 -13. 05.2023, Balta Zatun este inchisa pentru
-                  desfasurarea unui concurs de pescuit
+                  Pentru o mai bună utilizare a aplicației puteți consulta{" "}
+                  <span
+                    className="text-red-600 font-bold"
+                    onClick={() => {
+                      cookies.set("announcement", "true", { path: "/", maxAge: 600 })
+                      setOpen(false)
+                    }}
+                  >
+                    <Link href={Routes.ManualUtilizare()}> manualul de utilizare.</Link>
+                  </span>
                 </p>
                 <hr className="my-3" />
-
-                <p className="text-lg font-medium text-gray-500">
-                  Vizitatorii care au casute rezervate in data de 11.05.2023 vor trebui sa le
-                  elibereze pana la data de 12.05.2023,orele 10.00
-                </p>
-                <hr className="my-3" />
-                <p className="text-lg font-medium text-gray-500">
-                  Utilizatorii care doresc sa rezerve casute in data de 13.05.2023, o pot face
-                  incepand cu orele 15.00, la intrarea in complex sau la numarul de telefon{" "}
-                  <a href="tel:0753104218">
-                    <span className="bg-gray-200 p-1 rounded-md">0753104218</span>
-                  </a>
-                  .{" "}
-                </p>
-                <hr className="my-3" />
-                <p className="text-lg font-medium text-gray-500">Va multumim!</p>
               </div>
               <div className="mt-4 flex justify-end">
                 <button
@@ -56,7 +48,6 @@ const Announcement = (props) => {
       </div>
     )
   }
-  //if (user?.role === "ADMIN") return <></>
   return (
     <Suspense fallback={<></>}>
       <AnnouncementContent />
