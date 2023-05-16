@@ -20,7 +20,7 @@ type booking = {
 export default async function insertBooking(booking: booking, ctx: Ctx) {
   ctx.session.$authorize()
   const uuid = uuidv4().replace(/-/g, "")
-  const bookings = await invoke(getAllBookingsMutation, booking.starts_at)
+  const bookings = await invoke(getAllBookingsMutation, format(booking.starts_at, "yyyy-MM-dd"))
 
   const spotsArray: any[] = []
   const casutaSpotsArray: any[] = []
