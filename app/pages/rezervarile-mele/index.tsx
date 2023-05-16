@@ -10,7 +10,7 @@ import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
-  invoke(deleteUnpaidBooking, undefined)
+  invoke(deleteUnpaidBooking, session.userId)
 
   if (!session.userId) {
     return {

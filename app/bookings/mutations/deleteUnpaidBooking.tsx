@@ -2,7 +2,7 @@ import confirmOrderPaid from "app/pages/checkout/mutations/confirmOrderPaid"
 import { Ctx, invoke } from "blitz"
 import { addHours } from "date-fns"
 import db from "db"
-export default async function deleteUnpaidBooking(ctx: Ctx) {
+export default async function deleteUnpaidBooking(userId, ctx: Ctx) {
   // Function that uses prisma and deteles all bookings older that 30 minutes where paid is false
   const unpaidBookings = await db.booking
     .findMany({
@@ -10,11 +10,13 @@ export default async function deleteUnpaidBooking(ctx: Ctx) {
         AND: [
           {
             paid: false,
+            userId: userId,
           },
         ],
       },
     })
     .then((unpaidBookings) => {
+      console.log(unpaidBookings)
       if (unpaidBookings.length > 0) {
         unpaidBookings.map(async (booking) => {
           const confirm = await invoke(confirmOrderPaid, {
@@ -35,6 +37,7 @@ export default async function deleteUnpaidBooking(ctx: Ctx) {
             },
             {
               paid: false,
+              userId: userId,
             },
           ],
         },
