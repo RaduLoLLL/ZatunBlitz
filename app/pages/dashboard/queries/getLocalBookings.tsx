@@ -2,6 +2,12 @@ import db from "db"
 
 export default async function getLocalBooking() {
   return await db.booking.findMany({
-    where: { User: { email: { startsWith: "admin" } } },
+    where: {
+      OR: [
+        { User: { email: "acces1@baltazatun.ro" } },
+        { User: { email: "acces2@baltazatun.ro" } },
+        { User: { email: "contabilitate@baltazatun.ro" } },
+      ],
+    },
   })
 }

@@ -39,9 +39,9 @@ export const SignupForm = (props: SignupFormProps) => {
             : {}
         }
       >
-        <div className="py-6 mx-8">
+        <div className="py-6 mx-8 w-1/2">
           <div className="flex justify-center ">
-            <Image src="/Logo2.svg" width={400} height={300} alt="logo" />
+            <Image src="/logoExtern.png" width={200} height={200} alt="logo" />
           </div>
           <div className="space-x-2">
             <Link href="/api/auth/google">
@@ -105,7 +105,7 @@ export const SignupForm = (props: SignupFormProps) => {
                 type="checkbox"
                 value=""
                 required
-                className="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-12 h-12 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label
                 htmlFor="default-checkbox"

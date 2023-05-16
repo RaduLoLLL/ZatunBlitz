@@ -1,4 +1,13 @@
-import { BlitzPage, useRouterQuery, invoke, Link, Routes } from "blitz"
+import {
+  BlitzPage,
+  useRouterQuery,
+  invoke,
+  Link,
+  Routes,
+  useQuery,
+  useMutation,
+  Router,
+} from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { QRCodeCanvas } from "qrcode.react"
 import { useRef, useEffect, useState, Suspense } from "react"
@@ -14,7 +23,6 @@ const Succes: BlitzPage = () => {
 
   useEffect(() => {
     const confirm = invoke(confirmOrderPaid, { orderId, booking_id })
-    setConfirmed(true)
   }, [])
 
   const downloadQrCode = () => {
@@ -30,7 +38,7 @@ const Succes: BlitzPage = () => {
   }
 
   const Result = () => {
-    if (confirmed) {
+    if (query.approvalCode !== "000000") {
       return (
         <>
           <div className="flex justify-center items-center font-bold flex-col mt-20">

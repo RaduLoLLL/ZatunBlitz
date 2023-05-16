@@ -1,10 +1,15 @@
 import Layout from "app/core/layouts/Layout"
 import { BlitzPage, Head, Image } from "blitz"
+import { NextSeo } from "next-seo"
 import Form from "./components/Form"
 
 const Contact: BlitzPage = () => {
   return (
     <>
+      <NextSeo
+        title="Balta Zatun Galati - Contact"
+        description="Balta Zatun Galati Complex de Agrement. Contacteaza-ne pentru a rezerva locul tau de pescuit in Balta Zatun."
+      />
       <div className=" mt-20 mb-20">
         <div className="flex justify-center">
           <iframe

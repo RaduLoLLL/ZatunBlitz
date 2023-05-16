@@ -1,7 +1,9 @@
-import { BlitzPage, getSession, Head, Image, Link, Routes, useSession } from "blitz"
+import { BlitzPage, getSession, Link, Routes } from "blitz"
 import CookieConsent from "react-cookie-consent"
-
+import { NextSeo } from "next-seo"
+import { AnnouncementBar } from "react-announcement-bar"
 import Navbar from "./components/Navbar"
+import Announcement from "./components/Announcement"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -33,6 +35,11 @@ export const UserInfo = () => {
 const Home: BlitzPage = () => {
   return (
     <>
+      <NextSeo
+        title="Balta Zatun Galati - Complex de Agrement"
+        description="Balta Zatun Galati Complex de Agrement. Rezerva acum locul tau de pescuit in Balta Zatun."
+      />
+
       <div className="container min-w-full">
         <div className="block md:flex md:min-h-screen">
           <div

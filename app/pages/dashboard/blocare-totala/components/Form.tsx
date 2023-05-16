@@ -18,6 +18,13 @@ const BlockedForm = () => {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    if (!endDate) {
+      toast.error(
+        "Data de final nu a fost aleasa! In cazul in care doriti blocarea unei singure date, alegeti aceeasi data de 2 ori.",
+        { duration: 10000 }
+      )
+      return
+    }
     const toastId = toast.loading("Se blochează datele selectate")
 
     await invoke(insertBlockedDates, { startDate: startDate, endDate: endDate }).then(() => {
@@ -29,7 +36,7 @@ const BlockedForm = () => {
   }
   const onChange = (dates) => {
     const [start, end] = dates
-    console.log(end)
+    console.table({ start, end })
     setStartDate(start)
     setEndDate(end)
   }

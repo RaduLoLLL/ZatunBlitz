@@ -26,7 +26,8 @@ const ReservationForm = () => {
     totalPrice: 0,
   })
   //Date state added separately
-  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
+
+  const [startDate, setStartDate] = useState(addHours(new Date(), 3))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -120,7 +121,7 @@ const ReservationForm = () => {
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <>
-        <p className="my-6 font-bold">Pret total: {totalPrice} Lei</p>
+        <p className="my-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
       </>
     )
   }
@@ -213,7 +214,9 @@ const ReservationForm = () => {
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(addHours(date, 2))}
+                    onChange={(date) => {
+                      setStartDate(date)
+                    }}
                     dateFormat="dd/MM/yyyy"
                     includeDateIntervals={[
                       { start: subDays(new Date(), 1), end: addDays(new Date(), 30) },

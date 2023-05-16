@@ -4,15 +4,29 @@ import { Dialog, Transition } from "@headlessui/react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import addDays from "date-fns/addDays"
-
 import Select from "react-select"
 import insertBooking from "app/bookings/mutations/insertBooking"
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 import toast from "react-hot-toast"
-import { addHours, isAfter, isBefore, subDays } from "date-fns"
+import {
+  addHours,
+  differenceInDays,
+  differenceInHours,
+  format,
+  getHours,
+  getMinutes,
+  getSeconds,
+  isAfter,
+  isBefore,
+  isEqual,
+  subDays,
+} from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
+import getDate from "./queries/getDate"
+import getBookings from "./dashboard/queries/getBookings"
+import { Booking } from "types"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -31,36 +45,40 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Add: BlitzPage = () => {
   const router = useRouter()
-
+  const date = useQuery(getDate, undefined)[0]
   useEffect(() => {
     invoke(deleteUnpaidBooking, undefined)
-  })
+  }, [])
 
   //State for all options that will be added for the booking
-  const [state, setState] = useState({
+  const initialState = {
     intrare: 0,
     locParcare: 0,
     locPescuit: [],
     casuta: [],
     totalPrice: 0,
-  })
+  }
+  const [state, setState] = useState(initialState)
 
   type BlockedDates = {
     startDate: Date
     endDate: Date
   }
   const blockedDates: BlockedDates = useQuery(getLatestBlocked, undefined)[0][0] || {
-    startDate: subDays(new Date(), 30),
-    endDate: subDays(new Date(), 30),
+    startDate: subDays(date, 30),
+    endDate: subDays(date, 30),
   }
 
   //Date state added separately
+
   const [startDate, setStartDate] = useState(
-    isBefore(new Date(), blockedDates?.endDate)
-      ? isAfter(new Date(), blockedDates?.startDate)
-        ? addHours(blockedDates?.endDate, 26)
-        : addHours(new Date(), 2)
-      : addHours(new Date(), 2)
+    isBefore(addHours(date, 24), blockedDates?.endDate) ||
+      differenceInDays(date, blockedDates?.endDate) === 0
+      ? isAfter(addHours(date, 24), blockedDates?.startDate) ||
+        differenceInDays(date, blockedDates?.startDate) === 0
+        ? addHours(blockedDates?.endDate, 24)
+        : addHours(date, 24)
+      : addHours(date, 24)
   )
 
   const PescuitSelect = () => {
@@ -74,6 +92,7 @@ const Add: BlitzPage = () => {
         spotsArray.push(booking.loc_pescuit)
       }
     })
+    spotsArray.push([1, 2, 9, 10])
     const ocuppiedFishingSpots = [].concat.apply([], spotsArray)
 
     const availableFishingSpots = totalFishingSpots.filter((x) => !ocuppiedFishingSpots.includes(x))
@@ -178,7 +197,7 @@ const Add: BlitzPage = () => {
   const CasutaSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalCasuta = [...Array(12).keys()].map((x) => x + 2)
+    const totalCasuta = [...Array(17).keys()].map((x) => x + 2)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -324,8 +343,14 @@ const Add: BlitzPage = () => {
     }
     event.preventDefault()
 
+    if (differenceInHours(startDate, date) <= 24 && getHours(startDate) >= 18) {
+      toast.error("Rezervarile pentru ziua urmatoare se fac pana la ora 18:00")
+      return <></>
+    }
+
     if (state.totalPrice == 0) {
       toast.error("Nu ati introdus niciun camp. Rezervarea nu poate fi goala")
+
       return <></>
     }
 
@@ -350,10 +375,18 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
-    await invoke(insertBooking, booking).then(() => {
-      toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
-      router.push("/checkout")
-    }) // Insert the new created booking into the database
+    await invoke(insertBooking, booking)
+      .then(() => {
+        toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
+        router.push("/checkout")
+      })
+      .catch((err) => {
+        toast.error(
+          "Unul din locurile alese este deja ocupat. Te rugăm să reîncarci pagina și să încerci din nou!",
+          { id: toastId, duration: 10000 }
+        )
+        setState(initialState)
+      }) // Insert the new created booking into the database
   }
 
   // State handler for everything but the price, that updates in the useEffect
@@ -365,26 +398,41 @@ const Add: BlitzPage = () => {
       [name]: value,
     })
   }
+  const CalculatePrice = () => {
+    const totalPrice =
+      state.intrare * 15 +
+      state.locParcare * 10 +
+      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+    return (
+      <div className="flex justify-center">
+        <p className="mb-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
+      </div>
+    )
+  }
 
   return (
     <>
       <div className="mx-auto max-w-xs lg:max-w-md ">
         <div className="my-10 p-4  bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <h5 className="text-xl font-medium text-gray-900 ">Fa o rezervare noua</h5>
-
+          <Suspense fallback="...">
+            <CalculatePrice />
+          </Suspense>
+          <form className=" space-y-10" onSubmit={handleSubmit}>
             <>
               <div>
-                <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
-                  Alege Data
+                <label htmlFor="date" className="block mb-2 text-lg font-bold text-gray-900 ">
+                  Selectați data rezervării
                 </label>
                 <div className="border-2 rounded">
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(addHours(date, 2))}
+                    onChange={(date) => {
+                      setStartDate(date)
+                    }}
                     dateFormat="dd/MM/yyyy"
-                    minDate={new Date()}
-                    maxDate={addDays(new Date(), 12)}
+                    minDate={addHours(date, 24)}
+                    maxDate={addDays(date, 12)}
                     excludeDateIntervals={[
                       { start: blockedDates?.startDate, end: blockedDates?.endDate },
                     ]}
@@ -392,7 +440,7 @@ const Add: BlitzPage = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="">
                 <label htmlFor="intrare" className="block mb-2 text-sm font-medium text-gray-900 ">
                   Taxa Agrement
                 </label>

@@ -1,6 +1,6 @@
 import { CheckCircleIcon } from "@heroicons/react/solid"
 import { BlitzPage, getSession, invoke, Link, Routes, useQuery, useRouterQuery } from "blitz"
-import { format } from "date-fns"
+import { format, subHours } from "date-fns"
 import { Suspense, useState } from "react"
 import toast from "react-hot-toast"
 import Sidebar from "../../../components/Sidebar"
@@ -111,7 +111,7 @@ const VerificareBilet: BlitzPage = () => {
                           : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
                       }
                     >
-                      {format(booking.starts_at, "dd.MM.yyyy")}
+                      {format(subHours(booking.starts_at, 2), "dd.MM.yyyy")}
                     </td>
                     <td
                       className={

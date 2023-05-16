@@ -3,10 +3,11 @@ import { Suspense } from "react"
 import Sidebar from "../../../components/Sidebar"
 import getBookings from "../queries/getBookings"
 import { useState } from "react"
-import { format } from "date-fns"
+import { format, subHours } from "date-fns"
 import { CheckCircleIcon } from "@heroicons/react/solid"
 import insertVerificare from "../mutations/insertVerificare"
 import toast from "react-hot-toast"
+import { useRef } from "react"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -39,8 +40,11 @@ const Rezervari: BlitzPage = () => {
     const res = await invoke(insertVerificare, booking_id)
     res && toast.success("Inregistrare realizata cu succes", { id: verificare })
     !res && toast.error("Whoops, a intervenit o eroare", { id: verificare })
-    setState({ ...state })
+    setState({ ...state, sessionId: "" })
+    //@ts-ignore
+    inputRef.current.focus()
   }
+  const inputRef = useRef(null)
   const DisplayBookings = () => {
     const bookings = useQuery(getBookings, state)[0]
     return (
@@ -111,7 +115,7 @@ const Rezervari: BlitzPage = () => {
                           : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
                       }
                     >
-                      {format(booking.starts_at, "dd.MM.yyyy")}
+                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
                     </td>
                     <td
                       className={
@@ -191,7 +195,9 @@ const Rezervari: BlitzPage = () => {
                       ) : (
                         <CheckCircleIcon
                           className="h-8 text-red-500 cursor-pointer"
-                          onClick={() => verificaBilet(booking.id)}
+                          onClick={() => {
+                            verificaBilet(booking.id)
+                          }}
                         />
                       )}
                     </td>
@@ -242,6 +248,8 @@ const Rezervari: BlitzPage = () => {
                       name="sessionId"
                       className="bg-white border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="ID"
+                      ref={inputRef}
+                      autoFocus
                       onChange={handleInputChange}
                       value={state.sessionId}
                     />

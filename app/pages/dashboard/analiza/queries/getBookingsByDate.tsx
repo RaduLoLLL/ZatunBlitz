@@ -5,8 +5,12 @@ export default async function getBookingsByDate(date: string) {
   return db.booking.findMany({
     where: {
       AND: {
-        createdAt: { gte: new Date(date), lte: addDays(new Date(date), 1) },
-        User: { email: { startsWith: "acces" } },
+        starts_at: { gte: new Date(date), lte: addDays(new Date(date), 1) },
+        OR: [
+          { User: { email: "acces1@baltazatun.ro" } },
+          { User: { email: "acces2@baltazatun.ro" } },
+          { User: { email: "contabilitate@baltazatun.ro" } },
+        ],
       },
     },
   })

@@ -1,17 +1,16 @@
-import { Link, getSession, Routes, GetServerSideProps } from "blitz"
+import { Link, getSession, Routes, GetServerSideProps, invoke } from "blitz"
 
 import Layout from "app/core/layouts/Layout"
 import format from "date-fns/format"
 import CornerRibbon from "react-corner-ribbon"
 import db from "db"
+import { subDays, subHours } from "date-fns"
+import { useEffect } from "react"
+import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
-
-  const bookings = await db.booking.findMany({
-    where: { userId: session.userId },
-    orderBy: [{ starts_at: "desc" }],
-  })
+  invoke(deleteUnpaidBooking, undefined)
 
   if (!session.userId) {
     return {
@@ -21,6 +20,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
+  const bookings = await db.booking.findMany({
+    where: { userId: session.userId },
+    orderBy: [{ starts_at: "desc" }],
+  })
   return { props: { bookings } }
 }
 
@@ -48,7 +51,7 @@ function RezervarileMele({ bookings }) {
                 >
                   <div className="flex justify-center items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                      {format(booking.starts_at, "dd.MM.yyyy")}
+                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
                     </h5>
                   </div>
                   <div className="flow-root">
@@ -148,7 +151,7 @@ function RezervarileMele({ bookings }) {
                             <p className="text-sm text-gray-500 truncate dark:text-gray-400"></p>
                           </div>
                           <div className="inline-flex items-center text-base font-semibold text-indigo-600 dark:text-white">
-                            {booking.total_price} Lei
+                            {booking.total_price.toFixed(2)} Lei
                           </div>
                         </div>
                       </li>
