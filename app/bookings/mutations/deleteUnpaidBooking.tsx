@@ -10,7 +10,6 @@ export default async function deleteUnpaidBooking(ctx: Ctx) {
         AND: [
           {
             paid: false,
-            userId: ctx.session.userId,
           },
         ],
       },
@@ -36,7 +35,6 @@ export default async function deleteUnpaidBooking(ctx: Ctx) {
             },
             {
               paid: false,
-              userId: ctx.session.userId,
             },
           ],
         },
