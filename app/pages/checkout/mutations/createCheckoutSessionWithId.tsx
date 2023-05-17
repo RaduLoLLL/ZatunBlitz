@@ -16,7 +16,7 @@ export default async function createCheckoutSessionWithId({ booking_id, user }, 
   const bt_password = process.env.BT_PASSWORD
   const base_url = process.env.BASE_URL
   const bt_url = process.env.BT_URL
-  const uuid = uuidv4()
+  const uuid = uuidv4().replace(/-/g, "")
   const updateBooking = await db.booking.update({
     where: { id: booking.id },
     data: {
