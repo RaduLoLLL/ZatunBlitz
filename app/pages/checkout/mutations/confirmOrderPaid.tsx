@@ -21,7 +21,6 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
       },
     }
   )
-
   orderStatus.data.orderStatus === 2
     ? await db.booking.update({
         where: { id: booking?.id },

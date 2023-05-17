@@ -1,9 +1,7 @@
 import { BlitzPage, getSession, Link, Routes } from "blitz"
 import CookieConsent from "react-cookie-consent"
 import { NextSeo } from "next-seo"
-import { AnnouncementBar } from "react-announcement-bar"
 import Navbar from "./components/Navbar"
-import Announcement from "./components/Announcement"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)

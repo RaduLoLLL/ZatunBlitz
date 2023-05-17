@@ -16,11 +16,16 @@ export default async function createCheckoutSessionWithId({ booking_id, user }, 
   const bt_password = process.env.BT_PASSWORD
   const base_url = process.env.BASE_URL
   const bt_url = process.env.BT_URL
+  const uuid = uuidv4()
+  const updateBooking = await db.booking.update({
+    where: { id: booking.id },
+    data: {
+      stripeSessionId: uuid,
+    },
+  })
 
   const urlencodedPayload =
-    `userName=${bt_username}&password=${bt_password}&orderNumber=${
-      booking.stripeSessionId
-    }&amount=${
+    `userName=${bt_username}&password=${bt_password}&orderNumber=${uuid}&amount=${
       booking.total_price * 100
     }&currency=946&description=Plata%20rezervarii%20Balta%20Zatun&returnUrl=${base_url}%2Fcheckout%2Fsucces%3Fbooking_id%3D${
       booking.id

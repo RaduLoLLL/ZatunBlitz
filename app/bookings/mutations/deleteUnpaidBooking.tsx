@@ -16,7 +16,6 @@ export default async function deleteUnpaidBooking(userId, ctx: Ctx) {
       },
     })
     .then((unpaidBookings) => {
-      console.log(unpaidBookings)
       if (unpaidBookings.length > 0) {
         unpaidBookings.map(async (booking) => {
           const confirm = await invoke(confirmOrderPaid, {
