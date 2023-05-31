@@ -29,6 +29,12 @@ const Announcement = (props) => {
                   </span>
                 </p>
                 <hr className="my-3" />
+                <p className="text-lg font-medium text-gray-500">
+                  Pentru a rezerva foișoarele vă rugăm să sunați la numărul de telefon{" "}
+                  <a href="tel:0753104218">
+                    <span className="font-bold text-red-600">0753 104 218</span>
+                  </a>
+                </p>
               </div>
               <div className="mt-4 flex justify-end">
                 <button
