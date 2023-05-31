@@ -21,8 +21,12 @@ export default async function deleteUnpaidBooking(userId, ctx: Ctx) {
             booking_id: booking.id,
             orderNumber: booking.stripeSessionId,
           })
+          console.log(confirm)
         })
       }
+    })
+    .catch((error) => {
+      console.log(error)
     })
     .then(async () => {
       await db.booking.deleteMany({

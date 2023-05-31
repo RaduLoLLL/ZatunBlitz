@@ -1,9 +1,6 @@
 import db from "db"
-import { Ctx, invoke, useQuery } from "blitz"
+import { Ctx, invoke } from "blitz"
 import { addHours, format } from "date-fns"
-import { useCurrentBookings } from "../hooks/useCurrentBookings"
-import toast from "react-hot-toast"
-import getAllBookings from "../queries/getAllBookings"
 import getAllBookingsMutation from "./getAllBookingsMutation"
 import { v4 as uuidv4 } from "uuid"
 
