@@ -108,11 +108,14 @@ function RezervarileMele({ bookings }) {
                                 Loc de pescuit
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                Locul numarul {booking.loc_pescuit}
+                                Locul numarul{" "}
+                                {booking.loc_pescuit.map(
+                                  (loc, i) => loc + (i !== booking.loc_pescuit.length - 1 && ", ")
+                                )}
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              75 Lei
+                              {booking.loc_pescuit.length} x 75 Lei
                             </div>
                           </div>
                         </li>
@@ -129,11 +132,14 @@ function RezervarileMele({ bookings }) {
                                 Casuta
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                Casuta numarul {booking.casuta}
+                                Casuta numarul{" "}
+                                {booking.casuta.map(
+                                  (loc, i) => loc + (i !== booking.casuta.length - 1 && ", ")
+                                )}
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              93.42 Lei
+                              {booking.casuta.length} 93.42 Lei
                             </div>
                           </div>
                         </li>
