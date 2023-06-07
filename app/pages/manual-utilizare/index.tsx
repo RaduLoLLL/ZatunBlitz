@@ -3,6 +3,7 @@ import { BlitzPage, Image } from "blitz"
 import { NextSeo } from "next-seo"
 
 const ManualUtilizare: BlitzPage = () => {
+  console.log(Array.from(Array(10).keys()))
   return (
     <>
       <NextSeo
@@ -15,7 +16,7 @@ const ManualUtilizare: BlitzPage = () => {
           Array.from(Array(10).keys()).map((_, index) => (
             <div key={index} className="">
               <p className="text-black text-3xl font-bold">Pasul {index + 1}</p>
-              <Image src={`/regulament/${index + 1}.jpg`} width={950} height={477} />
+              <Image src={`/${index + 1}.jpg`} width={950} height={477} />
             </div>
           ))
         }

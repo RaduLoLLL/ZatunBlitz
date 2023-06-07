@@ -1,4 +1,14 @@
-import { BlitzPage, invoke, useRouter, getSession, Image, Link, Routes, useQuery } from "blitz"
+import {
+  BlitzPage,
+  invoke,
+  useRouter,
+  getSession,
+  Image,
+  Link,
+  Routes,
+  useQuery,
+  useSession,
+} from "blitz"
 import { useState, useEffect, Suspense, Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import DatePicker from "react-datepicker"
@@ -12,21 +22,15 @@ import {
   addHours,
   differenceInDays,
   differenceInHours,
-  format,
   getHours,
-  getMinutes,
-  getSeconds,
   isAfter,
   isBefore,
-  isEqual,
   subDays,
 } from "date-fns"
 import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 import getDate from "./queries/getDate"
-import getBookings from "./dashboard/queries/getBookings"
-import { Booking } from "types"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -45,9 +49,10 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Add: BlitzPage = () => {
   const router = useRouter()
+  const user = useSession()
   const date = useQuery(getDate, undefined)[0]
   useEffect(() => {
-    invoke(deleteUnpaidBooking, undefined)
+    invoke(deleteUnpaidBooking, user.userId)
   }, [])
 
   //State for all options that will be added for the booking

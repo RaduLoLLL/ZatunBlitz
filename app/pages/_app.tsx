@@ -14,6 +14,7 @@ import "app/core/styles/index.css"
 import { Toaster } from "react-hot-toast"
 import Announcement from "./components/Announcement"
 import { Suspense, useEffect } from "react"
+import { Analytics } from "@vercel/analytics/react"
 import Cookies from "universal-cookie"
 
 export default function App({ Component, pageProps, router }: AppProps) {
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         </div>
         {getLayout(<Component {...pageProps} />)}
       </motion.div>
+      <Analytics />
     </ErrorBoundary>
   )
 }
