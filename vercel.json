@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/deleteUnpaidBookings",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}
