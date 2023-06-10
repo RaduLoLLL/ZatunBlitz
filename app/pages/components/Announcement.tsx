@@ -35,6 +35,14 @@ const Announcement = (props) => {
                     <span className="font-bold text-red-600">0753 104 218</span>
                   </a>
                 </p>
+                <hr className="my-3" />
+                <p className="text-lg font-medium text-gray-500">
+                  Va informam ca in perioada 12-13.06.2023,se va efectua o igienizare (cosire) a
+                  spatiilor verzi din invecinatatea pontoanelor de pescuit astfel: <br />
+                  <span className="font-bold">12.06.2023:</span> Pontoanele 1-50
+                  <br /> <span className="font-bold">13.06.2023:</span> Pontoanele 51-114
+                  <br /> Ne cerem scuze pentru situatia creata. Va multumim!
+                </p>
               </div>
               <div className="mt-4 flex justify-end">
                 <button
