@@ -37,10 +37,8 @@ const Announcement = (props) => {
                 </p>
                 <hr className="my-3" />
                 <p className="text-lg font-medium text-gray-500">
-                  Va informam ca in perioada 12-13.06.2023,se va efectua o igienizare (cosire) a
-                  spatiilor verzi din invecinatatea pontoanelor de pescuit astfel: <br />
-                  <span className="font-bold">12.06.2023:</span> Pontoanele 1-50
-                  <br /> <span className="font-bold">13.06.2023:</span> Pontoanele 51-114
+                  Va informam ca in data de 24.07.2023 balta va fi inchisa
+                  <br />
                   <br /> Ne cerem scuze pentru situatia creata. Va multumim!
                 </p>
               </div>
