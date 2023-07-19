@@ -37,7 +37,7 @@ const Announcement = (props) => {
                 </p>
                 <hr className="my-3" />
                 <p className="text-lg font-medium text-gray-500">
-                  Va informam ca in data de 26.07.2023 balta va fi inchisa
+                  Va informam ca in data de 20.06.2023 si 26.07.2023 balta va fi inchisa
                   <br />
                   <br /> Ne cerem scuze pentru situatia creata. Va multumim!
                 </p>
