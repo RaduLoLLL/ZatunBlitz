@@ -6,16 +6,13 @@ import toast from "react-hot-toast"
 
 const AnnouncemetForm = () => {
   const [anunt, setAnunt] = useState("")
-  const Announcement = useQuery(getAnnouncement, undefined)[0]
   const handleSubmit = async (event) => {
     event.preventDefault()
     const toastID = toast.loading("Se trimite anuntul")
-    const add = await invoke(insertAnnouncement, { content: anunt, id: Announcement?.id }).then(
-      () => {
-        toast.success("Anuntul a fost trimis", { id: toastID })
-        setAnunt("")
-      }
-    )
+    const add = await invoke(insertAnnouncement, { content: anunt }).then(() => {
+      toast.success("Anuntul a fost trimis", { id: toastID })
+      setAnunt("")
+    })
   }
 
   return (
