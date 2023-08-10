@@ -8,7 +8,10 @@ const Announcement = (props) => {
   const cookies = new Cookies()
   //const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
-  const anunt = useQuery(getAnnouncement, undefined)[0]
+  const Announcement = () => {
+    const anunt = useQuery(getAnnouncement, undefined)[0]
+    return <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
+  }
   const AnnouncementContent = () => {
     return (
       <div className="mx-10">
@@ -37,7 +40,7 @@ const Announcement = (props) => {
                     <span className="font-bold text-red-600">0753 104 218</span>
                   </a> */}
                 </p>
-                <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
+                <Suspense fallback={<></>}>{Announcement()}</Suspense>
                 <hr className="my-3" />
               </div>
               <div className="mt-4 flex justify-end">
