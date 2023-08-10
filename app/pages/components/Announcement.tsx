@@ -35,12 +35,12 @@ const Announcement = (props) => {
                     <span className="font-bold text-red-600">0753 104 218</span>
                   </a> */}
                 </p>
-                <hr className="my-3" />
+                {/* <hr className="my-3" />
                 <p className="text-lg font-medium text-gray-500">
                   Va informam ca in data de 20.07.2023 si 26.07.2023 balta va fi inchisa
                   <br />
                   <br /> Ne cerem scuze pentru situatia creata. Va multumim!
-                </p>
+                </p> */}
               </div>
               <div className="mt-4 flex justify-end">
                 <button
