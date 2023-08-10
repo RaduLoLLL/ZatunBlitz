@@ -7,7 +7,7 @@ import Form from "./components/Form"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN") {
+  if (session.role != "ADMIN" && session.role != "SUPERADMIN") {
     return {
       redirect: {
         destination: "/",

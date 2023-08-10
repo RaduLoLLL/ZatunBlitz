@@ -1,12 +1,14 @@
 import { Dialog } from "@headlessui/react"
-import { Link, Routes } from "blitz"
+import { Link, Routes, useQuery } from "blitz"
 import React, { Suspense } from "react"
 import Cookies from "universal-cookie"
+import getAnnouncement from "../dashboard/anunturi/queries/getAnnouncement"
 
 const Announcement = (props) => {
   const cookies = new Cookies()
   //const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
+  const anunt = useQuery(getAnnouncement, undefined)[0]
   const AnnouncementContent = () => {
     return (
       <div className="mx-10">
@@ -35,12 +37,8 @@ const Announcement = (props) => {
                     <span className="font-bold text-red-600">0753 104 218</span>
                   </a> */}
                 </p>
-                {/* <hr className="my-3" />
-                <p className="text-lg font-medium text-gray-500">
-                  Va informam ca in data de 20.07.2023 si 26.07.2023 balta va fi inchisa
-                  <br />
-                  <br /> Ne cerem scuze pentru situatia creata. Va multumim!
-                </p> */}
+                <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
+                <hr className="my-3" />
               </div>
               <div className="mt-4 flex justify-end">
                 <button

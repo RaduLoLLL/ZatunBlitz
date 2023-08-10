@@ -13,7 +13,7 @@ import { CheckCircleIcon } from "@heroicons/react/solid"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN" && session.role != "PORTAR") {
+  if (session.role != "ADMIN" && session.role != "PORTAR" && session.role != "SUPERADMIN") {
     return {
       redirect: {
         destination: "/",
@@ -187,6 +187,7 @@ const Analiza: BlitzPage = () => {
 
   const RezervariOnline = () => {
     const result = useQuery(getBookingsByDateOnline, format(startDate, "yyyy-MM-dd"))
+    console.log(result)
     const bookings = result[0]
     let locuri_pescuit = 0
     let casute = 0

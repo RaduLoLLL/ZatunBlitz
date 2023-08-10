@@ -3,6 +3,7 @@ import Sidebar from "../../../components/Sidebar"
 
 import { Suspense } from "react"
 import ReservationForm from "app/pages/components/ReservationForm"
+import AnnouncemetForm from "app/pages/components/AnnouncementForm"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -19,7 +20,7 @@ export const getServerSideProps = async ({ req, res }) => {
   return { props: {} }
 }
 
-const Adauga: BlitzPage = () => {
+const Anunturi: BlitzPage = () => {
   return (
     <>
       <Suspense
@@ -38,10 +39,10 @@ const Adauga: BlitzPage = () => {
           </div>
         }
       >
-        <ReservationForm />
+        <AnnouncemetForm />
       </Suspense>
     </>
   )
 }
-Adauga.authenticate = { redirectTo: Routes.Home() }
-export default Adauga
+Anunturi.authenticate = { redirectTo: Routes.Home() }
+export default Anunturi
