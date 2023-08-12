@@ -8,11 +8,8 @@ const Announcement = (props) => {
   const cookies = new Cookies()
   //const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
-  const Announcement = () => {
-    const anunt = useQuery(getAnnouncement, undefined)[0]
-    return <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
-  }
   const AnnouncementContent = () => {
+    const anunt = useQuery(getAnnouncement, undefined)[0]
     return (
       <div className="mx-10">
         <Dialog open={open} onClose={() => {}}>
@@ -40,7 +37,7 @@ const Announcement = (props) => {
                     <span className="font-bold text-red-600">0753 104 218</span>
                   </a> */}
                 </p>
-                <Suspense fallback={<></>}>{Announcement()}</Suspense>
+                <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
                 <hr className="my-3" />
               </div>
               <div className="mt-4 flex justify-end">

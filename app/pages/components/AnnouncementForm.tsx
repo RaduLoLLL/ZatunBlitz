@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from "react"
 import { useQuery, invoke } from "blitz"
-import getAnnouncement from "../dashboard/anunturi/queries/getAnnouncement"
 import insertAnnouncement from "../dashboard/anunturi/mutations/insertAnnouncement"
 import toast from "react-hot-toast"
 
