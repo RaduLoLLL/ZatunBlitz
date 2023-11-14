@@ -380,6 +380,14 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
+    if (booking.casuta.length > 0) {
+      toast.error("În perioada 1 Noiembrie 2023 - 1 Martie 2023 căsuțele nu sunt disponibile", {
+        id: toastId,
+        duration: 10000,
+      })
+      return
+    }
+
     await invoke(insertBooking, booking)
       .then(() => {
         toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
