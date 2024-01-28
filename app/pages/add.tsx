@@ -323,7 +323,7 @@ const Add: BlitzPage = () => {
     const totalPrice =
       state.intrare * 15 +
       state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
@@ -415,7 +415,7 @@ const Add: BlitzPage = () => {
     const totalPrice =
       state.intrare * 15 +
       state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <div className="flex justify-center">
