@@ -62,7 +62,7 @@ const Analiza: BlitzPage = () => {
                 </span>
                 <h3 className="text-base font-normal text-gray-500">Casute</h3>
               </div>
-              <div>{casute * 93.42}Lei</div>
+              <div>{casute * 95}Lei</div>
             </div>
             <div className="flex items-center justify-between  ">
               <div>
@@ -219,7 +219,7 @@ const Analiza: BlitzPage = () => {
                 </span>
                 <h3 className="text-base font-normal text-gray-500">Casute</h3>
               </div>
-              <div>{casute * 93.42}Lei</div>
+              <div>{casute * 95}Lei</div>
             </div>
             <div className="flex items-center justify-between  ">
               <div>
