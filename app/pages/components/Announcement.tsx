@@ -1,13 +1,15 @@
 import { Dialog } from "@headlessui/react"
-import { Link, Routes } from "blitz"
+import { Link, Routes, useQuery } from "blitz"
 import React, { Suspense } from "react"
 import Cookies from "universal-cookie"
+import getAnnouncement from "../dashboard/anunturi/queries/getAnnouncement"
 
 const Announcement = (props) => {
   const cookies = new Cookies()
   //const user = useCurrentUser()
   const [open, setOpen] = React.useState(cookies.get("announcement") !== "true")
   const AnnouncementContent = () => {
+    const anunt = useQuery(getAnnouncement, undefined)[0]
     return (
       <div className="mx-10">
         <Dialog open={open} onClose={() => {}}>
@@ -30,11 +32,13 @@ const Announcement = (props) => {
                 </p>
                 <hr className="my-3" />
                 <p className="text-lg font-medium text-gray-500">
-                  Pentru a rezerva foișoarele vă rugăm să sunați la numărul de telefon{" "}
+                  {/* Pentru a rezerva foișoarele vă rugăm să sunați la numărul de telefon{" "}
                   <a href="tel:0753104218">
                     <span className="font-bold text-red-600">0753 104 218</span>
-                  </a>
+                  </a> */}
                 </p>
+                <p className="text-lg font-medium text-gray-500">{anunt?.content}</p>
+                <hr className="my-3" />
               </div>
               <div className="mt-4 flex justify-end">
                 <button

@@ -323,7 +323,7 @@ const Add: BlitzPage = () => {
     const totalPrice =
       state.intrare * 15 +
       state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
@@ -380,6 +380,14 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
+    if (booking.casuta.length > 0) {
+      toast.error("În perioada 1 Noiembrie 2023 - 1 Martie 2023 căsuțele nu sunt disponibile", {
+        id: toastId,
+        duration: 10000,
+      })
+      return
+    }
+
     await invoke(insertBooking, booking)
       .then(() => {
         toast.success("Rezervarea a fost inregistrata cu succes!", { id: toastId })
@@ -407,7 +415,7 @@ const Add: BlitzPage = () => {
     const totalPrice =
       state.intrare * 15 +
       state.locParcare * 10 +
-      (state.casuta.length > 0 ? 93.42 * state.casuta.length : 0) +
+      (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <div className="flex justify-center">

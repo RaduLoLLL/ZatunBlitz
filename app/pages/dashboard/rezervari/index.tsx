@@ -12,7 +12,7 @@ import { useRef } from "react"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN" && session.role != "CONTABIL") {
+  if (session.role != "ADMIN" && session.role != "CONTABIL" && session.role != "SUPERADMIN") {
     return {
       redirect: {
         destination: "/",

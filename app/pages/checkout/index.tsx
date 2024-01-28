@@ -205,7 +205,7 @@ const Checkout: BlitzPage = () => {
                     <p className="text-gray-400 ml-4">
                       Taxa Casuta ( Nr. {booking.casuta.join(", ")} )
                     </p>
-                    <p className="text-black mr-4"> {booking.casuta.length} x 93.42 Lei</p>
+                    <p className="text-black mr-4"> {booking.casuta.length} x 95 Lei</p>
                   </div>
                 ) : (
                   <div></div>

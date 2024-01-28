@@ -10,7 +10,7 @@ import getBookings from "../queries/getBookings"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "PORTAR" && session.role != "ADMIN") {
+  if (session.role != "PORTAR" && session.role != "ADMIN" && session.role != "SUPERADMIN") {
     return {
       redirect: {
         destination: "/",

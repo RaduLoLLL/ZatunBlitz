@@ -1,6 +1,7 @@
 import db from "db"
 import { Ctx } from "blitz"
 const axios = require("axios")
+import axiosRetry from "axios-retry"
 
 export default async function confirmOrderPaid({ orderId, booking_id, orderNumber }, ctx: Ctx) {
   const intBookingId = parseInt(booking_id)
@@ -12,6 +13,8 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
   const urlencodedPayload = orderId
     ? `userName=${bt_username}&password=${bt_password}&orderId=${orderId}&orderNumber=${orderNumber}`
     : `userName=${bt_username}&password=${bt_password}&orderNumber=${orderNumber}`
+  axiosRetry(axios, { retries: 3 })
+
   const orderStatus = await axios.post(
     `${bt_url}/payment/rest/getOrderStatusExtended.do`,
     urlencodedPayload,

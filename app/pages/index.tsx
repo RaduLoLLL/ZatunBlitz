@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session?.role === "ADMIN" || session.role === "CONTABIL") {
+  if (session?.role === "ADMIN" || session.role === "SUPERADMIN" || session.role === "CONTABIL") {
     return {
       redirect: {
         destination: "/dashboard",
