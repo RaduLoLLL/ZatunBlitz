@@ -1,11 +1,15 @@
 import { addDays } from "date-fns"
 import db from "db"
-
-export default async function getBookingsByDate(date: string) {
+type DateInterval = {
+  startDate: string
+  endDate: string
+}
+export default async function getBookingsByDate(date: DateInterval) {
+  console.log(date)
   return db.booking.findMany({
     where: {
       AND: {
-        starts_at: { gte: new Date(date), lte: addDays(new Date(date), 1) },
+        starts_at: { gte: new Date(date.startDate), lte: addDays(new Date(date.endDate), 1) },
         OR: [
           { User: { email: "acces1@baltazatun.ro" } },
           { User: { email: "acces2@baltazatun.ro" } },

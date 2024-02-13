@@ -24,12 +24,18 @@ export const getServerSideProps = async ({ req, res }) => {
 
   return { props: {} }
 }
-
+type DateInterval = {
+  startDate: string
+  endDate: string
+}
 const Analiza: BlitzPage = () => {
   const [startDate, setStartDate] = useState(new Date())
-
+  const [endDate, setEndDate] = useState(addDays(new Date(), 1))
   const RezervariDirecte = () => {
-    const result = useQuery(getBookingsByDate, format(startDate, "yyyy-MM-dd"))
+    const result = useQuery(getBookingsByDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
     const bookings = result[0]
     let locuri_pescuit = 0
     let casute = 0
@@ -89,7 +95,10 @@ const Analiza: BlitzPage = () => {
   }
 
   const LocuriOcupate = () => {
-    const locuriRezervate = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+    const locuriRezervate = useQuery(getBookingsByStartDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
 
     const bookings = locuriRezervate[0]
     const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
@@ -127,7 +136,10 @@ const Analiza: BlitzPage = () => {
   }
 
   const CasuteOcupate = () => {
-    const locuriRezervate = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+    const locuriRezervate = useQuery(getBookingsByStartDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
 
     const bookings = locuriRezervate[0]
     const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
@@ -165,7 +177,10 @@ const Analiza: BlitzPage = () => {
   }
 
   const IncasariDirecte = () => {
-    const result = useQuery(getBookingsByDate, format(startDate, "yyyy-MM-dd"))
+    const result = useQuery(getBookingsByDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
     const bookings = result[0]
 
     let TotalPrice = 0
@@ -186,8 +201,10 @@ const Analiza: BlitzPage = () => {
   }
 
   const RezervariOnline = () => {
-    const result = useQuery(getBookingsByDateOnline, format(startDate, "yyyy-MM-dd"))
-    console.log(result)
+    const result = useQuery(getBookingsByDateOnline, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
     const bookings = result[0]
     let locuri_pescuit = 0
     let casute = 0
@@ -246,8 +263,11 @@ const Analiza: BlitzPage = () => {
   }
 
   const IncasariOnline = () => {
-    console.log("Client date", new Date(startDate))
-    const result = useQuery(getBookingsByDateOnline, format(startDate, "yyyy-MM-dd"))
+    const result = useQuery(getBookingsByDateOnline, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
+    console.log(result)
     const bookings = result[0]
 
     let TotalPrice = 0
@@ -267,29 +287,75 @@ const Analiza: BlitzPage = () => {
     )
   }
   const AnalizaComponent = () => {
-    const result = useQuery(getBookingsByStartDate, format(startDate, "yyyy-MM-dd"))
+    const result = useQuery(getBookingsByStartDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
     const bookings = result[0]
     return (
       <>
-        <div>
-          <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
-            Alege Data
-          </label>
-          <div className="border-2 rounded">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd/MM/yyyy"
-              includeDateIntervals={[
-                { start: subDays(new Date(), 30), end: addDays(new Date(), 30) },
-              ]}
-              className="cursor-pointer p-2"
-            />
+        <div className="flex items-center space-x-6">
+          <div className="flex flex-col items-center">
+            <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
+              Data de inceput
+            </label>
+            <div className="border-2 rounded">
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="dd/MM/yyyy"
+                includeDateIntervals={[
+                  { start: subDays(new Date(), 365), end: addDays(new Date(), 30) },
+                ]}
+                className="cursor-pointer p-2"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 ">
+              Data de sfarsit
+            </label>
+            <div className="border-2 rounded">
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                dateFormat="dd/MM/yyyy"
+                includeDateIntervals={[
+                  { start: subDays(new Date(), 365), end: addDays(new Date(), 30) },
+                ]}
+                className="cursor-pointer p-2"
+              />
+            </div>
           </div>
         </div>
 
         <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-6 ">
-          <div className="">
+          <div className=" w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex justify-center items-center">
+                  <div className="ping"></div>
+                </div>
+              }
+            >
+              <RezervariOnline />
+            </Suspense>
+
+            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+              <div className="flex items-center">
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <IncasariOnline />
+                </Suspense>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8">
             <Suspense
               fallback={
                 <div className="min-h-screen flex justify-center items-center">
@@ -312,31 +378,7 @@ const Analiza: BlitzPage = () => {
             </Suspense>
           </div>
         </div>
-        <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex justify-center items-center">
-                <div className="ping"></div>
-              </div>
-            }
-          >
-            <RezervariOnline />
-          </Suspense>
 
-          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <Suspense
-                fallback={
-                  <div className="min-h-screen flex justify-center items-center">
-                    <div className="ping"></div>
-                  </div>
-                }
-              >
-                <IncasariOnline />
-              </Suspense>
-            </div>
-          </div>
-        </div>
         <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
           <Suspense
             fallback={

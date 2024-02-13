@@ -36,7 +36,6 @@ const BlockedForm = () => {
   }
   const onChange = (dates) => {
     const [start, end] = dates
-    console.table({ start, end })
     setStartDate(start)
     setEndDate(end)
   }
