@@ -9,7 +9,7 @@ type ResetPasswordMailer = {
   to: string
   token: string
 }
-
+import { Resend } from "resend"
 export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   // In production, set APP_ORIGIN to your production server origin
   const origin = process.env.APP_ORIGIN || process.env.BLITZ_DEV_SERVER_ORIGIN
@@ -26,7 +26,7 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
       pass: password,
     },
   })
-
+  const resend = new Resend("re_BNmsnDVM_J8p45pRJr5vzpfsuzvwb7MDH")
   const msg = {
     from: "reset@baltazatun.ro",
     to,
@@ -44,9 +44,11 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   return {
     async send() {
       if (process.env.NODE_ENV === "production") {
-        await transporter.sendMail(msg)
+        //await transporter.sendMail(msg)
+        await resend.emails.send(msg)
       } else {
-        await transporter.sendMail(msg)
+        //await transporter.sendMail(msg)
+        await resend.emails.send(msg)
       }
     },
   }
