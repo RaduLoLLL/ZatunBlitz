@@ -1,5 +1,6 @@
+import { invoke } from "@blitzjs/rpc";
 import db from "db"
-import { Ctx, invoke } from "blitz"
+import { Ctx } from "blitz";
 import { addHours, format } from "date-fns"
 import getAllBookingsMutation from "./getAllBookingsMutation"
 import { v4 as uuidv4 } from "uuid"

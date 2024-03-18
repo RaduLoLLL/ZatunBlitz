@@ -1,4 +1,7 @@
-import { Link, Routes, useMutation, useSession } from "blitz"
+import Link from "next/link";
+import { useSession } from "@blitzjs/auth";
+import { useMutation } from "@blitzjs/rpc";
+import { Routes } from "@blitzjs/next";
 import logout from "app/auth/mutations/logout"
 import { Suspense } from "react"
 

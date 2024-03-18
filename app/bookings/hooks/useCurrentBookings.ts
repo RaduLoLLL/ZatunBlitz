@@ -1,4 +1,4 @@
-import { useQuery } from "blitz"
+import { useQuery } from "@blitzjs/rpc";
 import getAllBookings from "../queries/getAllBookings"
 import format from "date-fns/format"
 

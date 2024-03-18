@@ -1,4 +1,4 @@
-import { useQuery } from "blitz"
+import { useQuery } from "@blitzjs/rpc";
 import getLatestBooking from "../queries/getLatestBooking"
 
 export const useLatestBooking = (booking_id) => {

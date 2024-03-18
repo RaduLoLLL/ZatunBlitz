@@ -1,4 +1,1 @@
-module.exports = {
-  extends: ["blitz"],
-  rules: { "react/no-unescaped-entities": 0 },
-}
+module.exports = require("@blitzjs/next/eslint");
