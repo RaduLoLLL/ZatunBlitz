@@ -9,9 +9,6 @@ type ResetPasswordMailer = {
   to: string
   token: string
 }
-import { Resend } from 'resend';
-const key = process.env.RESEND_KEY
-const resend = new Resend(key);
 
 export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   // In production, set APP_ORIGIN to your production server origin
@@ -47,9 +44,9 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   return {
     async send() {
       if (process.env.NODE_ENV === "production") {
-        await resend.emails.send(msg)
+        await transporter.sendMail(msg)
       } else {
-        await resend.emails.send(msg)
+        await transporter.sendMail(msg)
       }
     },
   }
