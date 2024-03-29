@@ -11,8 +11,8 @@ export default async function insertBlockedDates(blockedDates: BlockedDates, ctx
   console.log(
     await db.blockedDates.create({
       data: {
-        startDate: addHours(blockedDates.startDate, 3),
-        endDate: addHours(blockedDates.endDate, 3),
+        startDate: addHours(blockedDates.startDate, 2),
+        endDate: addHours(blockedDates.endDate, 2),
       },
     })
   )
