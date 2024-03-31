@@ -74,7 +74,7 @@ const Add: BlitzPage = () => {
   const blockedDates: BlockedDates = useQuery(getLatestBlocked, undefined)[0][0] || {
     startDate: subDays(date, 30),
     endDate: subDays(date, 30),
-    blockedDates: [],
+    blockedDates: [subDays(new Date(), 30)],
   }
 
   //Date state added separately
