@@ -2,6 +2,8 @@ import db from "db"
 import { Ctx } from "blitz"
 import { addHours } from "date-fns"
 type BlockedDates = {
+  startDate: Date
+  endDate: Date
   blockedDates: Date[]
 }
 
