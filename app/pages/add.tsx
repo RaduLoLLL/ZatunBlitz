@@ -25,6 +25,7 @@ import {
   getHours,
   isAfter,
   isBefore,
+  isSameDay,
   subDays,
 } from "date-fns"
 import Layout from "app/core/layouts/Layout"
@@ -68,23 +69,31 @@ const Add: BlitzPage = () => {
   type BlockedDates = {
     startDate: Date
     endDate: Date
+    blockedDates: Date[]
   }
   const blockedDates: BlockedDates = useQuery(getLatestBlocked, undefined)[0][0] || {
     startDate: subDays(date, 30),
     endDate: subDays(date, 30),
+    blockedDates: [subDays(new Date(), 30)],
   }
 
   //Date state added separately
+  const today = new Date()
 
-  const [startDate, setStartDate] = useState(
-    isBefore(addHours(date, 24), blockedDates?.endDate) ||
-      differenceInDays(date, blockedDates?.endDate) === 0
-      ? isAfter(addHours(date, 24), blockedDates?.startDate) ||
-        differenceInDays(date, blockedDates?.startDate) === 0
-        ? addHours(blockedDates?.endDate, 24)
-        : addHours(date, 24)
-      : addHours(date, 24)
-  )
+  // Declare firstAvailableDate as null initially
+  let firstAvailableDate: Date | null = null
+  let nextDate = today
+  while (!firstAvailableDate) {
+    nextDate = addDays(nextDate, 1) // Get the next day
+    // Check if nextDate is not in the blockedDates array and is not today
+
+    if (!blockedDates.blockedDates.some((date) => isSameDay(date, nextDate))) {
+      firstAvailableDate = nextDate
+    }
+  }
+  console.log("The first available date is:", firstAvailableDate)
+
+  const [startDate, setStartDate] = useState(firstAvailableDate)
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -380,13 +389,13 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
-    if (booking.casuta.length > 0) {
-      toast.error("Momentan căsuțele nu sunt disponibile", {
-        id: toastId,
-        duration: 10000,
-      })
-      return
-    }
+    // if (booking.casuta.length > 0) {
+    //   toast.error("Momentan căsuțele nu sunt disponibile", {
+    //     id: toastId,
+    //     duration: 10000,
+    //   })
+    //   return
+    // }
 
     await invoke(insertBooking, booking)
       .then(() => {
@@ -445,10 +454,8 @@ const Add: BlitzPage = () => {
                     }}
                     dateFormat="dd/MM/yyyy"
                     minDate={addHours(date, 24)}
-                    maxDate={addDays(date, 12)}
-                    excludeDateIntervals={[
-                      { start: blockedDates?.startDate, end: blockedDates?.endDate },
-                    ]}
+                    maxDate={addDays(date, 18)}
+                    excludeDates={blockedDates.blockedDates}
                     className="cursor-pointer p-2"
                   />
                 </div>

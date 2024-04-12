@@ -371,6 +371,11 @@ function TC() {
             de a refuza accesul persoanelor care au avut abateri de la prezentul regulament, sunt în
             stare de ebrietate sau nu sunt de acord cu regulamentul, total sau parţial.
           </p>
+          <p className="mt-2">
+            Pentru rezervarea foișoarelor vă rugăm să sunați la numărul de telefon 0753104218 pentru
+            a verifica disponibilitatea acestora și pentru a vă comunica procedura pentru plata
+            închirierii acestora
+          </p>
         </div>
       </div>
     </>

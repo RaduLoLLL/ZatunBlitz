@@ -80,9 +80,10 @@ model Booking {
 }
 
 model BlockedDates {
-  id        Int      @id @default(autoincrement())
-  startDate DateTime
-  endDate   DateTime
+  id           Int        @id @default(autoincrement())
+  startDate    DateTime
+  endDate      DateTime
+  blockedDates DateTime[]
 }
 
 model Announcement {

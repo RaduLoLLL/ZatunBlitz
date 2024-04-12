@@ -72,7 +72,13 @@ const Contact: BlitzPage = () => {
                   style={{ fontFamily: "Josefin Sans" }}
                   className="font-light text-4xl lg:text-justify ml-7"
                 >
-                  +(40) 746 068 113
+                  +(40) 236 317 827
+                </p>
+                <p
+                  style={{ fontFamily: "Josefin Sans" }}
+                  className="font-light text-4xl lg:text-justify ml-7"
+                >
+                  +(40) 753 104 218
                 </p>
               </div>
 
