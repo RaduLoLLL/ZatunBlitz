@@ -389,13 +389,13 @@ const Add: BlitzPage = () => {
     }
 
     const toastId = toast.loading("Iti inregistram rezervarea...")
-    if (booking.casuta.length > 0) {
-      toast.error("Momentan căsuțele nu sunt disponibile", {
-        id: toastId,
-        duration: 10000,
-      })
-      return
-    }
+    // if (booking.casuta.length > 0) {
+    //   toast.error("Momentan căsuțele nu sunt disponibile", {
+    //     id: toastId,
+    //     duration: 10000,
+    //   })
+    //   return
+    // }
 
     await invoke(insertBooking, booking)
       .then(() => {
@@ -454,7 +454,7 @@ const Add: BlitzPage = () => {
                     }}
                     dateFormat="dd/MM/yyyy"
                     minDate={addHours(date, 24)}
-                    maxDate={addDays(date, 12)}
+                    maxDate={addDays(date, 18)}
                     excludeDates={blockedDates.blockedDates}
                     className="cursor-pointer p-2"
                   />
