@@ -565,6 +565,10 @@ const Add: BlitzPage = () => {
               ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
               anulării rezervării.
             </p>
+            <p className="text-red-500">
+              REZERVAREA NU POATE FI MODIFICATĂ SAU MUTATĂ. VĂ RUGĂM SĂ VERIFICAȚI CU ATENȚIE
+              DETALIILE!
+            </p>
           </form>
         </div>
       </div>
