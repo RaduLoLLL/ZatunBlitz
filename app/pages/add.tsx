@@ -552,6 +552,19 @@ const Add: BlitzPage = () => {
                   </Link>
                 </label>
               </div>
+              <div className="flex  mb-4">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  required
+                  className="w-12 h-12 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label htmlFor="default-checkbox" className="ml-2 text-sm text-left text-red-500">
+                  Am luat la cunoștință faptul că rezervarea nu poate fi anulată sau modificată. Am
+                  verificat detaliile rezervării și sunt corecte.
+                </label>
+              </div>
             </>
 
             <button
@@ -564,10 +577,6 @@ const Add: BlitzPage = () => {
             <p className="text-center">
               ** În urma finalizării rezervării, suma plătită nu poate fi returnată în cazul
               anulării rezervării.
-            </p>
-            <p className="text-red-500">
-              REZERVAREA NU POATE FI MODIFICATĂ SAU MUTATĂ. VĂ RUGĂM SĂ VERIFICAȚI CU ATENȚIE
-              DETALIILE!
             </p>
           </form>
         </div>
