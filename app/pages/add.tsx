@@ -454,7 +454,7 @@ const Add: BlitzPage = () => {
                     }}
                     dateFormat="dd/MM/yyyy"
                     minDate={addHours(date, 24)}
-                    maxDate={addDays(date, 18)}
+                    maxDate={addDays(date, 12)}
                     excludeDates={blockedDates.blockedDates}
                     className="cursor-pointer p-2"
                   />
