@@ -39,11 +39,13 @@ const Analiza: BlitzPage = () => {
     const bookings = result[0]
     let locuri_pescuit = 0
     let casute = 0
+    let casute2 = 0
     let agrement = 0
     let parcare = 0
     bookings.map((booking, i) => {
       locuri_pescuit += booking.loc_pescuit.length
       casute += booking.casuta.length
+      casute2 += booking.casuta2.length
       agrement += booking.intrare_complex
       parcare += booking.loc_parcare
     })
@@ -175,6 +177,46 @@ const Analiza: BlitzPage = () => {
       </div>
     )
   }
+  const CasuteOcupate2 = () => {
+    const locuriRezervate = useQuery(getBookingsByStartDate, {
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
+    })
+
+    const bookings = locuriRezervate[0]
+    const locuriOcupate: { loc: number; nume: string; prezentat: boolean }[] = []
+
+    bookings.map((booking, i) => {
+      booking.casuta2.map((loc) => {
+        locuriOcupate.push({
+          loc: loc,
+          nume: booking?.User?.name + " " + (booking?.User?.surname || "") || "",
+          prezentat: booking?.verificat,
+        })
+      })
+    })
+
+    // Sort the locuriOcupate array
+    locuriOcupate.sort((a, b) => a.loc - b.loc)
+
+    return (
+      <div className="flex flex-wrap">
+        {locuriOcupate.map((loc, i) => {
+          return (
+            <div
+              key={i}
+              className={`${
+                loc.prezentat ? "bg-green-300 " : "bg-gray-300 "
+              }rounded-full px-6 py-3 m-1 ml-0 h-20 w-40`}
+            >
+              <p className="font-bold">{loc.loc}</p>
+              <p className="text-xs">{loc.nume}</p>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 
   const IncasariDirecte = () => {
     const result = useQuery(getBookingsByDate, {
@@ -208,11 +250,13 @@ const Analiza: BlitzPage = () => {
     const bookings = result[0]
     let locuri_pescuit = 0
     let casute = 0
+    let casute2 = 0
     let agrement = 0
     let parcare = 0
     bookings.map((booking, i) => {
       locuri_pescuit += booking.loc_pescuit.length
       casute += booking.casuta.length
+      casute2 += booking.casuta2.length
       agrement += booking.intrare_complex
       parcare += booking.loc_parcare
     })
@@ -375,6 +419,16 @@ const Analiza: BlitzPage = () => {
             >
               <h3 className="font-bold mb-3 mt-6">Casute Rezervate</h3>
               <CasuteOcupate />
+            </Suspense>
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex justify-center items-center">
+                  <div className="ping"></div>
+                </div>
+              }
+            >
+              <h3 className="font-bold mb-3 mt-6">Casute Rezervate Zatun 2</h3>
+              <CasuteOcupate2 />
             </Suspense>
           </div>
         </div>

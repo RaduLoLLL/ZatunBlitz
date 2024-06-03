@@ -69,6 +69,7 @@ model Booking {
   loc_parcare        Int
   loc_pescuit        Int[]
   casuta             Int[]
+  casuta2            Int[]
   total_price        Float
   stripeSessionId    String?  @default("")
   paid               Boolean  @default(false)

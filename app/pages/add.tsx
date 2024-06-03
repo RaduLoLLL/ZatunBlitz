@@ -62,6 +62,7 @@ const Add: BlitzPage = () => {
     locParcare: 0,
     locPescuit: [],
     casuta: [],
+    casuta2: [],
     totalPrice: 0,
   }
   const [state, setState] = useState(initialState)
@@ -98,7 +99,7 @@ const Add: BlitzPage = () => {
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalFishingSpots = [...Array(114).keys()].map((x) => x + 1)
+    const totalFishingSpots = [...Array(124).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -326,6 +327,124 @@ const Add: BlitzPage = () => {
       </>
     )
   }
+  const CasutaSelect2 = () => {
+    const bookings = useCurrentBookings(startDate)
+
+    const totalCasuta = [...Array(9).keys()].map((x) => x + 1)
+
+    const spotsArray: any[] = []
+    bookings.map((booking) => {
+      if (booking.casuta2.length) {
+        spotsArray.push(booking.casuta2)
+      }
+    })
+    const occupiedCasuta = [].concat.apply([], spotsArray)
+
+    const availableCasuta = totalCasuta.filter((x) => !occupiedCasuta.includes(x))
+
+    type option = {
+      value: Number
+      label: string
+    }
+
+    const options: option[] = []
+    const blockedSpots: Number[] = [0]
+    availableCasuta.map((spot) =>
+      blockedSpots.map(
+        (blockedSpot) =>
+          spot !== blockedSpot && options.push({ value: spot, label: spot.toString() })
+      )
+    )
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    function closeModal() {
+      setIsModalOpen(false)
+    }
+
+    function openModal() {
+      setIsModalOpen(true)
+    }
+
+    return (
+      <>
+        <Select
+          isMulti
+          name="casuta2"
+          //@ts-ignore
+          options={options}
+          value={state.casuta2}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege casuta preferata din complexul Zatun 2"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, casuta2: selectedOptionObj })
+          }}
+        />
+
+        {/* <div className="mt-6 flex justify-center">
+          <button
+            type="button"
+            onClick={openModal}
+            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Vezi harta
+          </button>
+        </div> */}
+
+        {/* <Transition appear show={isModalOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full min-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="mt-2 flex justify-center">
+                      <Image
+                        src={"/HartaCasute.webp"}
+                        width={1704}
+                        height={845}
+                        alt="Harta cu casutele"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Revino la locuri
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition> */}
+      </>
+    )
+  }
 
   // Update the price as soon as any of the options changed
   useEffect(() => {
@@ -333,6 +452,7 @@ const Add: BlitzPage = () => {
       state.intrare * 15 +
       state.locParcare * 10 +
       (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
+      (state.casuta2.length > 0 ? 130 * state.casuta2.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     state.totalPrice = totalPrice
   }, [state])
@@ -344,6 +464,7 @@ const Add: BlitzPage = () => {
     loc_parcare: number
     loc_pescuit: number[]
     casuta: number[]
+    casuta2: number[]
     total_price: number
   }
 
@@ -377,6 +498,10 @@ const Add: BlitzPage = () => {
     state.casuta.map((loc: loc) => {
       casute.push(loc.value)
     })
+    const casute2: any[] = []
+    state.casuta2.map((loc: loc) => {
+      casute2.push(loc.value)
+    })
 
     const booking: booking = {
       starts_at: startDate,
@@ -385,6 +510,7 @@ const Add: BlitzPage = () => {
       loc_parcare: state.locParcare,
       loc_pescuit: locuri_pescuit,
       casuta: casute,
+      casuta2: casute2,
       total_price: state.totalPrice,
     }
 
@@ -425,6 +551,7 @@ const Add: BlitzPage = () => {
       state.intrare * 15 +
       state.locParcare * 10 +
       (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
+      (state.casuta2.length > 0 ? 130 * state.casuta2.length : 0) +
       (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
     return (
       <div className="flex justify-center">
@@ -529,6 +656,20 @@ const Add: BlitzPage = () => {
                   }
                 >
                   <CasutaSelect />
+                </Suspense>
+              </div>
+              <div>
+                <label htmlFor="casuta2" className="block mb-2 text-sm font-medium text-gray-900 ">
+                  Casuta Zatun 2
+                </label>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <CasutaSelect2 />
                 </Suspense>
               </div>
               <div className="flex  mb-4">
