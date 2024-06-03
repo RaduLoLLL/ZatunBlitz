@@ -10,6 +10,7 @@ type booking = {
   loc_parcare: number
   loc_pescuit: number
   casuta: number
+  casuta2: number
   total_price: number
 }
 
@@ -26,6 +27,7 @@ export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
       loc_parcare: Number(booking.loc_parcare),
       loc_pescuit: booking.loc_pescuit,
       casuta: booking.casuta,
+      casuta2: booking.casuta2,
       total_price: Number(booking.total_price),
       userId: ctx.session.userId,
       paid: true,

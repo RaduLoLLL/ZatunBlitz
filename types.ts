@@ -10,6 +10,7 @@ export type Booking = {
   loc_parcare: number
   loc_pescuit: number[]
   casuta: number[]
+  casuta2: number[]
   total_price: number
 }
 export type Query = {

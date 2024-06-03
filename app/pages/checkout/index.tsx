@@ -211,6 +211,26 @@ const Checkout: BlitzPage = () => {
                   <div></div>
                 )}
 
+                {booking?.casuta2.length > 0 ? (
+                  <div
+                    className="
+          flex
+          justify-between
+          items-center
+          w-full
+          py-5
+          border-b-2 border-gray-200
+        "
+                  >
+                    <p className="text-gray-400 ml-4">
+                      Taxa Casuta Zatun 2 ( Nr. {booking.casuta2.join(", ")} )
+                    </p>
+                    <p className="text-black mr-4"> {booking.casuta2.length} x 130 Lei</p>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
                 <div
                   className="
                 flex

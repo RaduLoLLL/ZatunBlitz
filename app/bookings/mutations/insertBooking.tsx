@@ -11,6 +11,7 @@ type booking = {
   loc_parcare: number
   loc_pescuit: number[]
   casuta: number[]
+  casuta2: number[]
   total_price: number
 }
 
@@ -21,6 +22,7 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
 
   const spotsArray: any[] = []
   const casutaSpotsArray: any[] = []
+  const casuta2SpotsArray: any[] = []
   if (bookings) {
     bookings.map((booking) => {
       if (booking.loc_pescuit.length) {
@@ -29,10 +31,14 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
       if (booking.casuta.length) {
         casutaSpotsArray.push(booking.casuta)
       }
+      if (booking.casuta2.length) {
+        casuta2SpotsArray.push(booking.casuta2)
+      }
     })
     spotsArray.push([1, 2, 9, 10])
     const ocuppiedFishingSpots = [].concat.apply([], spotsArray)
     const occupiedCasuta = [].concat.apply([], casutaSpotsArray)
+    const occupiedCasuta2 = [].concat.apply([], casuta2SpotsArray)
 
     booking.loc_pescuit?.map((loc) => {
       if (ocuppiedFishingSpots.includes(loc)) {
@@ -41,6 +47,11 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
     })
     booking.casuta.map((loc) => {
       if (occupiedCasuta.includes(loc)) {
+        throw { id: 2, loc }
+      }
+    })
+    booking.casuta2.map((loc) => {
+      if (occupiedCasuta2.includes(loc)) {
         throw { id: 2, loc }
       }
     })
@@ -56,6 +67,7 @@ export default async function insertBooking(booking: booking, ctx: Ctx) {
         loc_parcare: Number(booking.loc_parcare),
         loc_pescuit: booking.loc_pescuit,
         casuta: booking.casuta,
+        casuta2: booking.casuta2,
         total_price: Number(booking.total_price),
         userId: ctx.session.userId,
         stripeSessionId: uuid,

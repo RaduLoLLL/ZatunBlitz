@@ -146,6 +146,29 @@ function RezervarileMele({ bookings }) {
                       ) : (
                         <></>
                       )}
+                      {booking.casuta2.length ? (
+                        <li className="py-3 sm:py-4">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0"></div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                Casuta Zatun 2
+                              </p>
+                              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                Casuta numarul{" "}
+                                {booking.casuta2.map(
+                                  (loc, i) => loc + (i !== booking.casuta2.length - 1 && ", ")
+                                )}
+                              </p>
+                            </div>
+                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                              {booking.casuta2.length} 130 Lei
+                            </div>
+                          </div>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
 
                       <li className="py-3 sm:py-4">
                         <div className="flex items-center space-x-4">
