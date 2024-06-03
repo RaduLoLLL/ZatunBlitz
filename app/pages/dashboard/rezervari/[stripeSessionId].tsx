@@ -9,7 +9,12 @@ import toast from "react-hot-toast"
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
 
-  if (session.role != "ADMIN" && session.role != "CONTABIL" && session.role != "PORTAR") {
+  if (
+    session.role != "ADMIN" &&
+    session.role != "CONTABIL" &&
+    session.role != "PORTAR" &&
+    session.role != "SUPERADMIN"
+  ) {
     return {
       redirect: {
         destination: "/",

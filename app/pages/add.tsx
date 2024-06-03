@@ -454,7 +454,7 @@ const Add: BlitzPage = () => {
                     }}
                     dateFormat="dd/MM/yyyy"
                     minDate={addHours(date, 24)}
-                    maxDate={addDays(date, 18)}
+                    maxDate={addDays(date, 12)}
                     excludeDates={blockedDates.blockedDates}
                     className="cursor-pointer p-2"
                   />
@@ -550,6 +550,19 @@ const Add: BlitzPage = () => {
                       Citeste termenii si conditiile si Regulamentul complexului
                     </a>
                   </Link>
+                </label>
+              </div>
+              <div className="flex  mb-4">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  required
+                  className="w-12 h-12 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label htmlFor="default-checkbox" className="ml-2 text-sm text-left text-red-500">
+                  Am luat la cunoștință faptul că rezervarea nu poate fi anulată sau modificată. Am
+                  verificat detaliile rezervării și sunt corecte.
                 </label>
               </div>
             </>
