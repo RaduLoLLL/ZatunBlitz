@@ -139,7 +139,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.casuta.length} 95 Lei
+                              {booking.casuta.length} x 95 Lei
                             </div>
                           </div>
                         </li>
@@ -162,7 +162,7 @@ function RezervarileMele({ bookings }) {
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                              {booking.casuta2.length} 130 Lei
+                              {booking.casuta2.length} x 130 Lei
                             </div>
                           </div>
                         </li>
