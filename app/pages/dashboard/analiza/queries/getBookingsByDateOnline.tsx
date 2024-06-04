@@ -16,6 +16,7 @@ export default async function getBookingsByDateOnline(date: DateInterval) {
             { User: { email: "agache.catalin@baltazatun.ro" } },
             { User: { email: "paslaru.alexandru@baltazatun.ro" } },
             { User: { email: "contabilitate@baltazatun.ro" } },
+            { User: { email: "administrator@baltazatun.ro" } },
           ],
         },
         paid: true,
