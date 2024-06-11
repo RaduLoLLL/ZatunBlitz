@@ -34,7 +34,7 @@ const ReservationForm = () => {
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalFishingSpots = [...Array(114).keys()].map((x) => x + 1)
+    const totalFishingSpots = [...Array(124).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -117,7 +117,7 @@ const ReservationForm = () => {
   const CasutaSelect2 = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalCasuta = [...Array(8).keys()].map((x) => x + 2)
+    const totalCasuta = [...Array(9).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
