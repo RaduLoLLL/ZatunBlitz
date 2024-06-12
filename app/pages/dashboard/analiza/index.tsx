@@ -282,6 +282,15 @@ const Analiza: BlitzPage = () => {
               </div>
               <div>{casute * 95}Lei</div>
             </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {casute2}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Casute Zatun 2</h3>
+              </div>
+              <div>{casute2 * 130}Lei</div>
+            </div>
             <div className="flex items-center justify-between  ">
               <div>
                 <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
