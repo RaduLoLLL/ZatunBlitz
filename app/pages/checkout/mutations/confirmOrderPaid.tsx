@@ -13,7 +13,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
   const urlencodedPayload = orderId
     ? `userName=${bt_username}&password=${bt_password}&orderId=${orderId}&orderNumber=${orderNumber}`
     : `userName=${bt_username}&password=${bt_password}&orderNumber=${orderNumber}`
-  axiosRetry(axios, { retries: 3 })
+  axiosRetry(axios, { retries: 15 })
 
   const orderStatus = await axios.post(
     `${bt_url}/payment/rest/getOrderStatusExtended.do`,
