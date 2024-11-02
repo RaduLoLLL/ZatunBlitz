@@ -35,7 +35,7 @@ export default async function deleteUnpaidBooking(userId, ctx: Ctx) {
           AND: [
             {
               createdAt: {
-                lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 3)),
+                lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 2)),
               },
             },
             {
