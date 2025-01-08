@@ -15,6 +15,7 @@ import createCheckoutSessionWithId from "./mutations/createCheckoutSessionWithId
 
 import { useLatestBooking } from "app/bookings/hooks/useLatestBooking"
 import { format, subHours } from "date-fns"
+import { useState } from "react"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -39,11 +40,13 @@ const Checkout: BlitzPage = () => {
 
   const booking = useLatestBooking(query.booking)
   const currentUser = useCurrentUser()
+  const [userName, setUserName] = useState("")
 
   const createCheckout = async () => {
     const res = await invoke(createCheckoutSession, {
       user: currentUser,
       booking_id: booking?.id,
+      name: userName,
     }).then((res) => {
       Router.push(res?.data.formUrl)
     })

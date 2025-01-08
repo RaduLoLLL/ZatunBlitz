@@ -1,0 +1,11 @@
+{
+  "cif": "RO37311090",
+  "client": {
+    "name": "Radu Zamfir"
+  },
+  "seriesName": "Z",
+  "products": {
+    "name": "Bilet Agrement",
+    "price": "15"
+  }
+}

@@ -32,6 +32,7 @@ import Layout from "app/core/layouts/Layout"
 import getLatestBlocked from "./dashboard/blocare-totala/queries/getLatestBlocked"
 import deleteUnpaidBooking from "app/bookings/mutations/deleteUnpaidBooking"
 import getDate from "./queries/getDate"
+import getUser from "./mutations/getUserById"
 
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession(req, res)
@@ -51,10 +52,38 @@ export const getServerSideProps = async ({ req, res }) => {
 const Add: BlitzPage = () => {
   const router = useRouter()
   const user = useSession()
-  const date = useQuery(getDate, undefined)[0]
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true)
+  const [toastMessage, setToastMessage] = useState("")
+
   useEffect(() => {
+    if (user.userId) {
+      invoke(getUser, user.userId)
+        .then((userData) => {
+          if (userData?.cnp && userData?.phone) {
+            setIsSubmitDisabled(false)
+          } else {
+            setIsSubmitDisabled(true)
+            const missingFields: string[] = []
+            if (!userData?.cnp) missingFields.push("CNP")
+            if (!userData?.phone) missingFields.push("telefon")
+            setToastMessage(
+              `Vă rugăm să completați câmpurile: ${missingFields.join(
+                " și "
+              )} din sectiunea \"<aContul Meu\" înainte de a face o rezervare.`
+            )
+            toast.error(toastMessage, { duration: 5000 })
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error)
+        })
+    }
     invoke(deleteUnpaidBooking, user.userId)
-  }, [])
+  }, [user.userId, toastMessage])
+
+  console.log("user", user)
+  const date = useQuery(getDate, undefined)[0]
 
   //State for all options that will be added for the booking
   const initialState = {
@@ -92,7 +121,6 @@ const Add: BlitzPage = () => {
       firstAvailableDate = nextDate
     }
   }
-  console.log("The first available date is:", firstAvailableDate)
 
   const [startDate, setStartDate] = useState(firstAvailableDate)
 
@@ -706,11 +734,19 @@ const Add: BlitzPage = () => {
                   verificat detaliile rezervării și sunt corecte.
                 </label>
               </div>
+              <div>
+                <label htmlFor="" className=" font-bold text-red-500">
+                  {toastMessage}
+                </label>
+              </div>
             </>
 
             <button
               type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+              className={`w-full text-white ${
+                isSubmitDisabled ? "bg-gray-400" : "bg-blue-700 hover:bg-blue-800"
+              } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+              disabled={isSubmitDisabled}
             >
               Trimite
             </button>

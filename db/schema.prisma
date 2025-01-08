@@ -20,6 +20,7 @@ model User {
   surname        String?
   phone          String?
   email          String   @unique
+  cnp            String?  @unique
   hashedPassword String?
   role           String   @default("USER")
 

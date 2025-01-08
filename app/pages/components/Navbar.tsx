@@ -45,6 +45,9 @@ const Navbar = () => {
               <li className="cursor-pointer hover:text-DEB52D">Despre Noi</li>
             </Link>
             <Link href={Routes.RezervarileMele()} scroll={false}>
+              <li className="cursor-pointer hover:text-DEB52D">Rezervarile Mele</li>
+            </Link>
+            <Link href={Routes.UserInfo()} scroll={false}>
               <li className="cursor-pointer hover:text-DEB52D">Contul Meu</li>
             </Link>
             <Link href={Routes.Contact()} scroll={false}>
