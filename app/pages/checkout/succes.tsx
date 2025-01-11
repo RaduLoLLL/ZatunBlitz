@@ -18,12 +18,20 @@ const Succes: BlitzPage = () => {
   const ref = useRef()
   const query = useRouterQuery()
   const [confirmed, setConfirmed] = useState(false)
+  const [invoiceLink, setInvoiceLink] = useState<string | null>(null) // State for the invoice link
   const orderId = query.orderId
   const booking_id = query.booking_id
 
   useEffect(() => {
-    const confirm = invoke(confirmOrderPaid, { orderId, booking_id })
-  }, [])
+    const confirm = async () => {
+      const result = await invoke(confirmOrderPaid, { orderId, booking_id })
+      if (result && typeof result === "object" && result.success && result.link) {
+        setInvoiceLink(result.link) // Save the invoice link
+        window.open(result.link, "_blank") // Open the link in a new tab
+      }
+    }
+    confirm()
+  }, [orderId, booking_id])
 
   const downloadQrCode = () => {
     //@ts-ignore
@@ -35,6 +43,12 @@ const Succes: BlitzPage = () => {
     document.body.appendChild(anchor)
     anchor.click()
     document.body.removeChild(anchor)
+  }
+
+  const downloadInvoice = () => {
+    if (invoiceLink) {
+      window.open(invoiceLink, "_blank")
+    }
   }
 
   const Result = () => {
@@ -63,6 +77,17 @@ const Succes: BlitzPage = () => {
                 Descarca Biletul
               </button>
             </div>
+            {invoiceLink && (
+              <div>
+                <button
+                  onClick={downloadInvoice}
+                  type="button"
+                  className="mt-4 text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                >
+                  Descarcă Factura
+                </button>
+              </div>
+            )}
           </div>
         </>
       )

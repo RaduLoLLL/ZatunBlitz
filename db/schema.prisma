@@ -76,6 +76,7 @@ model Booking {
   paid               Boolean  @default(false)
   intrari_confirmate Int      @default(0)
   verificat          Boolean  @default(false)
+  invoiceLink        String?
 
   userId Int?
   User   User? @relation(fields: [userId], references: [id])

@@ -70,7 +70,7 @@ const Add: BlitzPage = () => {
             setToastMessage(
               `Vă rugăm să completați câmpurile: ${missingFields.join(
                 " și "
-              )} din sectiunea \"<aContul Meu\" înainte de a face o rezervare.`
+              )} din sectiunea \"Contul Meu\" înainte de a face o rezervare.`
             )
             toast.error(toastMessage, { duration: 5000 })
           }
