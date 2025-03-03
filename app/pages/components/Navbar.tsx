@@ -88,7 +88,16 @@ const Navbar = () => {
                 Despre Noi
               </div>
             </Link>
+
             <Link href={Routes.RezervarileMele()}>
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
+                Rezervările mele
+              </div>
+            </Link>
+            <Link href={Routes.UserInfo()}>
               <div
                 className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
                 onClick={closeMenu}
