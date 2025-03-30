@@ -20,7 +20,7 @@ export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
   console.log(ctx.session.userId)
   await db.booking.create({
     data: {
-      createdAt: addHours(new Date(), 2),
+      createdAt: addHours(new Date(), 3),
       starts_at: booking.starts_at,
       ends_at: booking.ends_at,
       intrare_complex: Number(booking.intrare_complex),

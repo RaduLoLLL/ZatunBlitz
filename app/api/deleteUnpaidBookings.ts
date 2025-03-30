@@ -13,7 +13,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
             paid: false,
             createdAt: {
               //booking older than 30 minutes
-              lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 2)),
+              lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 3)),
             },
           },
         ],
@@ -35,7 +35,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
           AND: [
             {
               createdAt: {
-                lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 2)),
+                lte: new Date(addHours(new Date().getTime() - 30 * 60 * 1000, 3)),
               },
             },
             {
