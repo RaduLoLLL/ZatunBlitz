@@ -1,6 +1,6 @@
-import { useParam, useQuery, BlitzPage, getSession, invoke, Router } from "blitz"
+import { useParam, useQuery, BlitzPage, getSession, invoke, Router, useSession } from "blitz"
 import getBookingBySessionId from "./queries/getBookingBySessionId"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import Sidebar from "../../../components/Sidebar"
 import { format, subHours } from "date-fns"
 import insertVerificare from "../mutations/insertVerificare"
@@ -28,6 +28,7 @@ export const getServerSideProps = async ({ req, res }) => {
 
 const Rezervare: BlitzPage = () => {
   const stripeSessionId = useParam("stripeSessionId")
+  const session = useSession()
 
   const DisplayBooking = () => {
     const booking = useQuery(getBookingBySessionId, stripeSessionId)[0]
@@ -42,6 +43,10 @@ const Rezervare: BlitzPage = () => {
         .then(() => {
           Router.push("/dashboard/rezervari")
         })
+    }
+
+    function editReservation() {
+      Router.push(`/dashboard/rezervari/edit/${booking?.id}`)
     }
 
     return (
@@ -217,9 +222,19 @@ const Rezervare: BlitzPage = () => {
                   </button>
                 </div>
               )}
+              {session.role === "SUPERADMIN" && (
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+                    onClick={editReservation}
+                  >
+                    Editare Rezervare
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-        </div>{" "}
+        </div>
       </>
     )
   }
