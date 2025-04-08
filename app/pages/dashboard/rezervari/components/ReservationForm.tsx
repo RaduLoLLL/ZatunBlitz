@@ -37,7 +37,7 @@ const ReservationEditForm = ({ booking }) => {
   })
   console.log(state)
   //Date state added separately
-  const [startDate, setStartDate] = useState(new Date(booking.starts_at))
+  const [startDate, setStartDate] = useState(new Date(booking?.starts_at))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
