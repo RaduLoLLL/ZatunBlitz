@@ -37,7 +37,9 @@ const ReservationEditForm = ({ booking }) => {
   })
   console.log(state)
   //Date state added separately
-  const [startDate, setStartDate] = useState(new Date(booking?.starts_at))
+  const [startDate, setStartDate] = useState(
+    booking.starts_at ? new Date(booking?.starts_at) : new Date()
+  )
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)
@@ -206,9 +208,6 @@ const ReservationEditForm = ({ booking }) => {
     casuta: number[]
     casuta2: number[]
   }
-
-  // Here I handle the submit. "petrecerePrivata" means a private party. If that is checked
-  // it does something, if not, something else
 
   async function handleSubmit(event) {
     type loc = {
