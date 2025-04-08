@@ -7,34 +7,33 @@ import toast from "react-hot-toast"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import insertBookingPaid from "../../adauga/mutations/insertBookingPaid"
 import editBooking from "../../adauga/mutations/editBooking"
 
 const ReservationEditForm = ({ booking }) => {
   //State for all options that will be added for the booking
   const initialState = {
-    id: booking.id || 0,
-    intrare: booking.intrare_complex,
-    locParcare: booking.loc_parcare,
-    locPescuit: booking.loc_pescuit,
-    casuta: booking.casuta,
-    casuta2: booking.casuta2,
-    totalPrice: booking.totalPrice,
+    id: booking?.id || 0,
+    intrare: booking?.intrare_complex,
+    locParcare: booking?.loc_parcare,
+    locPescuit: booking?.loc_pescuit,
+    casuta: booking?.casuta,
+    casuta2: booking?.casuta2,
+    totalPrice: booking?.totalPrice,
   }
   const [state, setState] = useState({
-    id: booking.id || 0,
-    intrare: booking.intrare_complex || 0,
-    locParcare: booking.loc_parcare || 0,
-    locPescuit: Array.isArray(booking.loc_pescuit)
-      ? booking.loc_pescuit.map((item) => ({ value: item, label: item }))
+    id: booking?.id || 0,
+    intrare: booking?.intrare_complex || 0,
+    locParcare: booking?.loc_parcare || 0,
+    locPescuit: Array.isArray(booking?.loc_pescuit)
+      ? booking?.loc_pescuit.map((item) => ({ value: item, label: item }))
       : [],
-    casuta: Array.isArray(booking.casuta)
-      ? booking.casuta.map((item) => ({ value: item, label: item }))
+    casuta: Array.isArray(booking?.casuta)
+      ? booking?.casuta.map((item) => ({ value: item, label: item }))
       : [],
-    casuta2: Array.isArray(booking.casuta2)
-      ? booking.casuta2.map((item) => ({ value: item, label: item }))
+    casuta2: Array.isArray(booking?.casuta2)
+      ? booking?.casuta2.map((item) => ({ value: item, label: item }))
       : [],
-    totalPrice: booking.totalPrice || [],
+    totalPrice: booking?.totalPrice || [],
   })
   console.log(state)
   //Date state added separately
