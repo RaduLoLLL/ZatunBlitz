@@ -672,7 +672,7 @@ const Add: BlitzPage = () => {
                 </Suspense>
               </div>
 
-              {/* <div>
+              <div>
                 <label htmlFor="casuta" className="block mb-2 text-sm font-medium text-gray-900 ">
                   Casuta
                 </label>
@@ -699,7 +699,7 @@ const Add: BlitzPage = () => {
                 >
                   <CasutaSelect2 />
                 </Suspense>
-              </div> */}
+              </div>
               <div className="flex  mb-4">
                 <input
                   id="default-checkbox"
