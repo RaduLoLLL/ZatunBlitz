@@ -1,7 +1,7 @@
 import { useCurrentBookings } from "app/bookings/hooks/useCurrentBookings"
 
 import { invoke, useRouter, useSession } from "blitz"
-import { addDays, addHours, format, subDays } from "date-fns"
+import { addDays, addHours, format, subDays, subHours } from "date-fns"
 import { Suspense, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Select from "react-select"
@@ -38,7 +38,7 @@ const ReservationEditForm = ({ booking }) => {
   console.log(state)
   //Date state added separately
   const [startDate, setStartDate] = useState(
-    booking?.starts_at ? new Date(booking?.starts_at) : new Date()
+    booking?.starts_at ? subHours(new Date(booking?.starts_at), 3) : new Date()
   )
 
   const PescuitSelect = () => {
