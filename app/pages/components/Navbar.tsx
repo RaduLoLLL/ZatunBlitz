@@ -54,7 +54,7 @@ const Navbar = () => {
               <li className="cursor-pointer hover:text-DEB52D">Contact</li>
             </Link>
             <Link href={Routes.TC()} scroll={false}>
-              <li className="cursor-pointer hover:text-DEB52D">Regulament de funcționare</li>
+              <li className="cursor-pointer hover:text-DEB52D">Regulament</li>
             </Link>
           </ul>
           <div>
@@ -121,7 +121,7 @@ const Navbar = () => {
                 className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
                 onClick={closeMenu}
               >
-                Regulament de funcționare
+                Regulament
               </div>
             </Link>
           </div>
