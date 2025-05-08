@@ -53,6 +53,9 @@ const Navbar = () => {
             <Link href={Routes.Contact()} scroll={false}>
               <li className="cursor-pointer hover:text-DEB52D">Contact</li>
             </Link>
+            <Link href={Routes.TC()} scroll={false}>
+              <li className="cursor-pointer hover:text-DEB52D">Regulament de funcționare</li>
+            </Link>
           </ul>
           <div>
             <MenuIcon
@@ -111,6 +114,14 @@ const Navbar = () => {
                 onClick={closeMenu}
               >
                 Contact
+              </div>
+            </Link>
+            <Link href={Routes.TC()}>
+              <div
+                className="w-full flex justify-center hover:bg-slate-300 cursor-pointer"
+                onClick={closeMenu}
+              >
+                Regulament de funcționare
               </div>
             </Link>
           </div>
