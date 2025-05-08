@@ -372,9 +372,9 @@ function TC() {
             stare de ebrietate sau nu sunt de acord cu regulamentul, total sau parţial.
           </p>
           <p className="mt-2">
-            Pentru rezervarea foișoarelor vă rugăm să sunați la numărul de telefon 0753104218 pentru
-            a verifica disponibilitatea acestora și pentru a vă comunica procedura pentru plata
-            închirierii acestora
+            Pentru rezervarea foișoarelor vă rugăm să sunați la numărul de telefon 0753104218 in
+            intervalul orar 08:00 - 16:00 pentru a verifica disponibilitatea acestora și pentru a vă
+            comunica procedura pentru plata închirierii acestora
           </p>
         </div>
       </div>
