@@ -371,11 +371,35 @@ function TC() {
             de a refuza accesul persoanelor care au avut abateri de la prezentul regulament, sunt în
             stare de ebrietate sau nu sunt de acord cu regulamentul, total sau parţial.
           </p>
-          <p className="mt-2">
-            Pentru rezervarea foișoarelor vă rugăm să sunați la numărul de telefon 0753104218 in
-            intervalul orar 08:00 - 16:00 pentru a verifica disponibilitatea acestora și pentru a vă
-            comunica procedura pentru plata închirierii acestora
+
+          <p className="mt-5 bg-gray-100 p-4">
+            <hr />
+            <span className="font-black">
+              Pentru rezervara foișoarelor vă rugăm să procedați astfel:
+            </span>
+            <br></br>
+            <ul>
+              <li>
+                1. Verificați disponibilitatea apelând telefonic{" "}
+                <span className="font-black">0753.104.218</span>
+              </li>
+              <li>
+                2. Achitați prin intermediul platformei online{" "}
+                <span className="font-black underline text-blue-400">baltazatun.ro</span>{" "}
+                contravaloarea numărului de persoane aferent foișorului solicitat și confirmat ca
+                fiind disponibil.
+              </li>
+              <li>
+                3. Reveniți prin apel telefonic (<span className="font-black">0753.104.218</span>)
+                pentru confirmarea plății și finalizarea rezervării intr-un termen cât mai scurt de
+                la inițierea procedurii (<span className="font-black">maxim 30 minute</span>).
+              </li>
+            </ul>
+            <br></br>
+            Nerespectarea acestei proceduri poate duce la anularea rezervării, fără garanția
+            păstrării locului solicitat. Vă mulțumim pentru înțelegere!
           </p>
+          <hr />
         </div>
       </div>
     </>
