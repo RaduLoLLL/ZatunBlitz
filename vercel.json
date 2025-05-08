@@ -4,10 +4,5 @@
       "path": "/api/deleteUnpaidBookings",
       "schedule": "0 0 * * *"
     }
-  ],
-  "functions": {
-    "api/**.js": {
-      "includeFiles": ["node_modules/.prisma/**", "node_modules/@prisma/**"]
-    }
-  }
+  ]
 }
