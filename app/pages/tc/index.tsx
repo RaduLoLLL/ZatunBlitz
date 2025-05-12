@@ -381,7 +381,8 @@ function TC() {
             <ul>
               <li>
                 1. Verificați disponibilitatea apelând telefonic{" "}
-                <span className="font-black">0753.104.218</span>
+                <span className="font-black">0753.104.218</span> in zilele lucratoare in intrevalul
+                orar: 08-16
               </li>
               <li>
                 2. Achitați prin intermediul platformei online{" "}
@@ -391,8 +392,9 @@ function TC() {
               </li>
               <li>
                 3. Reveniți prin apel telefonic (<span className="font-black">0753.104.218</span>)
-                pentru confirmarea plății și finalizarea rezervării intr-un termen cât mai scurt de
-                la inițierea procedurii (<span className="font-black">maxim 30 minute</span>).
+                in zilele lucratoare in intrevalul orar: 08-16 pentru confirmarea plății și
+                finalizarea rezervării intr-un termen cât mai scurt de la inițierea procedurii (
+                <span className="font-black">maxim 30 minute</span>).
               </li>
             </ul>
             <br></br>
