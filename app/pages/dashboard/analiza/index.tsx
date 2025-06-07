@@ -4,7 +4,7 @@ import Sidebar from "../../../components/Sidebar"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import subDays from "date-fns/subDays"
-import { addDays, format, subHours } from "date-fns"
+import { addDays, addHours, format, subHours } from "date-fns"
 import getBookingsByDate from "./queries/getBookingsByDate"
 import getBookingsByStartDate from "./queries/getBookingsByStartDate"
 import getBookingsByDateOnline from "./queries/getBookingsByDateOnline"
@@ -29,8 +29,10 @@ type DateInterval = {
   endDate: string
 }
 const Analiza: BlitzPage = () => {
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(addDays(new Date(), 1))
+  const [startDate, setStartDate] = useState(addHours(new Date(), 3))
+  const [endDate, setEndDate] = useState(addDays(addHours(new Date(), 3), 1))
+
+  console.log(startDate, endDate)
   const RezervariDirecte = () => {
     const result = useQuery(getBookingsByDate, {
       startDate: format(startDate, "yyyy-MM-dd"),
@@ -254,6 +256,7 @@ const Analiza: BlitzPage = () => {
     let agrement = 0
     let parcare = 0
     bookings.map((booking, i) => {
+      console.log(booking)
       locuri_pescuit += booking.loc_pescuit.length
       casute += booking.casuta.length
       casute2 += booking.casuta2.length

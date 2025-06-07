@@ -36,6 +36,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
       where: { id: booking?.id },
       data: { paid: true },
     })
+
     if (booking?.invoiceLink) {
       return {
         success: true,
@@ -136,29 +137,39 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         documentNumber: booking_id,
       },
     }
-    try {
-      const invoiceResponse = await axios.post(oblio_invoice_url, invoiceData, {
-        headers: {
-          Authorization: `Bearer ${oblioAccessToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-
-      if (invoiceResponse.status === 200) {
-        console.log("Invoice successfully generated:", invoiceResponse.data)
-        await db.booking.update({
-          where: { id: booking?.id },
-          data: { invoiceLink: invoiceResponse.data.data?.link },
+    const booking_verified = await db.booking.findFirst({
+      where: { id: intBookingId, paid: true, invoiceLink: null },
+    })
+    if (!booking_verified?.invoiceLink) {
+      try {
+        const invoiceResponse = await axios.post(oblio_invoice_url, invoiceData, {
+          headers: {
+            Authorization: `Bearer ${oblioAccessToken}`,
+            "Content-Type": "application/json",
+          },
         })
-        return {
-          success: true,
-          link: invoiceResponse.data.data?.link,
+
+        if (invoiceResponse.status === 200) {
+          console.log("Invoice successfully generated:", invoiceResponse.data)
+          await db.booking.update({
+            where: { id: booking?.id },
+            data: { invoiceLink: invoiceResponse.data.data?.link },
+          })
+          return {
+            success: true,
+            link: invoiceResponse.data.data?.link,
+          }
+        } else {
+          console.error("Failed to generate invoice:", invoiceResponse.data)
         }
-      } else {
-        console.error("Failed to generate invoice:", invoiceResponse.data)
+      } catch (error) {
+        console.error("Error while generating invoice:", error)
       }
-    } catch (error) {
-      console.error("Error while generating invoice:", error)
+    } else {
+      return {
+        success: true,
+        link: booking?.invoiceLink, // Return the existing invoice link
+      }
     }
   }
 
