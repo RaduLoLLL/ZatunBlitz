@@ -29,8 +29,8 @@ type DateInterval = {
   endDate: string
 }
 const Analiza: BlitzPage = () => {
-  const [startDate, setStartDate] = useState(addHours(new Date(), 3))
-  const [endDate, setEndDate] = useState(addDays(addHours(new Date(), 3), 1))
+  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
+  const [endDate, setEndDate] = useState(addDays(addHours(new Date(), 2), 1))
 
   console.log(startDate, endDate)
   const RezervariDirecte = () => {
