@@ -76,7 +76,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         name: "Intrare Agrement",
         price: 15,
         quantity: booking.intrare_complex,
-        vatPercentage: 21,
+        vatPercentage: 0,
       })
     }
 
@@ -85,7 +85,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         name: "Loc Parcare",
         price: 10,
         quantity: booking.loc_parcare,
-        vatPercentage: 21,
+        vatPercentage: 0,
       })
     }
 
@@ -94,7 +94,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         name: "Loc Pescuit",
         price: 75,
         quantity: booking.loc_pescuit.length,
-        vatPercentage: 21,
+        vatPercentage: 0,
       })
     }
 
@@ -103,7 +103,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         name: "Căsuță Zatun",
         price: 95,
         quantity: booking.casuta.length,
-        vatPercentage: 11,
+        vatPercentage: 0,
       })
     }
 
@@ -112,7 +112,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         name: "Căsuță Zatun 2",
         price: 130,
         quantity: booking.casuta2.length,
-        vatPercentage: 11,
+        vatPercentage: 0,
       })
     }
     const invoiceData = {

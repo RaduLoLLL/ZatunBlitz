@@ -53,6 +53,42 @@ const Preturi: BlitzPage = () => {
                   </th>
                   <td className="px-6 py-4">5 Lei</td>
                 </tr>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Foisor Mic - 8 persoane Zatun I
+                  </th>
+                  <td className="px-6 py-4">120 Lei</td>
+                </tr>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Foisor Mare - 20 persoane Zatun I
+                  </th>
+                  <td className="px-6 py-4">300 Lei</td>
+                </tr>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Foisor Mic - 14 persoane Zatun II
+                  </th>
+                  <td className="px-6 py-4">210 Lei</td>
+                </tr>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Foisor Mare - 30 persoane Zatun II
+                  </th>
+                  <td className="px-6 py-4">450 Lei</td>
+                </tr>
               </tbody>
             </table>
           </div>

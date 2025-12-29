@@ -266,7 +266,7 @@ function TC() {
               <p>
                 - la primirea căsuţei vizitatorii vor complete “Fişa de anunţare a sosirii şi a
                 plecării”. Ziua de cazare începe la ora 12:00 şi se termină în următoarea zi la ora
-                10:00;
+                08:00, avand un timp total de inchiriere de 20 de ore.
               </p>
               <p>
                 - eventualele pagube sau stricăciuni provocate din vina sau neglijenţa turiştilor
