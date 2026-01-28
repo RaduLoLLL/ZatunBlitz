@@ -115,6 +115,42 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
         vatPercentage: 0,
       })
     }
+
+    if (booking?.foisormic?.length) {
+      products.push({
+        name: "Căsuță Zatun 2",
+        price: 120,
+        quantity: booking.foisormic.length,
+        vatPercentage: 0,
+      })
+    }
+
+    if (booking?.foisormare?.length) {
+      products.push({
+        name: "Căsuță Zatun 2",
+        price: 300,
+        quantity: booking.foisormare.length,
+        vatPercentage: 0,
+      })
+    }
+
+    if (booking?.foisormic2?.length) {
+      products.push({
+        name: "Căsuță Zatun 2",
+        price: 210,
+        quantity: booking.foisormic2.length,
+        vatPercentage: 0,
+      })
+    }
+
+    if (booking?.foisormare2?.length) {
+      products.push({
+        name: "Căsuță Zatun 2",
+        price: 450,
+        quantity: booking.casuta2.length,
+        vatPercentage: 0,
+      })
+    }
     const invoiceData = {
       cif: process.env.COMPANY_CIF,
       client: {

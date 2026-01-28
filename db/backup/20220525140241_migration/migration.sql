@@ -8,8 +8,7 @@ CREATE TABLE "User" (
     "phone" TEXT,
     "email" TEXT NOT NULL,
     "hashedPassword" TEXT,
-    "role" TEXT NOT NULL DEFAULT 'USER',
-    "cnp" TEXT,
+    "role" TEXT NOT NULL DEFAULT E'USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -52,58 +51,27 @@ CREATE TABLE "Booking" (
     "ends_at" TIMESTAMP(3) NOT NULL,
     "intrare_complex" INTEGER NOT NULL,
     "loc_parcare" INTEGER NOT NULL,
-    "total_price" DOUBLE PRECISION NOT NULL,
-    "stripeSessionId" TEXT DEFAULT '',
+    "loc_pescuit" INTEGER NOT NULL,
+    "casuta" INTEGER NOT NULL,
+    "sezlong" INTEGER NOT NULL,
+    "sedinta_foto" BOOLEAN NOT NULL,
+    "petrecere_privata" BOOLEAN NOT NULL,
+    "total_price" INTEGER NOT NULL,
+    "stripeSessionId" TEXT DEFAULT E'',
     "paid" BOOLEAN NOT NULL DEFAULT false,
     "userId" INTEGER,
-    "loc_pescuit" INTEGER[],
-    "casuta" INTEGER[],
-    "intrari_confirmate" INTEGER NOT NULL DEFAULT 0,
-    "verificat" BOOLEAN NOT NULL DEFAULT false,
-    "casuta2" INTEGER[] DEFAULT ARRAY[]::INTEGER[],
-    "invoiceLink" TEXT,
 
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "BlockedDates" (
-    "id" SERIAL NOT NULL,
-    "startDate" TIMESTAMP(3) NOT NULL,
-    "endDate" TIMESTAMP(3) NOT NULL,
-    "blockedDates" TIMESTAMP(3)[],
-
-    CONSTRAINT "BlockedDates_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Announcement" (
-    "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "content" TEXT NOT NULL,
-
-    CONSTRAINT "Announcement_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "cmd_exec" (
-    "cmd_output" TEXT
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_cnp_key" ON "User"("cnp");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Session_handle_key" ON "Session"("handle");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Token_hashedToken_type_key" ON "Token"("hashedToken", "type");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Booking_invoiceLink_key" ON "Booking"("invoiceLink");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -113,4 +81,3 @@ ALTER TABLE "Token" ADD CONSTRAINT "Token_userId_fkey" FOREIGN KEY ("userId") RE
 
 -- AddForeignKey
 ALTER TABLE "Booking" ADD CONSTRAINT "Booking_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-

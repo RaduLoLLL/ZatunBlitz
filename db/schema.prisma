@@ -1,35 +1,27 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "linux-musl"]
+}
 
 datasource db {
   provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "linux-musl"]
-
-
-}
-
-// --------------------------------------
-
 model User {
-  id             Int      @id @default(autoincrement())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   name           String
   surname        String?
   phone          String?
-  email          String   @unique
-  cnp            String?  @unique
+  email          String    @unique
   hashedPassword String?
-  role           String   @default("USER")
-
-  tokens   Token[]
-  sessions Session[]
-  Booking  Booking[]
+  role           String    @default("USER")
+  cnp            String?   @unique
+  Booking        Booking[]
+  sessions       Session[]
+  tokens         Token[]
 }
 
 model Session {
@@ -42,9 +34,8 @@ model Session {
   antiCSRFToken      String?
   publicData         String?
   privateData        String?
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  userId             Int?
+  user               User?     @relation(fields: [userId], references: [id])
 }
 
 model Token {
@@ -53,13 +44,10 @@ model Token {
   updatedAt   DateTime @updatedAt
   hashedToken String
   type        String
-  // See note below about TokenType enum
-  // type        TokenType
   expiresAt   DateTime
   sentTo      String
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 
   @@unique([hashedToken, type])
 }
@@ -71,18 +59,21 @@ model Booking {
   ends_at            DateTime
   intrare_complex    Int
   loc_parcare        Int
-  loc_pescuit        Int[]
-  casuta             Int[]
-  casuta2            Int[]
   total_price        Float
   stripeSessionId    String?  @default("")
   paid               Boolean  @default(false)
+  userId             Int?
+  loc_pescuit        Int[]
+  casuta             Int[]
   intrari_confirmate Int      @default(0)
   verificat          Boolean  @default(false)
-  invoiceLink        String?
-
-  userId Int?
-  User   User? @relation(fields: [userId], references: [id])
+  casuta2            Int[]    @default([])
+  foisormic          Int[]
+  foisormare         Int[]
+  foisormic2         Int[]
+  foisormare2        Int[]
+  invoiceLink        String?  @unique
+  User               User?    @relation(fields: [userId], references: [id])
 }
 
 model BlockedDates {
@@ -98,9 +89,9 @@ model Announcement {
   content   String
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgre-sql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cmd_exec {
+  cmd_output String?
+
+  @@ignore
+}
