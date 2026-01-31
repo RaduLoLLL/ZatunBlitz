@@ -629,7 +629,7 @@ const Add: BlitzPage = () => {
             setState({ ...state, foisormare2: selectedOptionObj })
           }}
         />
-        <div className="mt-6 flex justify-center">
+        {/* <div className="mt-6 flex justify-center">
           <button
             type="button"
             onClick={openModal}
@@ -637,7 +637,7 @@ const Add: BlitzPage = () => {
           >
             Vezi harta
           </button>
-        </div>
+        </div> */}
 
         <Transition appear show={isModalOpen} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
