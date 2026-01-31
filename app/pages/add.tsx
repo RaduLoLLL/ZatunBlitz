@@ -242,8 +242,9 @@ const Add: BlitzPage = () => {
   }
   const FoisorMicSelect = () => {
     const bookings = useCurrentBookings(startDate)
+    console.log("Rezervari:", bookings)
 
-    const totalSpots = [...Array(2).keys()].map((x) => x + 1)
+    const totalSpots = [...Array(4).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -253,7 +254,7 @@ const Add: BlitzPage = () => {
     })
     spotsArray.push([])
     const ocuppiedSpots = [].concat.apply([], spotsArray)
-
+    console.log("Foisor mic ocupate:", ocuppiedSpots)
     const availableSpots = totalSpots.filter((x) => !ocuppiedSpots.includes(x))
 
     type option = {
@@ -358,7 +359,7 @@ const Add: BlitzPage = () => {
   const FoisorMareSelect = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalSpots = [...Array(2).keys()].map((x) => x + 1)
+    const totalSpots = [...Array(1).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
@@ -582,7 +583,7 @@ const Add: BlitzPage = () => {
   const FoisorMareSelect2 = () => {
     const bookings = useCurrentBookings(startDate)
 
-    const totalSpots = [...Array(2).keys()].map((x) => x + 1)
+    const totalSpots = [...Array(1).keys()].map((x) => x + 1)
 
     const spotsArray: any[] = []
     bookings.map((booking) => {
