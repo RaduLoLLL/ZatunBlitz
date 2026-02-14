@@ -17,16 +17,13 @@ const ReservationForm = () => {
     locPescuit: [],
     casuta: [],
     casuta2: [],
+    foisormic: [],
+    foisormare: [],
+    foisormic2: [],
+    foisormare2: [],
     totalPrice: 0,
   }
-  const [state, setState] = useState({
-    intrare: 0,
-    locParcare: 0,
-    locPescuit: [],
-    casuta: [],
-    casuta2: [],
-    totalPrice: 0,
-  })
+  const [state, setState] = useState(initialState)
   //Date state added separately
 
   const [startDate, setStartDate] = useState(addHours(new Date(), 2))
@@ -153,6 +150,182 @@ const ReservationForm = () => {
       />
     )
   }
+  const FoisorMicSelect = () => {
+    const bookings = useCurrentBookings(startDate)
+    console.log("Rezervari:", bookings)
+
+    const totalSpots = [...Array(4).keys()].map((x) => x + 1)
+
+    const spotsArray: any[] = []
+    bookings.map((booking) => {
+      if (booking.foisormic.length) {
+        spotsArray.push(booking.foisormic)
+      }
+    })
+    spotsArray.push([])
+    const ocuppiedSpots = [].concat.apply([], spotsArray)
+    console.log("Foisor mic ocupate:", ocuppiedSpots)
+    const availableSpots = totalSpots.filter((x) => !ocuppiedSpots.includes(x))
+
+    type option = {
+      value: Number
+      label: string
+    }
+
+    const options: option[] = []
+    availableSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
+
+    return (
+      <>
+        <label htmlFor="locPescuit" className="block mb-2 text-sm font-medium text-gray-900 ">
+          Foisor Mic Zatun 1 - 8 persoane
+        </label>
+        <Select
+          isMulti
+          name=" foisormic"
+          //@ts-ignore
+          options={options}
+          value={state.foisormic}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege locul preferat"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, foisormic: selectedOptionObj })
+          }}
+        />
+      </>
+    )
+  }
+  const FoisorMareSelect = () => {
+    const bookings = useCurrentBookings(startDate)
+
+    const totalSpots = [...Array(1).keys()].map((x) => x + 1)
+
+    const spotsArray: any[] = []
+    bookings.map((booking) => {
+      if (booking.foisormare.length) {
+        spotsArray.push(booking.foisormare)
+      }
+    })
+    spotsArray.push([])
+    const ocuppiedSpots = [].concat.apply([], spotsArray)
+
+    const availableSpots = totalSpots.filter((x) => !ocuppiedSpots.includes(x))
+
+    type option = {
+      value: Number
+      label: string
+    }
+
+    const options: option[] = []
+    availableSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
+
+    return (
+      <>
+        <Select
+          isMulti
+          name=" foisormare"
+          //@ts-ignore
+          options={options}
+          value={state.foisormare}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege locul preferat"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, foisormare: selectedOptionObj })
+          }}
+        />
+      </>
+    )
+  }
+  const FoisorMicSelect2 = () => {
+    const bookings = useCurrentBookings(startDate)
+
+    const totalSpots = [...Array(2).keys()].map((x) => x + 1)
+
+    const spotsArray: any[] = []
+    bookings.map((booking) => {
+      if (booking.foisormic2.length) {
+        spotsArray.push(booking.foisormic2)
+      }
+    })
+    spotsArray.push([])
+    const ocuppiedSpots = [].concat.apply([], spotsArray)
+
+    const availableSpots = totalSpots.filter((x) => !ocuppiedSpots.includes(x))
+
+    type option = {
+      value: Number
+      label: string
+    }
+
+    const options: option[] = []
+    availableSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
+
+    return (
+      <>
+        <Select
+          isMulti
+          name=" foisormic2"
+          //@ts-ignore
+          options={options}
+          value={state.foisormic2}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege locul preferat"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, foisormic2: selectedOptionObj })
+          }}
+        />
+      </>
+    )
+  }
+  const FoisorMareSelect2 = () => {
+    const bookings = useCurrentBookings(startDate)
+
+    const totalSpots = [...Array(1).keys()].map((x) => x + 1)
+
+    const spotsArray: any[] = []
+    bookings.map((booking) => {
+      if (booking.foisormare2.length) {
+        spotsArray.push(booking.foisormare2)
+      }
+    })
+    spotsArray.push([])
+    const ocuppiedSpots = [].concat.apply([], spotsArray)
+
+    const availableSpots = totalSpots.filter((x) => !ocuppiedSpots.includes(x))
+
+    type option = {
+      value: Number
+      label: string
+    }
+
+    const options: option[] = []
+    availableSpots.map((spot) => options.push({ value: spot, label: spot.toString() }))
+
+    return (
+      <>
+        <Select
+          isMulti
+          name=" foisormare2"
+          //@ts-ignore
+          options={options}
+          value={state.foisormare2}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          classNamePrefix="select"
+          placeholder="Alege locul preferat"
+          onChange={(selectedOptionObj) => {
+            //@ts-ignore
+            setState({ ...state, foisormare2: selectedOptionObj })
+          }}
+        />
+      </>
+    )
+  }
 
   const CalculatePrice = () => {
     const totalPrice =
@@ -160,7 +333,11 @@ const ReservationForm = () => {
       state.locParcare * 10 +
       (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.casuta2.length > 0 ? 130 * state.casuta2.length : 0) +
-      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0) +
+      (state.foisormic.length > 0 ? 120 * state.foisormic.length : 0) +
+      (state.foisormare.length > 0 ? 300 * state.foisormare.length : 0) +
+      (state.foisormic2.length > 0 ? 210 * state.foisormic2.length : 0) +
+      (state.foisormare2.length > 0 ? 450 * state.foisormare2.length : 0)
     return (
       <>
         <p className="my-6 font-bold">Pret total: {totalPrice.toFixed(2)} Lei</p>
@@ -174,7 +351,11 @@ const ReservationForm = () => {
       state.locParcare * 10 +
       (state.casuta.length > 0 ? 95 * state.casuta.length : 0) +
       (state.casuta2.length > 0 ? 130 * state.casuta2.length : 0) +
-      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0)
+      (state.locPescuit.length > 0 ? 75 * state.locPescuit.length : 0) +
+      (state.foisormic.length > 0 ? 120 * state.foisormic.length : 0) +
+      (state.foisormare.length > 0 ? 300 * state.foisormare.length : 0) +
+      (state.foisormic2.length > 0 ? 210 * state.foisormic2.length : 0) +
+      (state.foisormare2.length > 0 ? 450 * state.foisormare2.length : 0)
     state.totalPrice = totalPrice
   }, [state])
 
@@ -186,6 +367,10 @@ const ReservationForm = () => {
     loc_pescuit: number[]
     casuta: number[]
     casuta2: number[]
+    foisormic: number[]
+    foisormare: number[]
+    foisormic2: number[]
+    foisormare2: number[]
     total_price: number
   }
 
@@ -217,6 +402,22 @@ const ReservationForm = () => {
     state.casuta2.map((loc: loc) => {
       casute2.push(loc.value)
     })
+    const foisormic: any[] = []
+    state.foisormic.map((loc: loc) => {
+      foisormic.push(loc.value)
+    })
+    const foisormare: any[] = []
+    state.foisormare.map((loc: loc) => {
+      foisormare.push(loc.value)
+    })
+    const foisormic2: any[] = []
+    state.foisormic2.map((loc: loc) => {
+      foisormic2.push(loc.value)
+    })
+    const foisormare2: any[] = []
+    state.foisormare2.map((loc: loc) => {
+      foisormare2.push(loc.value)
+    })
 
     const booking: booking = {
       starts_at: startDate,
@@ -226,6 +427,11 @@ const ReservationForm = () => {
       loc_pescuit: locuri_pescuit,
       casuta: casute,
       casuta2: casute2,
+      foisormic: foisormic,
+      foisormare: foisormare,
+      foisormic2: foisormic2,
+      foisormare2: foisormare2,
+
       total_price: state.totalPrice,
     }
 
@@ -332,6 +538,72 @@ const ReservationForm = () => {
                   }
                 >
                   <PescuitSelect />
+                </Suspense>
+              </div>
+
+              <div>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <FoisorMicSelect />
+                </Suspense>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="locPescuit"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Foisor Mare Zatun 1 - 20 de persoane
+                </label>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <FoisorMareSelect />
+                </Suspense>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="locPescuit"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Foisor Mic Zatun 2 - 14 persoane
+                </label>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <FoisorMicSelect2 />
+                </Suspense>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="locPescuit"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Foisor Mare Zatun 2 - 30 de persoane
+                </label>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen flex justify-center items-center">
+                      <div className="ping"></div>
+                    </div>
+                  }
+                >
+                  <FoisorMareSelect2 />
                 </Suspense>
               </div>
 

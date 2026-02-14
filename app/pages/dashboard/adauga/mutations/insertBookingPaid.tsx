@@ -8,9 +8,13 @@ type booking = {
   ends_at: Date
   intrare_complex: number
   loc_parcare: number
-  loc_pescuit: number
-  casuta: number
-  casuta2: number
+  loc_pescuit: number[]
+  casuta: number[]
+  casuta2: number[]
+  foisormic: number[]
+  foisormare: number[]
+  foisormic2: number[]
+  foisormare2: number[]
   total_price: number
 }
 
@@ -21,13 +25,17 @@ export default async function insertBookingPaid(booking: booking, ctx: Ctx) {
   await db.booking.create({
     data: {
       createdAt: addHours(new Date(), 2),
-      starts_at: booking.starts_at,
-      ends_at: booking.ends_at,
+      starts_at: addHours(booking.starts_at, 2),
+      ends_at: addHours(booking.ends_at, 2),
       intrare_complex: Number(booking.intrare_complex),
       loc_parcare: Number(booking.loc_parcare),
       loc_pescuit: booking.loc_pescuit,
       casuta: booking.casuta,
       casuta2: booking.casuta2,
+      foisormic: booking.foisormic,
+      foisormare: booking.foisormare,
+      foisormic2: booking.foisormic2,
+      foisormare2: booking.foisormare2,
       total_price: Number(booking.total_price),
       userId: ctx.session.userId,
       paid: true,
