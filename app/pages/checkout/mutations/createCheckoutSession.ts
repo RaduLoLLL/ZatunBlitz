@@ -31,7 +31,7 @@ export default async function createCheckoutSession({ user, booking_id }, ctx: C
       user.email
     }%2C%22phone%22%3A%22${
       "4" + user.phone
-    }%22%2C%22deliveryInfo%22%3A%7B%22deliveryType%22%3A%22Delivery%22%2Ccountry%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%20%2C%22billingInfo%22%3A%7B%22country%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%7D%7D%60%2C%0A%20%20%20%20`
+    }%22%2C%22deliveryInfo%22%3A%7B%22deliveryType%22%3A%22Delivery%22%2Ccountry%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%20%2C%22billingInfo%22%3A%7B%22country%22%3A%22642%22%2C%22city%22%3A%22Galati%22%2C%22postAdress%22%3A%22Balta%20Zatun%22%7D%7D%7D`
 
   const res = await axios.post(`${bt_url}/payment/rest/register.do`, urlencodedPayload, {
     headers: {
