@@ -1143,7 +1143,7 @@ const Add: BlitzPage = () => {
                 />
               </div>
 
-              <div>
+              {/*<div>
                 <label
                   htmlFor="locPescuit"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -1159,7 +1159,7 @@ const Add: BlitzPage = () => {
                 >
                   <PescuitSelect />
                 </Suspense>
-              </div>
+              </div>*/}
 
               <div className="justify-center flex">
                 <h2 className="font-bold text-xl">Foisoare Zatun 1 si 2</h2>
