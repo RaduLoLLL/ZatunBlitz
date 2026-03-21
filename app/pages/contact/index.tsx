@@ -24,7 +24,7 @@ const Contact: BlitzPage = () => {
         <div className=" mt-24 lg:flex lg:justify-center space-x-72 lg:mx-72 mx-2">
           <div>
             <p style={{ fontFamily: "Josefin Slab" }} className="text-DEB52D text-5xl">
-              Contact &#9; 0753 104 218 &#9; L-V: 08:00 - 16:00
+              Contact
             </p>
             <p style={{ fontFamily: "Josefin Slab" }} className="text-DEB52D text-5xl">
               0753 104 218
