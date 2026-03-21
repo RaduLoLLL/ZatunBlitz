@@ -133,7 +133,7 @@ const VerificareRezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.foisormic.length > 0 ? (
+                {booking?.foisormic.length ? (
                   <div
                     className="
           flex
@@ -153,7 +153,7 @@ const VerificareRezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.foisormare.length > 0 ? (
+                {booking?.foisormare.length ? (
                   <div
                     className="
           flex
@@ -173,7 +173,7 @@ const VerificareRezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.foisormic2.length > 0 ? (
+                {booking?.foisormic2.length  ? (
                   <div
                     className="
           flex
@@ -193,7 +193,7 @@ const VerificareRezervare: BlitzPage = () => {
                   <div></div>
                 )}
 
-                {booking?.foisormare2.length > 0 ? (
+                {booking?.foisormare2.length ? (
                   <div
                     className="
           flex
