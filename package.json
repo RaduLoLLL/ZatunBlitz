@@ -2,7 +2,7 @@
   "name": "Zatun",
   "version": "1.0.0",
   "scripts": {
-    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && blitz dev",
+    "dev": "blitz dev",
     "build": "blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",
