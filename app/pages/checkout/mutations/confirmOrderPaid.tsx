@@ -118,7 +118,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
 
     if (booking?.foisormic?.length) {
       products.push({
-        name: "Căsuță Zatun 2",
+        name: "Foisor Mic Zatun",
         price: 120,
         quantity: booking.foisormic.length,
         vatPercentage: 0,
@@ -127,7 +127,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
 
     if (booking?.foisormare?.length) {
       products.push({
-        name: "Căsuță Zatun 2",
+        name: "Foisor Mare Zatun",
         price: 300,
         quantity: booking.foisormare.length,
         vatPercentage: 0,
@@ -136,7 +136,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
 
     if (booking?.foisormic2?.length) {
       products.push({
-        name: "Căsuță Zatun 2",
+        name: "Foisor Mic Zatun 2",
         price: 210,
         quantity: booking.foisormic2.length,
         vatPercentage: 0,
@@ -145,7 +145,7 @@ export default async function confirmOrderPaid({ orderId, booking_id, orderNumbe
 
     if (booking?.foisormare2?.length) {
       products.push({
-        name: "Căsuță Zatun 2",
+        name: "Foisor Mare Zatun 2",
         price: 450,
         quantity: booking.casuta2.length,
         vatPercentage: 0,
