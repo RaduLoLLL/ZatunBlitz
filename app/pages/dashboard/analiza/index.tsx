@@ -44,12 +44,20 @@ const Analiza: BlitzPage = () => {
     let casute2 = 0
     let agrement = 0
     let parcare = 0
+    let foisormic = 0
+    let foisormare = 0
+    let foisormic2 = 0
+    let foisormare2 = 0
     bookings.map((booking, i) => {
       locuri_pescuit += booking.loc_pescuit.length
       casute += booking.casuta.length
       casute2 += booking.casuta2.length
       agrement += booking.intrare_complex
       parcare += booking.loc_parcare
+      foisormic += booking.foisormic.length
+      foisormare += booking.foisormare.length
+      foisormic2 += booking.foisormic2.length
+      foisormare2 += booking.foisormare2.length
     })
 
     return (
@@ -255,6 +263,10 @@ const Analiza: BlitzPage = () => {
     let casute2 = 0
     let agrement = 0
     let parcare = 0
+    let foisormic = 0
+    let foisormare = 0
+    let foisormic2 = 0
+    let foisormare2 = 0
     bookings.map((booking, i) => {
       console.log(booking)
       locuri_pescuit += booking.loc_pescuit.length
@@ -262,6 +274,10 @@ const Analiza: BlitzPage = () => {
       casute2 += booking.casuta2.length
       agrement += booking.intrare_complex
       parcare += booking.loc_parcare
+      foisormic += booking.foisormic.length
+      foisormare += booking.foisormare.length
+      foisormic2 += booking.foisormic2.length
+      foisormare2 += booking.foisormare2.length
     })
     return (
       <>
@@ -293,6 +309,42 @@ const Analiza: BlitzPage = () => {
                 <h3 className="text-base font-normal text-gray-500">Casute Zatun 2</h3>
               </div>
               <div>{casute2 * 130}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {foisormic}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Foisor Mic Zatun 1</h3>
+              </div>
+              <div>{foisormic * 120}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {foisormare}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Foisor Mare Zatun 1</h3>
+              </div>
+              <div>{foisormare * 300}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {foisormic2}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Foisor Mic Zatun 2</h3>
+              </div>
+              <div>{foisormic2 * 210}Lei</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  {foisormare2}
+                </span>
+                <h3 className="text-base font-normal text-gray-500">Foisor Mare Zatun 2</h3>
+              </div>
+              <div>{foisormare2 * 450}Lei</div>
             </div>
             <div className="flex items-center justify-between  ">
               <div>
