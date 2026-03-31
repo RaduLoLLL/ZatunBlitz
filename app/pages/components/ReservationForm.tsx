@@ -26,7 +26,7 @@ const ReservationForm = () => {
   const [state, setState] = useState(initialState)
   //Date state added separately
 
-  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
+  const [startDate, setStartDate] = useState(addHours(new Date(), 3))
 
   const PescuitSelect = () => {
     const bookings = useCurrentBookings(startDate)

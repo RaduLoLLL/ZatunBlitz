@@ -29,8 +29,8 @@ type DateInterval = {
   endDate: string
 }
 const Analiza: BlitzPage = () => {
-  const [startDate, setStartDate] = useState(addHours(new Date(), 2))
-  const [endDate, setEndDate] = useState(addDays(addHours(new Date(), 2), 1))
+  const [startDate, setStartDate] = useState(addHours(new Date(), 3))
+  const [endDate, setEndDate] = useState(addDays(addHours(new Date(), 3), 1))
 
   console.log(startDate, endDate)
   const RezervariDirecte = () => {
@@ -577,103 +577,101 @@ const Analiza: BlitzPage = () => {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {
-              //@ts-ignore
-              bookings?.map((booking, i) => {
-                return (
-                  <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
-                    </td>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.name} {booking.User?.surname}
-                    </td>
+            {//@ts-ignore
+            bookings?.map((booking, i) => {
+              return (
+                <tr className={i % 2 ? "bg-gray-50" : ""} key={i}>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {format(subHours(booking.starts_at, 3), "dd.MM.yyyy")}
+                  </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.User?.name} {booking.User?.surname}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.email}
-                    </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.User?.email}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.User?.phone}
-                    </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.User?.phone}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.total_price}
-                    </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.total_price}
+                  </td>
 
-                    <td
-                      className={
-                        booking.paid
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
-                      }
-                    >
-                      {booking.paid ? "Platit" : "Neplatit"}
-                    </td>
+                  <td
+                    className={
+                      booking.paid
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-red-500"
+                    }
+                  >
+                    {booking.paid ? "Platit" : "Neplatit"}
+                  </td>
 
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
-                        <button
-                          type="button"
-                          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                          Detalii
-                        </button>
-                      </Link>
-                    </td>
-                    <td
-                      className={
-                        i % 2
-                          ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                          : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
-                      }
-                    >
-                      {booking.verificat ? (
-                        <CheckCircleIcon className="h-8 text-green-500 " />
-                      ) : (
-                        <CheckCircleIcon className="h-8 text-red-500 cursor-pointer" />
-                      )}
-                    </td>
-                  </tr>
-                )
-              })
-            }
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    <Link href={`/dashboard/rezervari/${booking.stripeSessionId}`}>
+                      <button
+                        type="button"
+                        className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      >
+                        Detalii
+                      </button>
+                    </Link>
+                  </td>
+                  <td
+                    className={
+                      i % 2
+                        ? "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                        : "p-4 whitespace-nowrap text-sm font-normal text-gray-900"
+                    }
+                  >
+                    {booking.verificat ? (
+                      <CheckCircleIcon className="h-8 text-green-500 " />
+                    ) : (
+                      <CheckCircleIcon className="h-8 text-red-500 cursor-pointer" />
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </>
